@@ -1,4 +1,59 @@
-<div class="client-wrap">
-  <h3 class="client-title">Client Management</h3>
-  <p>Here you can add, update, and manage client details.</p>
+<div class="cl-container">
+  <div class="header-row">
+    <h2 class="title">Clients</h2>
+    <div class="actions">
+      <input class="search" placeholder="Search clients..." [(ngModel)]="searchText" (input)="goPage(1)">
+      <button class="btn primary" (click)="openAdd()">+ New Client</button>
+    </div>
+  </div>
+
+  <div class="summary">Found <strong>{{ filtered().length }}</strong> clients</div>
+
+  <div class="table-wrap">
+    <table class="styled-table">
+      <thead><tr><th>#</th><th>Code</th><th>Name</th><th>Short</th><th>Email</th><th>Active</th><th class="actions-col">Actions</th></tr></thead>
+      <tbody>
+        <tr *ngFor="let c of paged(); let i = index" [class.inactive]="!c.active">
+          <td>{{ (page-1)*pageSize + i + 1 }}</td>
+          <td>{{ c.code }}</td>
+          <td>{{ c.name }}</td>
+          <td>{{ c.shortName || '—' }}</td>
+          <td>{{ c.email || '—' }}</td>
+          <td><span class="badge" [class.off]="!c.active">{{ c.active ? 'Yes' : 'No' }}</span></td>
+          <td class="actions-col">
+            <button class="btn small" (click)="openEdit(c)">Edit</button>
+            <button class="btn small danger" (click)="confirmDelete(c.id)">Delete</button>
+          </td>
+        </tr>
+        <tr *ngIf="paged().length===0"><td colspan="7" class="empty">No clients found.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pagination" *ngIf="totalPages()>1">
+    <button class="btn mini" [disabled]="page===1" (click)="goPage(page-1)">Prev</button>
+    <button class="btn mini" *ngFor="let n of pages()" (click)="goPage(n)" [class.active]="page===n">{{ n }}</button>
+    <button class="btn mini" [disabled]="page===totalPages()" (click)="goPage(page+1)">Next</button>
+  </div>
+
+  <!-- modal & confirm (same as before) -->
+  <div class="modal-backdrop" *ngIf="isModalOpen" (click)="closeModal()"></div>
+  <div class="modal" *ngIf="isModalOpen">
+    <div class="modal-card" (click)="$event.stopPropagation()">
+      <div class="modal-header"><h3>{{ isEditing ? 'Edit Client' : 'Add Client' }}</h3><button class="close" (click)="closeModal()">&times;</button></div>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+          <div class="form-row"><label class="label">Code <span class="req">*</span></label><input formControlName="code"></div>
+          <div class="form-row"><label class="label">Name <span class="req">*</span></label><input formControlName="name"></div>
+          <div class="form-row"><label class="label">Short Name</label><input formControlName="shortName"></div>
+          <div class="form-row"><label class="label">Email</label><input formControlName="email" type="email"></div>
+          <div class="form-row inline"><label class="label">Active</label><label class="switch"><input type="checkbox" formControlName="active"><span class="slider"></span></label></div>
+        </div>
+        <div class="modal-footer"><button class="btn primary" type="submit" [disabled]="form.invalid">{{ isEditing ? 'Update' : 'Create' }}</button><button class="btn secondary" type="button" (click)="closeModal()">Cancel</button></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" *ngIf="isConfirmOpen" (click)="cancelDelete()"></div>
+  <div class="confirm-modal" *ngIf="isConfirmOpen"><div class="confirm-card"><h4>Confirm delete</h4><p>Delete this client?</p><div class="confirm-actions"><button class="btn danger" (click)="performDelete()">Delete</button><button class="btn secondary" (click)="cancelDelete()">Cancel</button></div></div></div>
 </div>

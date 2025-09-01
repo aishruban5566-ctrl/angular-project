@@ -12,11 +12,13 @@ export class LoginComponent {
 
   constructor(private router: Router) {}
 
-  onLogin() {
+  login() {
+    // Simple check — replace with real auth API call later
     if (this.username === 'admin' && this.password === 'admin') {
-      this.router.navigate(['/dashboard']);   // ✅ go to dashboard
+      localStorage.setItem('loggedIn', 'true');
+      this.router.navigate(['/dashboard']);
     } else {
-      alert('Invalid credentials');
+      alert('Invalid credentials. Try admin / admin');
     }
   }
 }

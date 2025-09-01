@@ -1,29 +1,13 @@
-.audit-wrap {
-  background: #fff;
-  padding: 22px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+.box {
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
-
-.audit-title {
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 16px;
-}
-
-.audit-log {
-  max-height: 300px;
-  overflow-y: auto;
-  border: 1px solid #ececec;
-  border-radius: 6px;
-  padding: 12px;
-  background: #fafafa;
-}
-
-.audit-log p {
-  margin: 8px 0;
-  font-size: 14px;
-  color: #555;
-  border-bottom: 1px dashed #ddd;
-  padding-bottom: 6px;
-}
+h2 { margin-bottom: 15px; }
+.form { display: grid; gap: 10px; margin-bottom: 20px; }
+input { padding: 6px; border: 1px solid #ccc; border-radius: 4px; }
+button { padding: 6px 12px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+button:hover { background: #0056b3; }
+table { width: 100%; border-collapse: collapse; }
+td, th { border: 1px solid #ccc; padding: 8px; }

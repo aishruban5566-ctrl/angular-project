@@ -1,34 +1,56 @@
-.operations-wrap {
-  padding: 24px;
-  background: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-  font-family: "Segoe UI", sans-serif;
+.ops-container {
+  padding: 16px;
 }
 
-.operations-title {
+.ops-title {
   font-size: 22px;
+  font-weight: 700;
+  color: #2b2f36;
+  margin-bottom: 14px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.card {
+  display: block;
+  background: #ffffff;
+  border: 1px solid #e8ebf0;
+  border-radius: 12px;
+  padding: 16px;
+  text-decoration: none;
+  color: #1e2430;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.08);
+  border-color: #cfd6e4;
+}
+
+.card-title {
   font-weight: 600;
-  margin-bottom: 16px;
-  color: #2c3e50;
+  margin-bottom: 6px;
 }
 
-.operations-list {
-  list-style: none;
-  padding: 0;
+.card-sub {
+  font-size: 13px;
+  color: #5a6473;
 }
 
-.operations-list li {
-  padding: 10px 14px;
-  margin-bottom: 10px;
-  background: #f9f9f9;
-  border: 1px solid #e3e3e3;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
+.card.active {
+  outline: 2px solid #6b8cff;
 }
 
-.operations-list li:hover {
-  background: #f1f9ff;
-  transform: scale(1.02);
+.ops-content {
+  background: #fff;
+  border: 1px solid #e8ebf0;
+  border-radius: 12px;
+  padding: 16px;
 }

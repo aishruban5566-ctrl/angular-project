@@ -1,10 +1,25 @@
-<h2>Dashboard</h2>
-<nav>
-  <a routerLink="master">Master</a> |
-  <a routerLink="operations">Operations</a> |
-  <a routerLink="reports">Reports</a>
-</nav>
+<div class="dashboard-container">
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <h2 class="logo">Team 26 [G1]</h2>
+    <ul>
+      <li><a routerLink="master" routerLinkActive="active">Master</a></li>
+      <li><a routerLink="operations" routerLinkActive="active">Operations</a></li>
+      <li><a routerLink="reports" routerLinkActive="active">Reports</a></li>
+    </ul>
+  </nav>
 
-<hr />
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Topbar -->
+    <header class="topbar">
+      <h3>Dashboard</h3>
+      <button (click)="logout()">Logout</button>
+    </header>
 
-<router-outlet></router-outlet>
+    <!-- Page Content -->
+    <div class="page-body">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

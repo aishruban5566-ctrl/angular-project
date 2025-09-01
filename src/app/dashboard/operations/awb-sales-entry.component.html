@@ -1,62 +1,20 @@
-<div class="awb-sales-entry-wrap">
-  <h3>AWB Sales Entry</h3>
-
-  <form (ngSubmit)="addAwb()" class="awb-form">
-    <div class="form-row">
-      <label>AWB Number</label>
-      <input [(ngModel)]="newAwb.number" name="number" required />
-    </div>
-    <div class="form-row">
-      <label>Shipper</label>
-      <input [(ngModel)]="newAwb.shipper" name="shipper" />
-    </div>
-    <div class="form-row">
-      <label>Consignee</label>
-      <input [(ngModel)]="newAwb.consignee" name="consignee" />
-    </div>
-    <div class="form-row">
-      <label>Origin</label>
-      <input [(ngModel)]="newAwb.origin" name="origin" />
-    </div>
-    <div class="form-row">
-      <label>Destination</label>
-      <input [(ngModel)]="newAwb.destination" name="destination" />
-    </div>
-    <div class="form-row">
-      <label>Weight</label>
-      <input type="number" [(ngModel)]="newAwb.weight" name="weight" />
-    </div>
-    <div class="form-row">
-      <label>Rate</label>
-      <input type="number" [(ngModel)]="newAwb.rate" name="rate" />
-    </div>
-    <button type="submit" class="btn-primary">Add AWB</button>
+<div class="box">
+  <h2>AWB Sales Entry</h2>
+  <form (ngSubmit)="addSale()" class="form">
+    <label>AWB No: <input [(ngModel)]="model.awbNo" name="awbNo" required /></label>
+    <label>Customer: <input [(ngModel)]="model.customer" name="customer" required /></label>
+    <label>Amount: <input [(ngModel)]="model.amount" name="amount" type="number" required /></label>
+    <label>Date: <input [(ngModel)]="model.date" name="date" type="date" /></label>
+    <button type="submit">Add Sale</button>
   </form>
 
-  <table class="awb-table" *ngIf="awbList.length > 0">
-    <thead>
-      <tr>
-        <th>AWB No.</th>
-        <th>Shipper</th>
-        <th>Consignee</th>
-        <th>Origin</th>
-        <th>Destination</th>
-        <th>Weight</th>
-        <th>Rate</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let awb of awbList; let i = index">
-        <td>{{ awb.number }}</td>
-        <td>{{ awb.shipper }}</td>
-        <td>{{ awb.consignee }}</td>
-        <td>{{ awb.origin }}</td>
-        <td>{{ awb.destination }}</td>
-        <td>{{ awb.weight }}</td>
-        <td>{{ awb.rate }}</td>
-        <td><button class="btn-danger" (click)="removeAwb(i)">Delete</button></td>
-      </tr>
-    </tbody>
+  <table>
+    <tr><th>AWB No</th><th>Customer</th><th>Amount</th><th>Date</th></tr>
+    <tr *ngFor="let s of salesList">
+      <td>{{s.awbNo}}</td>
+      <td>{{s.customer}}</td>
+      <td>{{s.amount}}</td>
+      <td>{{s.date}}</td>
+    </tr>
   </table>
 </div>

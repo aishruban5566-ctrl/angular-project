@@ -1,26 +1,23 @@
-<div class="client-tariff-wrap">
-  <h2 class="client-tariff-title">Client Tariffs</h2>
+<div class="table-container">
+  <h2>Client Tariffs</h2>
 
-  <div class="client-form">
-    <input [(ngModel)]="newTariff.client" placeholder="Client Name" />
-    <input [(ngModel)]="newTariff.rate" type="number" placeholder="Rate" />
-    <button class="btn btn-primary" (click)="addClientTariff()">Add</button>
-  </div>
-
-  <table class="client-tariff-table">
+  <table>
     <thead>
       <tr>
         <th>ID</th>
-        <th>Client</th>
-        <th>Rate</th>
+        <th>Client Name</th>
+        <th>Tariff Rate</th>
+        <th>Effective Date</th>
         <th>Action</th>
       </tr>
     </thead>
     <tbody>
+      
       <tr *ngFor="let c of clientTariffs">
         <td>{{ c.id }}</td>
-        <td>{{ c.client }}</td>
-        <td>{{ c.rate }}</td>
+        <td>{{ c.clientName }}</td>
+        <td>{{ c.tariffRate }}</td>
+        <td>{{ c.effectiveDate }}</td>
         <td>
           <button class="btn btn-danger" (click)="deleteClientTariff(c.id)">Delete</button>
         </td>

@@ -1,51 +1,44 @@
-<div class="hs-entry-wrap">
-  <h2 class="hs-title">Item HS Code Entry</h2>
+<!-- src/app/dashboard/master/item-hs-entry/item-hs-entry.component.html -->
+<div class="hs-root">
+  <div class="toolbar">
+    <h3>Item HS Entry</h3>
+    <div class="controls">
+      <input placeholder="Search HS code..." [(ngModel)]="search" />
+      <button class="btn" (click)="reset()">New</button>
+    </div>
+  </div>
 
-  <!-- Form -->
-  <form (ngSubmit)="addOrUpdateEntry()" class="hs-form">
-    <div class="form-row">
-      <label>HS Code:</label>
-      <input [(ngModel)]="newEntry.code" name="code" required />
+  <div class="layout">
+    <div class="panel form">
+      <h4>{{ editingId ? 'Edit HS Entry' : 'Add HS Entry' }}</h4>
+      <form (ngSubmit)="save()">
+        <label>HS Code <input [(ngModel)]="model.hsCode" name="hsCode" required /></label>
+        <label>Description <input [(ngModel)]="model.description" name="description" /></label>
+        <label class="checkbox"><input type="checkbox" [(ngModel)]="model.active" name="active" /> Active</label>
+        <div class="form-actions">
+          <button type="submit" class="btn primary">{{ editingId ? 'Update' : 'Create' }}</button>
+          <button type="button" class="btn" (click)="reset()">Cancel</button>
+        </div>
+      </form>
     </div>
 
-    <div class="form-row">
-      <label>Description:</label>
-      <input [(ngModel)]="newEntry.description" name="description" required />
+    <div class="panel list">
+      <h4>HS Entry List ({{ filtered.length }})</h4>
+      <table class="table">
+        <thead><tr><th>HS Code</th><th>Description</th><th>Active</th><th class="actions">Actions</th></tr></thead>
+        <tbody>
+          <tr *ngFor="let it of filtered">
+            <td>{{ it.hsCode }}</td>
+            <td>{{ it.description }}</td>
+            <td>{{ it.active ? 'Yes' : 'No' }}</td>
+            <td class="actions">
+              <button class="small" (click)="edit(it)">Edit</button>
+              <button class="small danger" (click)="remove(it)">Delete</button>
+            </td>
+          </tr>
+          <tr *ngIf="filtered.length===0"><td colspan="4" class="empty">No entries found.</td></tr>
+        </tbody>
+      </table>
     </div>
-
-    <div class="form-row">
-      <label>Duty Rate:</label>
-      <input [(ngModel)]="newEntry.dutyRate" name="dutyRate" placeholder="e.g. 5%" />
-    </div>
-
-    <button type="submit" class="btn btn-primary">
-      {{ editIndex === null ? 'Add Entry' : 'Update Entry' }}
-    </button>
-    <button type="button" class="btn btn-light" (click)="newEntry = {code:'', description:'', dutyRate:''}; editIndex=null;">
-      Clear
-    </button>
-  </form>
-
-  <!-- Table -->
-  <table class="hs-table">
-    <thead>
-      <tr>
-        <th>HS Code</th>
-        <th>Description</th>
-        <th>Duty Rate</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let entry of hsEntries; let i = index">
-        <td>{{ entry.code }}</td>
-        <td>{{ entry.description }}</td>
-        <td>{{ entry.dutyRate }}</td>
-        <td>
-          <button class="btn btn-primary" (click)="editEntry(i)">Edit</button>
-          <button class="btn btn-danger" (click)="deleteEntry(i)">Delete</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  </div>
 </div>

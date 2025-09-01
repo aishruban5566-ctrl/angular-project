@@ -1,81 +1,16 @@
-.charge-type-wrap {
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 20px;
-  background: #fdfdfd;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-}
+/* src/app/dashboard/master/billing/charge-type.component.css */
+.ct-root { padding:12px; }
+.ct-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+.ct-actions { display:flex; gap:8px; align-items:center; }
+.ct-actions input { padding:6px 8px; border-radius:6px; border:1px solid #d1d5db; }
 
-.charge-type-title {
-  text-align: center;
-  color: #444;
-  margin-bottom: 20px;
-}
+.ct-grid { display:grid; grid-template-columns: 320px 1fr; gap:12px; }
 
-.charge-type-form {
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
-}
-
-.charge-type-form .form-row {
-  flex: 1 1 45%;
-  display: flex;
-  flex-direction: column;
-}
-
-.charge-type-form label {
-  font-weight: 600;
-  margin-bottom: 6px;
-}
-
-.charge-type-form input {
-  padding: 8px;
-  border: 1px solid #bbb;
-  border-radius: 6px;
-}
-
-.btn-primary {
-  background: #28a745;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.btn-primary:hover {
-  background: #1e7e34;
-}
-
-.charge-type-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.charge-type-table th,
-.charge-type-table td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: center;
-}
-
-.charge-type-table th {
-  background: #28a745;
-  color: white;
-}
-
-.btn-danger {
-  background: #dc3545;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.btn-danger:hover {
-  background: #a71d2a;
-}
+.panel { background:#fff; border:1px solid #eef2f6; padding:12px; border-radius:8px; }
+.table { width:100%; border-collapse:collapse; }
+.table th, .table td { padding:8px; border-bottom:1px solid #f1f5f9; text-align:left; }
+.actions-col { text-align:right; width:140px; }
+.form-actions { margin-top:10px; display:flex; gap:8px; }
+.small { padding:6px 8px; border-radius:6px; }
+.small.danger, .btn.danger { background:#ffe6e6; border-color:#ffb3b3; }
+.empty { text-align:center; color:#6b7280; padding:14px 0; }

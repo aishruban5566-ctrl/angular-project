@@ -1,61 +1,39 @@
-.tariff-wrap {
+.tariff-container {
+  max-width: 1000px;
+  margin: auto;
   padding: 20px;
-  background: #f9f9f9;
-  border-radius: 10px;
 }
 
-.tariff-title {
-  font-size: 22px;
-  font-weight: bold;
-  margin-bottom: 15px;
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-.tariff-toolbar {
-  margin-bottom: 15px;
+.tab-nav {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
 }
 
-.tariff-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: #fff;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.tariff-table th,
-.tariff-table td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: left;
-}
-
-.tariff-table th {
-  background: #20c997;
-  color: white;
-}
-
-.tariff-table tr:hover {
-  background: #f1f1f1;
-}
-
-.btn {
-  padding: 6px 12px;
-  border-radius: 5px;
-  cursor: pointer;
+.tab-nav button {
+  padding: 8px 16px;
   border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #e9ecef;
+  font-weight: 600;
+  transition: all 0.2s;
 }
 
-.btn-primary {
-  background: #20c997;
+.tab-nav button.active {
+  background-color: #007bff;
   color: white;
 }
 
-.btn-light {
-  background: #f8f9fa;
-  color: #333;
-}
-
-.btn-danger {
-  background: #dc3545;
-  color: white;
+.tab-content {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
+  background: #fff;
 }

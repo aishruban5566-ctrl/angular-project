@@ -1,36 +1,70 @@
-<div class="charge-type-wrap">
-  <h2 class="charge-type-title">Charge Type</h2>
+<!-- src/app/dashboard/master/billing/charge-type.component.html -->
+<div class="ct-root">
+  <div class="ct-header">
+    <h3>Charge Types</h3>
+    <div class="ct-actions">
+      <input placeholder="Search types..." [(ngModel)]="search" />
+      <button class="btn" (click)="reset()">New</button>
+    </div>
+  </div>
 
-  <form class="charge-type-form" (ngSubmit)="addType()">
-    <div class="form-row">
-      <label>Type Name</label>
-      <input type="text" [(ngModel)]="newType.name" name="name" placeholder="Enter type name" required />
+  <div class="ct-grid">
+    <div class="panel ct-form">
+      <h4>{{ editingId ? 'Edit Type' : 'Create Type' }}</h4>
+      <form (ngSubmit)="save()">
+        <label>
+          Name
+          <input name="name" [(ngModel)]="model.name" required />
+        </label>
+
+        <label>
+          Calculation
+          <select name="calculation" [(ngModel)]="model.calculation">
+            <option>Flat</option>
+            <option>Weight</option>
+            <option>Percentage</option>
+            <option>Other</option>
+          </select>
+        </label>
+
+        <label>
+          Description
+          <input name="description" [(ngModel)]="model.description" />
+        </label>
+
+        <label class="checkbox">
+          <input type="checkbox" name="active" [(ngModel)]="model.active" /> Active
+        </label>
+
+        <div class="form-actions">
+          <button class="btn primary" type="submit">{{ editingId ? 'Update' : 'Create' }}</button>
+          <button class="btn" type="button" (click)="reset()">Cancel</button>
+        </div>
+      </form>
     </div>
 
-    <div class="form-row">
-      <label>Description</label>
-      <input type="text" [(ngModel)]="newType.description" name="description" placeholder="Enter description" required />
+    <div class="panel ct-list">
+      <h4>Types ({{ filtered.length }})</h4>
+      <table class="table">
+        <thead>
+          <tr><th>Name</th><th>Calc</th><th>Description</th><th>Active</th><th class="actions-col">Actions</th></tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let t of filtered">
+            <td>{{ t.name }}</td>
+            <td>{{ t.calculation }}</td>
+            <td>{{ t.description }}</td>
+            <td>
+              <span>{{ t.active ? 'Yes' : 'No' }}</span>
+            </td>
+            <td class="actions-col">
+              <button class="small" (click)="edit(t)">Edit</button>
+              <button class="small danger" (click)="remove(t)">Delete</button>
+            </td>
+          </tr>
+          <tr *ngIf="filtered.length===0"><td colspan="5" class="empty">No charge types found.</td></tr>
+        </tbody>
+      </table>
     </div>
-
-    <button type="submit" class="btn-primary">Add Type</button>
-  </form>
-
-  <table class="charge-type-table">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Type Name</th>
-        <th>Description</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let type of chargeTypes; let i = index">
-        <td>{{ i + 1 }}</td>
-        <td>{{ type.name }}</td>
-        <td>{{ type.description }}</td>
-        <td><button class="btn-danger" (click)="deleteType(i)">Delete</button></td>
-      </tr>
-    </tbody>
-  </table>
+  </div>
 </div>

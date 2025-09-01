@@ -1,17 +1,38 @@
 import { Component } from '@angular/core';
 
+interface AwbRecord {
+  awbNo: string;
+  consignee: string;
+  origin: string;
+  destination: string;
+}
+
 @Component({
   selector: 'app-awb-view-modify',
   templateUrl: './awb-view-modify.component.html',
   styleUrls: ['./awb-view-modify.component.css']
 })
 export class AwbViewModifyComponent {
-  awbs = [
-    { number: '123-4567890', shipper: 'ABC Logistics', consignee: 'XYZ Imports', status: 'Confirmed' },
-    { number: '987-6543210', shipper: 'Global Cargo', consignee: 'Retail Hub', status: 'Pending' }
-  ];
+  awbList: AwbRecord[] = [];
+  model: AwbRecord = { awbNo: '', consignee: '', origin: '', destination: '' };
+  editingIndex: number | null = null;
 
-  updateStatus(index: number, newStatus: string) {
-    this.awbs[index].status = newStatus;
+  addOrUpdate() {
+    if (this.editingIndex !== null) {
+      this.awbList[this.editingIndex] = { ...this.model };
+      this.editingIndex = null;
+    } else {
+      this.awbList.push({ ...this.model });
+    }
+    this.model = { awbNo: '', consignee: '', origin: '', destination: '' };
+  }
+
+  edit(index: number) {
+    this.model = { ...this.awbList[index] };
+    this.editingIndex = index;
+  }
+
+  delete(index: number) {
+    this.awbList.splice(index, 1);
   }
 }

@@ -2,38 +2,46 @@
   padding: 20px;
 }
 
-.title {
-  color: #4243a1;
-  margin-bottom: 20px;
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
 }
 
-.submenu {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 20px;
+.tile {
+  background: #fff;
+  border: 1px solid #e3e3e3;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  text-align: center;
 }
 
-.submenu a {
-  text-decoration: none;
-  background: #4243a1;
+.btn-open {
+  background: #007bff;
+  border: none;
   padding: 8px 16px;
   color: #fff;
   border-radius: 6px;
-  transition: background 0.2s ease-in-out;
+  cursor: pointer;
 }
 
-.submenu a:hover {
-  background: #2f3080;
+.btn-open:hover {
+  background: #0056b3;
 }
 
-.submenu a.active {
-  background: #22225e;
-}
-
-.content-box {
-  border: 1px solid #ddd;
-  border-radius: 8px;
+.child-popup {
+  margin-top: 20px;
   padding: 20px;
-  min-height: 150px;
-  background: #fafafa;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+.close-btn {
+  float: right;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
 }

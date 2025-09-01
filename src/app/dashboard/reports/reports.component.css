@@ -1,34 +1,39 @@
-.reports-wrap {
+.reports-dashboard {
   padding: 20px;
-  background: #f9f9fb;
-  border-radius: 8px;
+  text-align: center;
 }
 
-.reports-title {
-  font-size: 22px;
-  font-weight: bold;
-  color: #2c3e50;
-  margin-bottom: 15px;
+h2 {
+  margin-bottom: 20px;
+  color: #333;
 }
 
-.reports-list {
-  list-style: none;
-  padding: 0;
+.card-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
-.reports-list li {
-  margin: 10px 0;
+.card {
+  flex: 1;
+  min-width: 220px;
+  max-width: 300px;
+  padding: 20px;
+  background: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+  text-align: center;
 }
 
-.reports-list a {
-  text-decoration: none;
-  color: #0077cc;
-  font-size: 16px;
-  font-weight: 500;
-  transition: color 0.3s ease;
+.card:hover {
+  background: #e9ecef;
+  transform: translateY(-4px);
 }
 
-.reports-list a:hover {
-  color: #005599;
-  text-decoration: underline;
+.card h3 {
+  margin-bottom: 10px;
+  color: #007bff;
 }

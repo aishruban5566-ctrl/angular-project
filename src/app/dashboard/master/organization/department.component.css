@@ -1,61 +1,42 @@
-.department-wrap {
+.container {
   padding: 20px;
-  background: #f9f9f9;
-  border-radius: 10px;
 }
 
-.department-title {
-  font-size: 22px;
-  font-weight: bold;
+h2 {
   margin-bottom: 15px;
 }
 
-.department-toolbar {
-  margin-bottom: 15px;
+.form {
+  margin-bottom: 20px;
 }
 
-.department-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: #fff;
-  border-radius: 10px;
-  overflow: hidden;
+input {
+  margin: 5px;
+  padding: 6px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
-.department-table th,
-.department-table td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: left;
-}
-
-.department-table th {
-  background: #fd7e14;
-  color: white;
-}
-
-.department-table tr:hover {
-  background: #f1f1f1;
-}
-
-.btn {
+button {
+  margin: 5px;
   padding: 6px 12px;
   border-radius: 5px;
-  cursor: pointer;
   border: none;
+  cursor: pointer;
 }
 
-.btn-primary {
-  background: #fd7e14;
-  color: white;
+button:hover {
+  background-color: #007bff;
+  color: #fff;
 }
 
-.btn-light {
-  background: #f8f9fa;
-  color: #333;
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
 }
 
-.btn-danger {
-  background: #dc3545;
-  color: white;
+table, th, td {
+  border: 1px solid #ccc;
+  padding: 8px;
 }

@@ -1,9 +1,31 @@
-<div class="operations-wrap">
-  <h2>{{ title }}</h2>
-  <ul>
-    <li><a routerLink="/operations/awb-sales-entry">AWB Sales Entry</a></li>
-    <li><a routerLink="/operations/awb-view-modify">AWB View & Modify</a></li>
-    <li><a routerLink="/operations/awb-auditing">AWB Auditing</a></li>
-    <li><a routerLink="/operations/awb-delete">AWB Delete</a></li>
-  </ul>
+<div class="ops-container">
+  <h2 class="ops-title">{{ title }}</h2>
+
+  <!-- Card grid navigation -->
+  <div class="card-grid">
+    <a class="card" routerLink="awb-sales-entry" routerLinkActive="active">
+      <div class="card-title">AWB Sales Entry</div>
+      <div class="card-sub">Create new AWB entries</div>
+    </a>
+
+    <a class="card" routerLink="awb-view-modify" routerLinkActive="active">
+      <div class="card-title">AWB View / Modify</div>
+      <div class="card-sub">Update existing AWBs</div>
+    </a>
+
+    <a class="card" routerLink="awb-auditing" routerLinkActive="active">
+      <div class="card-title">AWB Auditing</div>
+      <div class="card-sub">Check & verify</div>
+    </a>
+
+    <a class="card" routerLink="awb-delete" routerLinkActive="active">
+      <div class="card-title">AWB Delete</div>
+      <div class="card-sub">Remove AWB records</div>
+    </a>
+  </div>
+
+  <!-- Child content renders here -->
+  <div class="ops-content">
+    <router-outlet></router-outlet>
+  </div>
 </div>

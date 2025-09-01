@@ -1,25 +1,31 @@
-<div class="department-wrap">
-  <h2 class="department-title">{{ title }}</h2>
+<div class="container">
+  <h2>Department Management</h2>
 
-  <div class="department-toolbar">
-    <button class="btn btn-primary">+ Add Department</button>
-  </div>
+  <form (ngSubmit)="saveDepartment()" class="form">
+    <input type="text" placeholder="Department Name" [(ngModel)]="newDepartment.name" name="name" required>
+    <input type="text" placeholder="Head of Department" [(ngModel)]="newDepartment.head" name="head" required>
 
-  <table class="department-table">
+    <button type="submit">{{ editing ? 'Update' : 'Add' }} Department</button>
+    <button type="button" (click)="cancel()">Cancel</button>
+  </form>
+
+  <table>
     <thead>
       <tr>
         <th>#</th>
-        <th>Department</th>
+        <th>Department Name</th>
+        <th>Head</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let dept of departments; let i = index">
-        <td>{{ i + 1 }}</td>
-        <td>{{ dept.name }}</td>
+      <tr *ngFor="let d of departments">
+        <td>{{ d.id }}</td>
+        <td>{{ d.name }}</td>
+        <td>{{ d.head }}</td>
         <td>
-          <button class="btn btn-sm btn-light">Edit</button>
-          <button class="btn btn-sm btn-danger">Delete</button>
+          <button (click)="editDepartment(d)">Edit</button>
+          <button (click)="deleteDepartment(d.id)">Delete</button>
         </td>
       </tr>
     </tbody>

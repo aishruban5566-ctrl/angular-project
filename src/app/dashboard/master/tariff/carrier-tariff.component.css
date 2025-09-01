@@ -1,61 +1,81 @@
-.carrier-tariff-wrap {
+.client-tariff-container {
+  max-width: 900px;
+  margin: auto;
   padding: 20px;
-  background: #f9f9f9;
-  border-radius: 10px;
 }
 
-.carrier-tariff-title {
-  font-size: 22px;
-  font-weight: bold;
+h2, h3 {
+  text-align: center;
   margin-bottom: 15px;
 }
 
-.carrier-tariff-toolbar {
-  margin-bottom: 15px;
+.tariff-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 20px;
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
 }
 
-.carrier-tariff-table {
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+input, textarea {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.form-actions {
+  grid-column: span 2;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button[type="submit"] {
+  background-color: #28a745;
+  color: white;
+}
+
+button[type="button"] {
+  background-color: #6c757d;
+  color: white;
+}
+
+.tariff-table {
   width: 100%;
   border-collapse: collapse;
-  background: #fff;
-  border-radius: 10px;
-  overflow: hidden;
+  margin-top: 15px;
 }
 
-.carrier-tariff-table th,
-.carrier-tariff-table td {
+.tariff-table th, .tariff-table td {
   border: 1px solid #ddd;
-  padding: 10px;
-  text-align: left;
+  padding: 8px;
+  text-align: center;
 }
 
-.carrier-tariff-table th {
-  background: #0d6efd;
-  color: white;
-}
-
-.carrier-tariff-table tr:hover {
-  background: #f1f1f1;
-}
-
-.btn {
-  padding: 6px 12px;
-  border-radius: 5px;
-  cursor: pointer;
-  border: none;
-}
-
-.btn-primary {
-  background: #0d6efd;
-  color: white;
-}
-
-.btn-light {
-  background: #f8f9fa;
-  color: #333;
-}
-
-.btn-danger {
-  background: #dc3545;
+.tariff-table th {
+  background-color: #28a745;
   color: white;
 }

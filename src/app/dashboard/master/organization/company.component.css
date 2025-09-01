@@ -1,61 +1,42 @@
-.company-wrap {
+.container {
   padding: 20px;
-  background: #f9f9f9;
-  border-radius: 10px;
 }
 
-.company-title {
-  font-size: 22px;
-  font-weight: bold;
+h2 {
   margin-bottom: 15px;
 }
 
-.company-toolbar {
-  margin-bottom: 15px;
+.form {
+  margin-bottom: 20px;
 }
 
-.company-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: #fff;
-  border-radius: 10px;
-  overflow: hidden;
+input {
+  margin: 5px;
+  padding: 6px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
-.company-table th,
-.company-table td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: left;
-}
-
-.company-table th {
-  background: #28a745;
-  color: white;
-}
-
-.company-table tr:hover {
-  background: #f1f1f1;
-}
-
-.btn {
+button {
+  margin: 5px;
   padding: 6px 12px;
   border-radius: 5px;
-  cursor: pointer;
   border: none;
+  cursor: pointer;
 }
 
-.btn-primary {
-  background: #28a745;
-  color: white;
+button:hover {
+  background-color: #007bff;
+  color: #fff;
 }
 
-.btn-light {
-  background: #f8f9fa;
-  color: #333;
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
 }
 
-.btn-danger {
-  background: #dc3545;
-  color: white;
+table, th, td {
+  border: 1px solid #ccc;
+  padding: 8px;
 }

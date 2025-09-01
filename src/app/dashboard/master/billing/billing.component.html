@@ -1,36 +1,101 @@
-<div class="billing-wrap">
-  <h2 class="billing-title">Billing Management</h2>
+<div class="billing-container">
+  <!-- Search -->
+  <div class="search-bar">
+    <input [(ngModel)]="filterText" placeholder="Search billing..." />
+  </div>
 
-  <form class="billing-form" (ngSubmit)="addBilling()">
-    <div class="form-row">
-      <label>Billing Code</label>
-      <input type="text" [(ngModel)]="newBilling.code" name="code" placeholder="Enter billing code" required />
+  <!-- Form -->
+  <form #f="ngForm" (ngSubmit)="addOrUpdate(f)" class="form">
+    <h4>{{ editingId ? 'Edit Billing' : 'Create Billing' }}</h4>
+
+    <label>
+      Name:
+      <input name="name" required [(ngModel)]="model.name" />
+    </label>
+
+    <label>
+      Charge Type:
+      <input
+        name="chargeType"
+        [(ngModel)]="model.chargeType"
+        placeholder="e.g. Flat, Weight, Percentage"
+      />
+    </label>
+
+    <label>
+      Amount:
+      <input
+        name="amount"
+        type="number"
+        step="0.01"
+        required
+        [(ngModel)]="model.amount"
+      />
+    </label>
+
+    <label>
+      Currency:
+      <select name="currency" [(ngModel)]="model.currency">
+        <option value="">Select Currency</option>
+        <option value="USD">USD</option>
+        <option value="INR">INR</option>
+        <option value="EUR">EUR</option>
+      </select>
+    </label>
+
+    <label>
+      Active:
+      <input name="active" type="checkbox" [(ngModel)]="model.active" />
+    </label>
+
+    <div class="form-actions">
+      <button class="btn primary" type="submit">
+        {{ editingId ? 'Update' : 'Create' }}
+      </button>
+      <button class="btn secondary" type="button" (click)="resetForm(f)">
+        Reset
+      </button>
     </div>
-
-    <div class="form-row">
-      <label>Description</label>
-      <input type="text" [(ngModel)]="newBilling.description" name="description" placeholder="Enter description" required />
-    </div>
-
-    <button type="submit" class="btn-primary">Add Billing</button>
   </form>
 
-  <table class="billing-table">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Billing Code</th>
-        <th>Description</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let billing of billings; let i = index">
-        <td>{{ i + 1 }}</td>
-        <td>{{ billing.code }}</td>
-        <td>{{ billing.description }}</td>
-        <td><button class="btn-danger" (click)="deleteBilling(i)">Delete</button></td>
-      </tr>
-    </tbody>
-  </table>
+  <!-- Billing List -->
+  <div class="billing-list">
+    <h4>Billing List ({{ filteredList.length }})</h4>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Charge Type</th>
+          <th>Amount</th>
+          <th>Currency</th>
+          <th>Active</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let b of filteredList">
+          <td>{{ b.id }}</td>
+          <td>{{ b.name }}</td>
+          <td>{{ b.chargeType }}</td>
+          <td>{{ b.amount }}</td>
+          <td>{{ b.currency }}</td>
+          <td>
+            <button class="small" (click)="toggleActive(b)">
+              {{ b.active ? 'Yes' : 'No' }}
+            </button>
+          </td>
+          <td>
+            <button (click)="edit(b)">Edit</button>
+            <button (click)="delete(b.id!)">Delete</button>
+          </td>
+        </tr>
+
+        <tr *ngIf="filteredList.length === 0">
+          <td colspan="7" class="empty">No records found.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

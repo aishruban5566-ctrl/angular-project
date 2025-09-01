@@ -1,18 +1,59 @@
 <div class="master-container">
-  <h2 class="title">Master Module</h2>
+  <header class="master-header">
+    <h2>Master</h2>
+    <p class="subtitle">Manage master data categories</p>
+  </header>
 
-  <div class="master-menu">
-    <a routerLink="place" routerLinkActive="active">Place</a>
-    <a routerLink="organization" routerLinkActive="active">Organization</a>
-    <a routerLink="tariff" routerLinkActive="active">Tariff</a>
-    <a routerLink="item-hs-entry" routerLinkActive="active">Item HS Entry</a>
-    <a routerLink="currency" routerLinkActive="active">Currency</a>
-    <a routerLink="unit-of-measurement" routerLinkActive="active">Unit of Measurement</a>
-    <a routerLink="billing" routerLinkActive="active">Billing</a>
+  <!-- Card Grid -->
+  <div class="card-grid">
+    <div class="card" (click)="openModal('billing')">
+      <div class="card-title">Billing</div>
+      <div class="card-sub">Charges & billing settings</div>
+    </div>
+
+    <div class="card" (click)="openModal('currency')">
+      <div class="card-title">Currency</div>
+      <div class="card-sub">Currency master</div>
+    </div>
+
+    <div class="card" (click)="openModal('organization')">
+      <div class="card-title">Organization</div>
+      <div class="card-sub">Departments, designations, etc.</div>
+    </div>
+
+    <div class="card" (click)="openModal('place')">
+      <div class="card-title">Place</div>
+      <div class="card-sub">Country, client, delivery states</div>
+    </div>
+
+    <div class="card" (click)="openModal('tariff')">
+      <div class="card-title">Tariff</div>
+      <div class="card-sub">Tariff configuration</div>
+    </div>
+
+    <div class="card" (click)="openModal('unit')">
+      <div class="card-title">Unit of Measurement</div>
+      <div class="card-sub">Units & abbreviations</div>
+    </div>
   </div>
 
-  <div class="master-content">
-    <!-- Child pages load here -->
-    <router-outlet></router-outlet>
+  <!-- Modal -->
+  <div class="modal-backdrop" *ngIf="selectedComponent">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>{{ selectedComponent | titlecase }}</h3>
+        <button class="close-btn" (click)="closeModal()">×</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Render child components dynamically -->
+        <app-billing *ngIf="selectedComponent === 'billing'"></app-billing>
+        <app-currency *ngIf="selectedComponent === 'currency'"></app-currency>
+        <app-organization *ngIf="selectedComponent === 'organization'"></app-organization>
+        <app-place *ngIf="selectedComponent === 'place'"></app-place>
+        <app-tariff *ngIf="selectedComponent === 'tariff'"></app-tariff>
+        <app-unit-of-measurement *ngIf="selectedComponent === 'unit'"></app-unit-of-measurement>
+      </div>
+    </div>
   </div>
 </div>

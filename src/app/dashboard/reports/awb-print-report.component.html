@@ -1,26 +1,24 @@
-<div class="print-report-wrap">
-  <h2 class="print-report-title">AWB Print Report</h2>
+<div class="report-container">
+  <h2>AWB Print Report</h2>
 
-  <table class="report-table">
-    <thead>
-      <tr>
-        <th>AWB No</th>
-        <th>Client</th>
-        <th>Status</th>
-        <th>Print Date</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let row of printData">
-        <td>{{ row.awbNo }}</td>
-        <td>{{ row.client }}</td>
-        <td>
-          <span [ngClass]="{'status-printed': row.status === 'Printed', 'status-pending': row.status === 'Pending'}">
-            {{ row.status }}
-          </span>
-        </td>
-        <td>{{ row.printDate }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <form (ngSubmit)="generateReport()" #awbForm="ngForm" class="report-form">
+    <label for="awbNumber">Enter AWB Number:</label>
+    <input
+      type="text"
+      id="awbNumber"
+      name="awbNumber"
+      [(ngModel)]="awbNumber"
+      required
+      placeholder="Enter AWB..."
+    />
+    <button type="submit" [disabled]="!awbForm.form.valid">Generate</button>
+    <button type="button" (click)="clearForm()" class="secondary">Clear</button>
+  </form>
+
+  <div *ngIf="reportData" class="report-result">
+    <h3>Report Details</h3>
+    <p><strong>AWB Number:</strong> {{ reportData.awb }}</p>
+    <p><strong>Date:</strong> {{ reportData.date }}</p>
+    <p><strong>Status:</strong> {{ reportData.status }}</p>
+  </div>
 </div>

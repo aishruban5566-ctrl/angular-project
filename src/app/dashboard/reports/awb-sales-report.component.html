@@ -1,26 +1,46 @@
-<div class="sales-report-wrap">
-  <h2 class="sales-report-title">AWB Sales Report</h2>
+<div class="sales-report-container">
+  <h2>AWB Sales Report</h2>
 
-  <table class="report-table">
-    <thead>
-      <tr>
-        <th>AWB No</th>
-        <th>Client</th>
-        <th>Amount</th>
-        <th>Date</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let row of salesData">
-        <td>{{ row.awbNo }}</td>
-        <td>{{ row.client }}</td>
-        <td>{{ row.amount | currency:'USD' }}</td>
-        <td>{{ row.date }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <form (ngSubmit)="generateSalesReport()" #salesForm="ngForm" class="sales-form">
+    <label for="fromDate">From:</label>
+    <input
+      type="date"
+      id="fromDate"
+      name="fromDate"
+      [(ngModel)]="fromDate"
+      required
+    />
 
-  <div class="report-total">
-    <strong>Total Sales:</strong> {{ totalAmount | currency:'USD' }}
+    <label for="toDate">To:</label>
+    <input
+      type="date"
+      id="toDate"
+      name="toDate"
+      [(ngModel)]="toDate"
+      required
+    />
+
+    <button type="submit" [disabled]="!salesForm.form.valid">Generate</button>
+    <button type="button" (click)="clearReport()" class="secondary">Clear</button>
+  </form>
+
+  <div *ngIf="salesData.length > 0" class="sales-result">
+    <h3>Sales Report Data</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Date</th>
+          <th>Amount (₹)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let s of salesData">
+          <td>{{ s.id }}</td>
+          <td>{{ s.date }}</td>
+          <td>{{ s.amount | number }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

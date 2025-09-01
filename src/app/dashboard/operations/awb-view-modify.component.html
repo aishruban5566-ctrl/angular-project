@@ -1,30 +1,24 @@
-<div class="awb-view-modify-wrap">
-  <h3>AWB View & Modify</h3>
+<div class="box">
+  <h2>AWB View & Modify</h2>
+  <form (ngSubmit)="addOrUpdate()" class="form">
+    <label>AWB No: <input [(ngModel)]="model.awbNo" name="awbNo" required /></label>
+    <label>Consignee: <input [(ngModel)]="model.consignee" name="consignee" /></label>
+    <label>Origin: <input [(ngModel)]="model.origin" name="origin" /></label>
+    <label>Destination: <input [(ngModel)]="model.destination" name="destination" /></label>
+    <button type="submit">{{ editingIndex !== null ? 'Update' : 'Add' }}</button>
+  </form>
 
-  <table class="awb-table">
-    <thead>
-      <tr>
-        <th>AWB No.</th>
-        <th>Shipper</th>
-        <th>Consignee</th>
-        <th>Status</th>
-        <th>Modify</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let awb of awbs; let i = index">
-        <td>{{ awb.number }}</td>
-        <td>{{ awb.shipper }}</td>
-        <td>{{ awb.consignee }}</td>
-        <td>{{ awb.status }}</td>
-        <td>
-          <select (change)="updateStatus(i, $event.target.value)">
-            <option>Confirmed</option>
-            <option>Pending</option>
-            <option>Cancelled</option>
-          </select>
-        </td>
-      </tr>
-    </tbody>
+  <table>
+    <tr><th>AWB No</th><th>Consignee</th><th>Origin</th><th>Destination</th><th>Actions</th></tr>
+    <tr *ngFor="let a of awbList; let i=index">
+      <td>{{a.awbNo}}</td>
+      <td>{{a.consignee}}</td>
+      <td>{{a.origin}}</td>
+      <td>{{a.destination}}</td>
+      <td>
+        <button (click)="edit(i)">Edit</button>
+        <button (click)="delete(i)">Delete</button>
+      </td>
+    </tr>
   </table>
 </div>

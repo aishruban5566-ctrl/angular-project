@@ -1,25 +1,31 @@
-<div class="designation-wrap">
-  <h2 class="designation-title">{{ title }}</h2>
+<div class="container">
+  <h2>Designation Management</h2>
 
-  <div class="designation-toolbar">
-    <button class="btn btn-primary">+ Add Designation</button>
-  </div>
+  <form (ngSubmit)="saveDesignation()" class="form">
+    <input type="text" placeholder="Designation Title" [(ngModel)]="newDesignation.title" name="title" required>
+    <input type="text" placeholder="Level (e.g., Junior, Mid, Senior)" [(ngModel)]="newDesignation.level" name="level" required>
 
-  <table class="designation-table">
+    <button type="submit">{{ editing ? 'Update' : 'Add' }} Designation</button>
+    <button type="button" (click)="cancel()">Cancel</button>
+  </form>
+
+  <table>
     <thead>
       <tr>
         <th>#</th>
-        <th>Designation</th>
+        <th>Designation Title</th>
+        <th>Level</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let desig of designations; let i = index">
-        <td>{{ i + 1 }}</td>
-        <td>{{ desig.name }}</td>
+      <tr *ngFor="let d of designations">
+        <td>{{ d.id }}</td>
+        <td>{{ d.title }}</td>
+        <td>{{ d.level }}</td>
         <td>
-          <button class="btn btn-sm btn-light">Edit</button>
-          <button class="btn btn-sm btn-danger">Delete</button>
+          <button (click)="editDesignation(d)">Edit</button>
+          <button (click)="deleteDesignation(d.id)">Delete</button>
         </td>
       </tr>
     </tbody>

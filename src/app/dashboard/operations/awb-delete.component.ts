@@ -6,13 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./awb-delete.component.css']
 })
 export class AwbDeleteComponent {
-  awbs = [
-    { number: '123-4567890', shipper: 'ABC Logistics' },
-    { number: '987-6543210', shipper: 'Global Cargo' }
-  ];
+  awbNumber: string = '';
+  deletedList: string[] = [];
 
-  deleteAwb(index: number) {
-    this.awbs.splice(index, 1);
+  deleteAwb() {
+    if (this.awbNumber.trim()) {
+      this.deletedList.push(this.awbNumber);
+      this.awbNumber = '';
+    }
   }
 }
-

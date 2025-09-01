@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./operations.component.css']
 })
 export class OperationsComponent {
-  title = 'Operations Dashboard';
+  title = 'Operations';
 }

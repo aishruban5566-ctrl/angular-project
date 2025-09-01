@@ -1,24 +1,84 @@
-.login-container {
-  max-width: 300px;
-  margin: 100px auto;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 12px rgba(0,0,0,.15);
-  background: #fefefe;
-}
-.title {
-  text-align: center;
-  margin-bottom: 15px;
-}
-input, button {
+/* Background gradient */
+.login-wrapper {
+  height: 100vh;
   width: 100%;
-  margin: 8px 0;
-  padding: 10px;
-  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #4f7cff, #7d4fff);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-button {
-  cursor: pointer;
-  background-color: #4243a1;
-  color: #fff;
+
+/* White card container */
+.login-container {
+  background: #fff;
+  padding: 40px 35px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  width: 360px;
+  text-align: center;
+}
+
+/* Title */
+.login-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 25px;
+  color: #222;
+}
+
+/* Input fields */
+.form-group input {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 18px;
   border: none;
+  border-bottom: 2px solid #ccc;
+  outline: none;
+  font-size: 15px;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+  border-color: #6c63ff;
+}
+
+/* Login button */
+.btn-login {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #fff;
+  background: linear-gradient(90deg, #4f7cff, #7d4fff);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn-login:hover {
+  background: linear-gradient(90deg, #3d6dff, #6c3dff);
+  transform: translateY(-2px);
+}
+
+/* Forgot password + Signup links */
+.extra-links {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.extra-links a {
+  color: #4f7cff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.extra-links a:hover {
+  text-decoration: underline;
+}
+
+.extra-links .forgot {
+  display: block;
+  margin-bottom: 10px;
 }

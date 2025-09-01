@@ -1,45 +1,69 @@
-<div class="currency-wrap">
-  <h3 class="currency-title">Currency Management</h3>
+<div class="currency-container">
+  <!-- Form Section -->
+  <div class="form-card">
+    <h4>{{ editingIndex !== null ? 'Edit Currency' : 'Add Currency' }}</h4>
 
-  <!-- Currency Form -->
-  <form (ngSubmit)="addCurrency()" class="currency-form">
-    <div class="form-row">
-      <label for="code">Currency Code</label>
-      <input id="code" [(ngModel)]="newCurrency.code" name="code" placeholder="e.g. USD" required>
-    </div>
+    <form [formGroup]="currencyForm" (ngSubmit)="onSubmit()">
+      <div class="form-grid">
+        <div>
+          <label>Code</label>
+          <input formControlName="code" maxlength="3" placeholder="e.g. USD" />
+          <small *ngIf="currencyForm.get('code')?.invalid && currencyForm.get('code')?.touched">
+            Code is required (max 3 chars).
+          </small>
+        </div>
 
-    <div class="form-row">
-      <label for="name">Currency Name</label>
-      <input id="name" [(ngModel)]="newCurrency.name" name="name" placeholder="e.g. US Dollar" required>
-    </div>
+        <div>
+          <label>Name</label>
+          <input formControlName="name" placeholder="e.g. US Dollar" />
+          <small *ngIf="currencyForm.get('name')?.invalid && currencyForm.get('name')?.touched">
+            Name is required.
+          </small>
+        </div>
 
-    <div class="form-row">
-      <label for="symbol">Symbol</label>
-      <input id="symbol" [(ngModel)]="newCurrency.symbol" name="symbol" placeholder="$, €, ₹" required>
-    </div>
+        <div>
+          <label>Symbol</label>
+          <input formControlName="symbol" placeholder="e.g. $" />
+          <small *ngIf="currencyForm.get('symbol')?.invalid && currencyForm.get('symbol')?.touched">
+            Symbol is required.
+          </small>
+        </div>
+      </div>
 
-    <button type="submit" class="btn-primary">Add Currency</button>
-  </form>
+      <div class="form-actions">
+        <button type="submit" [disabled]="currencyForm.invalid">
+          {{ editingIndex !== null ? 'Update' : 'Add' }}
+        </button>
+        <button type="button" class="cancel-btn" (click)="onCancel()" *ngIf="editingIndex !== null">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
 
-  <!-- Currency Table -->
-  <table class="currency-table">
-    <thead>
-      <tr>
-        <th>Code</th>
-        <th>Name</th>
-        <th>Symbol</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let c of currencies; let i = index">
-        <td>{{ c.code }}</td>
-        <td>{{ c.name }}</td>
-        <td>{{ c.symbol }}</td>
-        <td>
-          <button class="btn-danger" (click)="removeCurrency(i)">Remove</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <!-- List Section -->
+  <div class="table-card">
+    <h4>Currency List</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Code</th>
+          <th>Name</th>
+          <th>Symbol</th>
+          <th class="action-col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let currency of currencies; let i = index">
+          <td>{{ currency.code }}</td>
+          <td>{{ currency.name }}</td>
+          <td>{{ currency.symbol }}</td>
+          <td class="actions">
+            <button class="edit-btn" (click)="onEdit(i)">Edit</button>
+            <button class="delete-btn" (click)="onDelete(i)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

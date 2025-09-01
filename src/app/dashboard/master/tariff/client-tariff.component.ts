@@ -1,27 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+interface ClientTariff {
+  id: number;
+  clientName: string;
+  tariffRate: number;
+  effectiveDate: string;
+}
 
 @Component({
   selector: 'app-client-tariff',
   templateUrl: './client-tariff.component.html',
   styleUrls: ['./client-tariff.component.css']
 })
-export class ClientTariffComponent {
-  clientTariffs = [
-    { id: 1, client: 'ABC Pvt Ltd', rate: 1800 },
-    { id: 2, client: 'XYZ Logistics', rate: 2100 },
-  ];
+export class ClientTariffComponent implements OnInit {
 
-  newTariff = { client: '', rate: null };
+  // ✅ This fixes the error
+  clientTariffs: ClientTariff[] = [];
 
-  addClientTariff() {
-    if (this.newTariff.client && this.newTariff.rate) {
-      const id = this.clientTariffs.length + 1;
-      this.clientTariffs.push({ id, ...this.newTariff });
-      this.newTariff = { client: '', rate: null };
-    }
+  constructor() {}
+
+  ngOnInit(): void {
+    // Dummy data for now (replace with API call later)
+    this.clientTariffs = [
+      { id: 1, clientName: 'ABC Logistics', tariffRate: 500, effectiveDate: '2025-01-01' },
+      { id: 2, clientName: 'XYZ Transport', tariffRate: 750, effectiveDate: '2025-02-15' }
+    ];
   }
 
-  deleteClientTariff(id: number) {
-    this.clientTariffs = this.clientTariffs.filter(c => c.id !== id);
+  deleteClientTariff(id: number): void {
+    this.clientTariffs = this.clientTariffs.filter(t => t.id !== id);
   }
+
 }

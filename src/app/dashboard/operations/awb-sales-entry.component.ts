@@ -1,31 +1,25 @@
 import { Component } from '@angular/core';
 
+interface SalesEntry {
+  awbNo: string;
+  customer: string;
+  amount: number;
+  date: string;
+}
+
 @Component({
   selector: 'app-awb-sales-entry',
   templateUrl: './awb-sales-entry.component.html',
   styleUrls: ['./awb-sales-entry.component.css']
 })
 export class AwbSalesEntryComponent {
-  newAwb: any = {
-    number: '',
-    shipper: '',
-    consignee: '',
-    origin: '',
-    destination: '',
-    weight: null,
-    rate: null
-  };
+  salesList: SalesEntry[] = [];
+  model: SalesEntry = { awbNo: '', customer: '', amount: 0, date: '' };
 
-  awbList: any[] = [];
-
-  addAwb() {
-    if (this.newAwb.number) {
-      this.awbList.push({ ...this.newAwb });
-      this.newAwb = { number: '', shipper: '', consignee: '', origin: '', destination: '', weight: null, rate: null };
+  addSale() {
+    if (this.model.awbNo && this.model.customer && this.model.amount > 0) {
+      this.salesList.push({ ...this.model });
+      this.model = { awbNo: '', customer: '', amount: 0, date: '' };
     }
-  }
-
-  removeAwb(index: number) {
-    this.awbList.splice(index, 1);
   }
 }

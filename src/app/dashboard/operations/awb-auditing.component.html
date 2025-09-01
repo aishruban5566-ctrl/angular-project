@@ -1,22 +1,21 @@
-<div class="awb-auditing-wrap">
-  <h3>AWB Auditing</h3>
+<div class="box">
+  <h2>AWB Auditing</h2>
+  <form (ngSubmit)="addAudit()" class="form">
+    <label>AWB No: <input [(ngModel)]="model.awbNo" name="awbNo" required /></label>
+    <label>Status: <input [(ngModel)]="model.status" name="status" required /></label>
+    <label>Remarks: <input [(ngModel)]="model.remarks" name="remarks" /></label>
+    <label>Date: <input [(ngModel)]="model.date" name="date" type="date" /></label>
+    <button type="submit">Add Record</button>
+  </form>
 
-  <table class="awb-table">
-    <thead>
-      <tr>
-        <th>AWB No.</th>
-        <th>Checked By</th>
-        <th>Remarks</th>
-        <th>Date</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let audit of audits">
-        <td>{{ audit.awb }}</td>
-        <td>{{ audit.checkedBy }}</td>
-        <td>{{ audit.remarks }}</td>
-        <td>{{ audit.date }}</td>
-      </tr>
-    </tbody>
+  <table>
+    <tr><th>AWB No</th><th>Status</th><th>Remarks</th><th>Date</th><th>Action</th></tr>
+    <tr *ngFor="let a of auditList; let i = index">
+      <td>{{a.awbNo}}</td>
+      <td>{{a.status}}</td>
+      <td>{{a.remarks}}</td>
+      <td>{{a.date}}</td>
+      <td><button (click)="deleteAudit(i)">Delete</button></td>
+    </tr>
   </table>
 </div>

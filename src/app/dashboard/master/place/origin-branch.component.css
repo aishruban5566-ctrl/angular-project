@@ -1,129 +1,88 @@
-/* === Origin Branch === */
-.ob-wrap {
-  background: #ffffff;
-  border: 1px solid #e6e6ec;
-  border-radius: 10px;
-  padding: 18px;
-  box-shadow: 0 2px 10px rgba(24, 39, 75, 0.06);
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
 }
 
-.ob-title {
-  margin: 0 0 12px;
-  color: #4243a1;
-  font-size: 20px;
-  font-weight: 600;
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
 }
 
-.ob-toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
+.form-card {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.form-group {
   margin-bottom: 12px;
 }
 
-/* Filters / Inputs */
-.ob-filters {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 12px;
-}
-.ob-filters .field {
-  grid-column: span 4;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.ob-filters label {
-  font-size: 13px;
-  color: #44465a;
-}
-.ob-filters input, .ob-filters select {
-  border: 1px solid #d7d7e3;
-  border-radius: 8px;
-  padding: 9px 11px;
-  transition: border .15s ease, box-shadow .15s ease;
-}
-.ob-filters input:focus, .ob-filters select:focus {
-  border-color: #4243a1;
-  box-shadow: 0 0 0 3px rgba(66, 67, 161, 0.12);
-}
-
-/* Table */
-.ob-table {
-  width: 100%;
-  margin-top: 14px;
-  border-collapse: collapse;
-  border-radius: 10px;
-  overflow: hidden;
-}
-.ob-table th, .ob-table td {
-  padding: 10px 12px;
-  border-bottom: 1px solid #eee;
-  text-align: left;
-  font-size: 14px;
-}
-.ob-table th {
-  background: #f6f7ff;
-  color: #2b2d42;
+.form-group label {
+  display: block;
   font-weight: 600;
-}
-.ob-table tr:hover td { background: #fafbff; }
-
-/* Status/Badges */
-.ob-status--active {
-  display: inline-block;
-  padding: 4px 8px;
-  font-size: 12px;
-  border-radius: 999px;
-  background: #e8f9ef;
-  color: #137a3a;
-}
-.ob-status--inactive {
-  display: inline-block;
-  padding: 4px 8px;
-  font-size: 12px;
-  border-radius: 999px;
-  background: #fff0f0;
-  color: #b42318;
+  margin-bottom: 5px;
 }
 
-/* Buttons */
-.ob-btn {
-  border: 1px solid #4243a1;
-  background: #4243a1;
-  color: #fff;
-  padding: 8px 14px;
-  border-radius: 8px;
+.form-group input {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-actions {
+  margin-top: 10px;
+}
+
+.btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  margin-right: 6px;
   cursor: pointer;
-  font-weight: 500;
-  transition: transform .05s ease, background .2s ease;
-}
-.ob-btn:hover { background: #2f3080; }
-.ob-btn:active { transform: translateY(1px); }
-.ob-btn--ghost {
-  background: #fff;
-  color: #4243a1;
-  border-color: #4243a1;
-}
-.ob-btn--danger {
-  background: #d92d20;
-  border-color: #d92d20;
-}
-.ob-btn--danger:hover { background: #b42318; }
-
-/* Empty state */
-.ob-empty {
-  text-align: center;
-  padding: 28px 10px;
-  color: #6b6f85;
   font-size: 14px;
 }
 
-/* Responsive */
-@media (max-width: 1024px) {
-  .ob-filters .field { grid-column: span 6; }
+.btn.primary {
+  background-color: #007bff;
+  color: white;
 }
-@media (max-width: 600px) {
-  .ob-filters .field { grid-column: span 12; }
+
+.btn.secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn.small {
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+.btn.danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.styled-table th, .styled-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.styled-table th {
+  background-color: #f1f1f1;
+}
+
+.actions {
+  text-align: center;
 }

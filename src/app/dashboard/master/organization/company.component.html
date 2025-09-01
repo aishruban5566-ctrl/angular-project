@@ -1,29 +1,34 @@
-<div class="company-wrap">
-  <h2 class="company-title">{{ title }}</h2>
+<div class="container">
+  <h2>Company Management</h2>
 
-  <div class="company-toolbar">
-    <button class="btn btn-primary">+ Add Company</button>
-  </div>
+  <form (ngSubmit)="saveCompany()" class="form">
+    <input type="text" placeholder="Company Name" [(ngModel)]="newCompany.name" name="name" required>
+    <input type="text" placeholder="Code" [(ngModel)]="newCompany.code" name="code" required>
+    <input type="text" placeholder="Address" [(ngModel)]="newCompany.address" name="address">
 
-  <table class="company-table">
+    <button type="submit">{{ editing ? 'Update' : 'Add' }} Company</button>
+    <button type="button" (click)="cancel()">Cancel</button>
+  </form>
+
+  <table>
     <thead>
       <tr>
         <th>#</th>
         <th>Company Name</th>
-        <th>GST Number</th>
-        <th>Location</th>
+        <th>Code</th>
+        <th>Address</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let comp of companies; let i = index">
-        <td>{{ i + 1 }}</td>
-        <td>{{ comp.name }}</td>
-        <td>{{ comp.gst }}</td>
-        <td>{{ comp.location }}</td>
+      <tr *ngFor="let c of companies">
+        <td>{{ c.id }}</td>
+        <td>{{ c.name }}</td>
+        <td>{{ c.code }}</td>
+        <td>{{ c.address }}</td>
         <td>
-          <button class="btn btn-sm btn-light">Edit</button>
-          <button class="btn btn-sm btn-danger">Delete</button>
+          <button (click)="editCompany(c)">Edit</button>
+          <button (click)="deleteCompany(c.id)">Delete</button>
         </td>
       </tr>
     </tbody>

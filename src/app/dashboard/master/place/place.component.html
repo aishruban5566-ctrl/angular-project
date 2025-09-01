@@ -1,16 +1,19 @@
 <div class="place-container">
-  <h2 class="title">Place Management</h2>
+  <h2>Place — Master</h2>
+  <p>Manage place-related master data. Click a tile to open the section.</p>
 
-  <div class="submenu">
-    <a routerLink="country" routerLinkActive="active">Country</a>
-    <a routerLink="delivery-state" routerLinkActive="active">Delivery State</a>
-    <a routerLink="clearance-location" routerLinkActive="active">Clearance Location</a>
-    <a routerLink="origin-branch" routerLinkActive="active">Origin Branch</a>
+  <div class="tiles">
+    <div class="tile" *ngFor="let section of sections">
+      <h3>{{ section.label }}</h3>
+      <button class="btn-open" (click)="openSection(section.component)">
+        Open
+      </button>
+    </div>
   </div>
 
-  <div class="content-box">
-    <!-- Child routes will load here -->
-    <router-outlet></router-outlet>
+  <!-- Dynamic child popup -->
+  <div class="child-popup" *ngIf="activeComponent">
+    <button class="close-btn" (click)="closeSection()">✖</button>
+    <ng-container *ngComponentOutlet="activeComponent"></ng-container>
   </div>
 </div>
-

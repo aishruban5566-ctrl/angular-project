@@ -6,11 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./organization.component.css']
 })
 export class OrganizationComponent {
-  title = 'Organization Master';
+  activeTab: string = 'company';
 
-  // dummy data (replace with API later)
-  organizations = [
-    { id: 1, name: 'ABC Group', address: 'Chennai, India' },
-    { id: 2, name: 'XYZ Enterprises', address: 'Bangalore, India' }
-  ];
+  setTab(tab: string) {
+    this.activeTab = tab;
+  }
 }

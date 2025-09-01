@@ -1,29 +1,17 @@
-<div class="organization-wrap">
-  <h2 class="organization-title">{{ title }}</h2>
+<div class="container">
+  <h2>Organization Management</h2>
 
-  <div class="organization-toolbar">
-    <button class="btn btn-primary">+ Add Organization</button>
+  <!-- Navigation Tabs -->
+  <div class="tabs">
+    <button [class.active]="activeTab === 'company'" (click)="setTab('company')">Company</button>
+    <button [class.active]="activeTab === 'department'" (click)="setTab('department')">Department</button>
+    <button [class.active]="activeTab === 'designation'" (click)="setTab('designation')">Designation</button>
   </div>
 
-  <table class="organization-table">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Organization Name</th>
-        <th>Address</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let org of organizations; let i = index">
-        <td>{{ i + 1 }}</td>
-        <td>{{ org.name }}</td>
-        <td>{{ org.address }}</td>
-        <td>
-          <button class="btn btn-sm btn-light">Edit</button>
-          <button class="btn btn-sm btn-danger">Delete</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <!-- Tab Content -->
+  <div class="tab-content">
+    <app-company *ngIf="activeTab === 'company'"></app-company>
+    <app-department *ngIf="activeTab === 'department'"></app-department>
+    <app-designation *ngIf="activeTab === 'designation'"></app-designation>
+  </div>
 </div>

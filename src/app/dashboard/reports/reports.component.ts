@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reports',
@@ -6,8 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./reports.component.css']
 })
 export class ReportsComponent {
-  reports: any[] = [
-    { title: 'Sales Report', date: '2025-08-01' },
-    { title: 'Inventory Report', date: '2025-08-15' }
-  ];
+  constructor(private router: Router) {}
+
+  goTo(path: string) {
+    this.router.navigate(['/dashboard/reports/' + path]);
+  }
 }

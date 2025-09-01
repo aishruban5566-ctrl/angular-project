@@ -1,28 +1,57 @@
-<div class="shipper-tariff-wrap">
-  <h2 class="shipper-tariff-title">Shipper Tariffs</h2>
+<div class="shipper-tariff-container">
+  <h2>Shipper Tariff Management</h2>
 
-  <div class="shipper-form">
-    <input [(ngModel)]="newTariff.shipper" placeholder="Shipper Name" />
-    <input [(ngModel)]="newTariff.rate" type="number" placeholder="Rate" />
-    <button class="btn btn-primary" (click)="addShipperTariff()">Add</button>
-  </div>
+  <form [formGroup]="tariffForm" (ngSubmit)="onSubmit()" class="tariff-form">
+    <div class="form-group">
+      <label>Shipper Name</label>
+      <input type="text" formControlName="shipperName" placeholder="Enter shipper name" />
+    </div>
 
-  <table class="shipper-tariff-table">
+    <div class="form-group">
+      <label>Tariff Code</label>
+      <input type="text" formControlName="tariffCode" placeholder="Enter tariff code" />
+    </div>
+
+    <div class="form-group">
+      <label>Description</label>
+      <textarea formControlName="description" placeholder="Enter description"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Effective Date</label>
+      <input type="date" formControlName="effectiveDate" />
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="tariffForm.invalid">
+        {{ editingIndex !== null ? 'Update Tariff' : 'Add Tariff' }}
+      </button>
+      <button type="button" (click)="resetForm()">Clear</button>
+    </div>
+  </form>
+
+  <h3>Shipper Tariff List</h3>
+  <table class="tariff-table">
     <thead>
       <tr>
         <th>ID</th>
-        <th>Shipper</th>
-        <th>Rate</th>
-        <th>Action</th>
+        <th>Shipper Name</th>
+        <th>Tariff Code</th>
+        <th>Description</th>
+        <th>Effective Date</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let s of shipperTariffs">
-        <td>{{ s.id }}</td>
-        <td>{{ s.shipper }}</td>
-        <td>{{ s.rate }}</td>
+      <tr *ngFor="let tariff of tariffs; let i = index">
+        <td>{{ tariff.id }}</td>
+        <td>{{ tariff.shipperName }}</td>
+        <td>{{ tariff.tariffCode }}</td>
+        <td>{{ tariff.description }}</td>
+        <td>{{ tariff.effectiveDate }}</td>
         <td>
-          <button class="btn btn-danger" (click)="deleteShipperTariff(s.id)">Delete</button>
+          <button (click)="editTariff(i)">Edit</button>
+          <button (click)="deleteTariff(i)">Delete</button>
         </td>
       </tr>
     </tbody>
