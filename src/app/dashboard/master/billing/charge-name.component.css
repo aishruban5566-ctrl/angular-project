@@ -1,17 +1,105 @@
-/* src/app/dashboard/master/billing/charge-name.component.css */
-.cn-root { padding:12px; }
-.cn-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
-.cn-actions { display:flex; gap:8px; align-items:center; }
-.cn-actions input { padding:6px 8px; border-radius:6px; border:1px solid #d1d5db; }
+.container {
+  display: flex;
+  background: linear-gradient(to bottom, #ece3f0, #d3bbdd); /* Pewter → Lilac */
+  padding: 20px;
+  height: 100vh;
+  box-sizing: border-box;
+}
 
-.cn-grid { display:grid; grid-template-columns: 320px 1fr; gap:12px; }
+.form-section {
+  width: 25%;
+  background: linear-gradient(to bottom, #f8c0c8, #efe7d3); /* Rosewater → Ivory */
+  padding: 15px;
+  border: 2px solid #d3bbdd; /* Lilac border */
+  border-radius: 5px;
+  margin-right: 20px;
+}
 
-.panel { background:#fff; border:1px solid #eef2f6; padding:12px; border-radius:8px; }
-.form-actions { margin-top:10px; display:flex; gap:8px; }
+.form-section h3 {
+  color: #a8325f; /* Muted rose heading */
+  margin-bottom: 15px;
+}
 
-.list { list-style:none; padding:0; margin:0; }
-.list li { display:flex; justify-content:space-between; align-items:center; padding:10px 6px; border-bottom:1px solid #f1f5f9; }
-.list .left { display:flex; flex-direction:column; }
-.code { font-weight:600; }
-.desc { color:#6b7280; font-size:13px; }
-.empty { text-align:center; color:#6b7280; padding:14px 0; }
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  color: #3a2d4f; /* Dark lilac text */
+}
+
+.required {
+  color: #a8325f; /* Rosewater red tone */
+}
+
+input, select {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #d3bbdd; /* Lilac border */
+  border-radius: 3px;
+  background: #fff;
+}
+
+.button-group {
+  display: grid;
+  gap: 10px;
+}
+
+button {
+  background: linear-gradient(to bottom, #efe7d3, #d3bbdd); /* Ivory → Lilac */
+  border: 1px solid #a67cb7; /* Deeper lilac border */
+  padding: 5px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #3a2d4f;
+  font-weight: 500;
+}
+
+button:disabled {
+  background: #f0f0f0;
+  cursor: not-allowed;
+}
+
+.table-section {
+  flex: 1;
+  background: linear-gradient(to bottom, #ffffff, #ece3f0); /* White → Pewter */
+  border: 2px solid #d3bbdd; /* Lilac border */
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.table-section h3 {
+  color: #a8325f;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead th {
+  background: #efe7d3; /* Ivory header */
+  border: 1px solid #d3bbdd;
+  padding: 8px;
+  color: #3a2d4f;
+}
+
+tbody td {
+  border: 1px solid #d3bbdd;
+  padding: 8px;
+  text-align: center;
+  color: #3a2d4f;
+}
+
+tbody tr:hover {
+  background: #f8c0c8; /* Rosewater hover */
+  cursor: pointer;
+}
+
+.selected {
+  background: #d3bbdd !important; /* Lilac selected row */
+}

@@ -1,42 +1,103 @@
 .container {
-  padding: 20px;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom, #f8c0c8, #efe7d3); /* Rosewater → Ivory gradient */
+  padding: 10px;
 }
 
-h2 {
-  margin-bottom: 15px;
+.header {
+  background: #ece3f0; /* Pewter */
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
 }
 
-.form {
-  margin-bottom: 20px;
+.logo-bar {
+  text-align: center;
+  margin: 10px 0;
 }
 
-input {
-  margin: 5px;
-  padding: 6px;
+.logo-bar img {
+  height: 50px;
+}
+
+.menu {
+  background: linear-gradient(to bottom, #d3bbdd, #ece3f0); /* Lilac → Pewter gradient */
+  padding: 5px 10px;
+  display: flex;
+  gap: 20px;
+  font-weight: bold;
+}
+
+.form-card {
+  background: linear-gradient(to bottom, #d3bbdd, #ece3f0); /* Lilac → Pewter */
+  padding: 15px;
+  margin-top: 10px;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  color: #111; /* Dark text for readability */
 }
 
-button {
-  margin: 5px;
-  padding: 6px 12px;
-  border-radius: 5px;
+.form-card h3 {
+  margin-bottom: 10px;
+}
+
+.form-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.form-grid div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+input, textarea {
+  padding: 5px;
+  border: 1px solid #aaa;
+  border-radius: 3px;
+}
+
+textarea {
+  min-height: 50px;
+}
+
+.button-bar {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.button-bar button {
+  padding: 5px 15px;
   border: none;
+  border-radius: 5px;
+  background: #efe7d3; /* Ivory */
   cursor: pointer;
-}
-
-button:hover {
-  background-color: #007bff;
-  color: #fff;
 }
 
 table {
   width: 100%;
-  border-collapse: collapse;
   margin-top: 15px;
+  border-collapse: collapse;
+  background: #f8c0c8; /* Rosewater table background */
 }
 
-table, th, td {
+table td {
   border: 1px solid #ccc;
   padding: 8px;
+  text-align: center;
+  background-color: #ece3f0; /* Pewter cells */
+}
+
+table th {
+  background: #d3bbdd; /* Lilac headers */
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+.row:hover {
+  background-color: #efe7d3; /* Ivory hover */
 }

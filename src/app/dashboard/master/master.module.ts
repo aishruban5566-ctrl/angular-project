@@ -20,6 +20,7 @@ import { ItemHsEntryComponent } from './item-hs-entry/item-hs-entry.component';
 import { CompanyComponent } from './organization/company.component';
 import { DepartmentComponent } from './organization/department.component';
 import { DesignationComponent } from './organization/designation.component';
+import { EmployeeComponent } from './organization/employee.component';
 import { OrganizationComponent } from './organization/organization.component';
 
 /* Place */
@@ -35,13 +36,33 @@ import { PlaceComponent } from './place/place.component';
 
 
 /* Tariff */
-import { CarrierTariffComponent } from './tariff/carrier-tariff.component';
-import { ClientTariffComponent } from './tariff/client-tariff.component';
-import { ShipperTariffComponent } from './tariff/shipper-tariff.component';
 import { TariffComponent } from './tariff/tariff.component';
+import { RateTariffComponent } from './tariff/rate-tariff.component';
+import { ZoneTariffComponent } from './tariff/zone-tariff.component';
+import { ShipperTariffComponent } from './tariff/shipper-tariff.component';
 
 /* Unit of Measurement */
 import { UnitOfMeasurementComponent } from './unit-of-measurement/unit-of-measurement.component';
+
+/*Shipment*/
+import { ShipmentModule } from './shipment/shipment.module';
+
+/*Customer Details*/
+import { CustomerComponent } from './customer/customer.component';
+import { OriginCustomerComponent } from './customer/origin-customer.component';
+import { IndianCustomerComponent } from './customer/indian-customer.component';
+
+
+// Angular Material modules
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { CustomerModule } from './customer/customer.module';
+
+
 
 @NgModule({
   declarations: [
@@ -58,6 +79,7 @@ import { UnitOfMeasurementComponent } from './unit-of-measurement/unit-of-measur
     CompanyComponent,
     DepartmentComponent,
     DesignationComponent,
+    EmployeeComponent,
     OrganizationComponent,
 
     ClearanceLocationComponent,
@@ -67,21 +89,25 @@ import { UnitOfMeasurementComponent } from './unit-of-measurement/unit-of-measur
     DeliveryStateComponent,
     DestinationComponent,
     OriginBranchComponent,
+    
     ParentClientComponent,
     PlaceComponent,
 
-    CarrierTariffComponent,
-    ClientTariffComponent,
+    RateTariffComponent,
+    ZoneTariffComponent,
     ShipperTariffComponent,
     TariffComponent,
 
-    UnitOfMeasurementComponent
+    UnitOfMeasurementComponent,
+    
   ],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MasterRoutingModule
+    MasterRoutingModule,
+    ShipmentModule,
+    CustomerModule ,
   ]
 })
 export class MasterModule { }

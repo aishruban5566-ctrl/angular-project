@@ -6,9 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./tariff.component.css']
 })
 export class TariffComponent {
-  activeTab: string = 'carrier';
+  activeTab: 'rate' | 'zone' | 'shipper' = 'rate';
 
-  setTab(tab: string): void {
+  setTab(tab: 'rate' | 'zone' | 'shipper') {
     this.activeTab = tab;
   }
 }

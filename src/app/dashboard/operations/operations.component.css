@@ -1,11 +1,12 @@
 .ops-container {
   padding: 16px;
+  background: linear-gradient(to bottom, #f8c0c8, #efe7d3); /* Rosewater → Ivory */
 }
 
 .ops-title {
   font-size: 22px;
   font-weight: 700;
-  color: #2b2f36;
+  color: #6a4c78; /* Deep Lilac */
   margin-bottom: 14px;
 }
 
@@ -18,12 +19,12 @@
 
 .card {
   display: block;
-  background: #ffffff;
-  border: 1px solid #e8ebf0;
+  background: #ece3f0; /* Pewter */
+  border: 1px solid #d3bbdd; /* Lilac border */
   border-radius: 12px;
   padding: 16px;
   text-decoration: none;
-  color: #1e2430;
+  color: #4a3c47; /* Pewter text */
   box-shadow: 0 6px 16px rgba(0,0,0,0.06);
   transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
 }
@@ -31,26 +32,28 @@
 .card:hover {
   transform: translateY(-3px);
   box-shadow: 0 10px 22px rgba(0,0,0,0.08);
-  border-color: #cfd6e4;
+  border-color: #f8c0c8; /* Rosewater hover border */
 }
 
 .card-title {
   font-weight: 600;
   margin-bottom: 6px;
+  color: #6a4c78; /* Deep Lilac */
 }
 
 .card-sub {
   font-size: 13px;
-  color: #5a6473;
+  color: #5a6473; /* Pewter/soft text */
 }
 
 .card.active {
-  outline: 2px solid #6b8cff;
+  outline: 2px solid #d3bbdd; /* Lilac active border */
 }
 
 .ops-content {
-  background: #fff;
-  border: 1px solid #e8ebf0;
+  background: #fff5f7; /* Rosewater background */
+  border: 1px solid #d3bbdd; /* Lilac border */
   border-radius: 12px;
   padding: 16px;
+  color: #4a3c47; /* Pewter text */
 }

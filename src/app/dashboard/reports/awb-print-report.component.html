@@ -1,24 +1,40 @@
-<div class="report-container">
-  <h2>AWB Print Report</h2>
+<div class="page-root">
 
-  <form (ngSubmit)="generateReport()" #awbForm="ngForm" class="report-form">
-    <label for="awbNumber">Enter AWB Number:</label>
-    <input
-      type="text"
-      id="awbNumber"
-      name="awbNumber"
-      [(ngModel)]="awbNumber"
-      required
-      placeholder="Enter AWB..."
-    />
-    <button type="submit" [disabled]="!awbForm.form.valid">Generate</button>
-    <button type="button" (click)="clearForm()" class="secondary">Clear</button>
-  </form>
 
-  <div *ngIf="reportData" class="report-result">
-    <h3>Report Details</h3>
-    <p><strong>AWB Number:</strong> {{ reportData.awb }}</p>
-    <p><strong>Date:</strong> {{ reportData.date }}</p>
-    <p><strong>Status:</strong> {{ reportData.status }}</p>
-  </div>
+
+  <!-- content area with blue gradient -->
+  <main class="content-area">
+    <h1 class="page-title">HAWB PRINT REPORT</h1>
+
+    <section class="form-area">
+      <form [formGroup]="printReportForm" class="print-form" (ngSubmit)="$event.preventDefault()">
+        <div class="fields-row">
+          <label class="field">
+            <span>Billing Branch</span>
+            <select formControlName="billingBranch" aria-label="Billing Branch">
+              <option *ngFor="let b of branches" [value]="b">{{ b }}</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Billing Client</span>
+            <select formControlName="billingClient" aria-label="Billing Client">
+              <option *ngFor="let c of clients" [value]="c">{{ c }}</option>
+            </select>
+          </label>
+
+          <label class="field small">
+            <span>No of Copy</span>
+            <input type="number" formControlName="noOfCopy" min="1" aria-label="Number of copies" />
+          </label>
+        </div>
+
+        <div class="buttons-row">
+          <button type="button" class="btn primary" (click)="onCustomerPrint()">Customer Print</button>
+          <button type="button" class="btn primary" (click)="onEmptyPrint()">Empty Print</button>
+          <button type="button" class="btn secondary" (click)="onClear()">Clear</button>
+        </div>
+      </form>
+    </section>
+  </main>
 </div>

@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+
 import { OperationsRoutingModule } from './operations-routing.module';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { OperationsComponent } from './operations.component';
 import { AwbSalesEntryComponent } from './awb-sales-entry.component';
@@ -19,7 +20,8 @@ import { AwbDeleteComponent } from './awb-delete.component';
   ],
   imports: [
     CommonModule,
-    FormsModule,           // needed for [(ngModel)]
+    FormsModule,
+    ReactiveFormsModule,           // needed for [(ngModel)]
     OperationsRoutingModule,
   ],
 })

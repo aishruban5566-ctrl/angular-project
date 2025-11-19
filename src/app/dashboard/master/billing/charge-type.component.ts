@@ -1,12 +1,9 @@
-// src/app/dashboard/master/billing/charge-type.component.ts
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 interface ChargeType {
   id: number;
   name: string;
-  description?: string;
-  calculation: 'Flat' | 'Weight' | 'Percentage' | 'Other';
-  active: boolean;
 }
 
 @Component({
@@ -15,65 +12,54 @@ interface ChargeType {
   styleUrls: ['./charge-type.component.css']
 })
 export class ChargeTypeComponent implements OnInit {
-  types: ChargeType[] = [];
-  nextId = 1;
+  chargeForm!: FormGroup;
+  chargeTypes: ChargeType[] = [];
+  editIndex: number | null = null;
 
-  model: Partial<ChargeType> = { name: '', calculation: 'Flat', active: true };
-  editingId: number | null = null;
-  search = '';
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.types = [
-      { id: this.nextId++, name: 'Flat', description: 'Flat amount per shipment', calculation: 'Flat', active: true },
-      { id: this.nextId++, name: 'Weight', description: 'Calculated by weight', calculation: 'Weight', active: true },
-      { id: this.nextId++, name: 'Percentage', description: 'Percentage of base amount', calculation: 'Percentage', active: true }
+    this.chargeForm = this.fb.group({
+      name: ['', Validators.required]
+    });
+
+    // Preloaded values
+    this.chargeTypes = [
+      { id: 1, name: 'BANK CHARGES' },
+      { id: 2, name: 'BOOKING CHARGES' },
+      { id: 3, name: 'CO COURIER CHARGE' },
+      { id: 4, name: 'DELIVERY CHARGE' },
+      { id: 5, name: 'INSURANCE' },
+      { id: 6, name: 'TRANSPORT CHARGES' }
     ];
   }
 
-  save() {
-    if (!this.model.name) return;
-    if (this.editingId != null) {
-      const idx = this.types.findIndex(t => t.id === this.editingId);
-      if (idx !== -1) {
-        this.types[idx] = {
-          id: this.editingId,
-          name: this.model.name!,
-          description: this.model.description || '',
-          calculation: (this.model.calculation as any) || 'Other',
-          active: !!this.model.active
-        };
-      }
-      this.editingId = null;
-    } else {
-      this.types.push({
-        id: this.nextId++,
-        name: this.model.name!,
-        description: this.model.description || '',
-        calculation: (this.model.calculation as any) || 'Other',
-        active: !!this.model.active
-      });
-    }
-    this.reset();
+  onSave() {
+    if (this.chargeForm.invalid) return;
+    const newId = this.chargeTypes.length + 1;
+    this.chargeTypes.push({ id: newId, name: this.chargeForm.value.name });
+    this.chargeForm.reset();
   }
 
-  edit(t: ChargeType) {
-    this.editingId = t.id;
-    this.model = { ...t };
+  onUpdate() {
+    if (this.chargeForm.invalid || this.editIndex === null) return;
+    this.chargeTypes[this.editIndex].name = this.chargeForm.value.name;
+    this.editIndex = null;
+    this.chargeForm.reset();
   }
 
-  remove(t: ChargeType) {
-    this.types = this.types.filter(x => x.id !== t.id);
-    if (this.editingId === t.id) this.reset();
+  onDelete(index: number) {
+    this.chargeTypes.splice(index, 1);
+    this.chargeTypes = this.chargeTypes.map((c, i) => ({ id: i + 1, name: c.name }));
   }
 
-  reset() {
-    this.model = { name: '', calculation: 'Flat', active: true };
-    this.editingId = null;
+  onEdit(index: number) {
+    this.editIndex = index;
+    this.chargeForm.patchValue({ name: this.chargeTypes[index].name });
   }
 
-  get filtered() {
-    const q = (this.search || '').trim().toLowerCase();
-    if (!q) return this.types;
-    return this.types.filter(t => t.name.toLowerCase().includes(q) || (t.description || '').toLowerCase().includes(q));
+  onRefresh() {
+    this.chargeForm.reset();
+    this.editIndex = null;
   }
 }

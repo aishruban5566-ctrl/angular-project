@@ -1,59 +1,182 @@
-<div class="cl-container">
-  <div class="header-row">
-    <h2 class="title">Clients</h2>
-    <div class="actions">
-      <input class="search" placeholder="Search clients..." [(ngModel)]="searchText" (input)="goPage(1)">
-      <button class="btn primary" (click)="openAdd()">+ New Client</button>
-    </div>
+<div class="client-container">
+  <h3 class="title">CLIENT DETAILS</h3>
+
+  <!-- Form Section -->
+  <div class="form-section">
+    <form>
+      <div class="form-grid">
+        <!-- Left Column -->
+        <div>
+          <label>Branch Name <span class="req">*</span></label>
+          <select [(ngModel)]="client.branchName" name="branchName">
+            <option value="">-Select-</option>
+            <option *ngFor="let b of branches" [value]="b">{{ b }}</option>
+          </select>
+
+          <label>Client Name</label>
+          <input [(ngModel)]="client.clientName" name="clientName" />
+
+          <label>Client Country <span class="req">*</span></label>
+          <select [(ngModel)]="client.clientCountry" name="clientCountry">
+            <option value="">-Select-</option>
+            <option *ngFor="let c of countries" [value]="c">{{ c }}</option>
+          </select>
+
+          <label>Address1</label>
+          <input [(ngModel)]="client.address1" name="address1" />
+
+          <label>Client Pincode</label>
+          <input [(ngModel)]="client.pincode" name="pincode" />
+
+          <label>Contact No</label>
+          <input [(ngModel)]="client.contactNo" name="contactNo" />
+
+          <label>Operation Email</label>
+          <input [(ngModel)]="client.operationEmail" name="operationEmail" />
+
+          <label>CS Email ID</label>
+          <input [(ngModel)]="client.csEmail" name="csEmail" />
+
+          <label>Billing Email</label>
+          <input [(ngModel)]="client.billingEmail" name="billingEmail" />
+
+          <label>Credit Limit</label>
+          <input [(ngModel)]="client.creditLimit" name="creditLimit" type="number" />
+        </div>
+
+        <!-- Middle Column -->
+        <div>
+          <label>Organization Name</label>
+          <select [(ngModel)]="client.organizationName" name="organizationName">
+            <option value="">-Select-</option>
+            <option *ngFor="let o of orgs" [value]="o">{{ o }}</option>
+          </select>
+
+          <label>Client Code <span class="req">*</span></label>
+          <input [(ngModel)]="client.clientCode" name="clientCode" />
+
+          <label>Client State <span class="req">*</span></label>
+          <select [(ngModel)]="client.clientState" name="clientState">
+            <option value="">-Select-</option>
+            <option *ngFor="let s of states" [value]="s">{{ s }}</option>
+          </select>
+
+          <label>Address2</label>
+          <input [(ngModel)]="client.address2" name="address2" />
+
+          <label>Owner Email</label>
+          <input [(ngModel)]="client.ownerEmail" name="ownerEmail" />
+
+          <label>Contact Person</label>
+          <input [(ngModel)]="client.contactPerson" name="contactPerson" />
+
+          <label>PAN No</label>
+          <input [(ngModel)]="client.panNo" name="panNo" />
+
+          <label>GST No</label>
+          <input [(ngModel)]="client.gstNo" name="gstNo" />
+
+          <label>Opening Balance</label>
+          <input [(ngModel)]="client.openingBalance" name="openingBalance" />
+
+          <label>Credit Days</label>
+          <input [(ngModel)]="client.creditDays" name="creditDays" type="number" />
+        </div>
+
+        <!-- Right Column -->
+        <div>
+          <label>Address3</label>
+          <input [(ngModel)]="client.address3" name="address3" />
+
+          <label>Upload Client Contract Copy</label>
+          <input type="file" />
+
+          <label>Awb Prefix</label>
+          <input [(ngModel)]="client.awbPrefix" name="awbPrefix" />
+
+          <label>Active Status</label>
+          <select [(ngModel)]="client.activeStatus" name="activeStatus">
+            <option>YES</option>
+            <option>NO</option>
+          </select>
+
+          <label>GST Bill Status</label>
+          <select [(ngModel)]="client.gstBillStatus" name="gstBillStatus">
+            <option>YES</option>
+            <option>NO</option>
+          </select>
+
+          <label>Web Status</label>
+          <select [(ngModel)]="client.webStatus" name="webStatus">
+            <option>YES</option>
+            <option>NO</option>
+          </select>
+
+          <label>Payment Mode <span class="req">*</span></label>
+          <select [(ngModel)]="client.paymentMode" name="paymentMode">
+            <option value="">-Select-</option>
+            <option>Cash</option>
+            <option>Credit</option>
+            <option>Online</option>
+          </select>
+
+          <label>Total Credit Amount</label>
+          <input [(ngModel)]="client.totalCredit" name="totalCredit" type="number" />
+
+          <label>User Name <span class="req">*</span></label>
+          <input [(ngModel)]="client.userName" name="userName" />
+
+          <label>Password <span class="req">*</span></label>
+          <input [(ngModel)]="client.password" name="password" type="password" />
+        </div>
+      </div>
+    </form>
   </div>
 
-  <div class="summary">Found <strong>{{ filtered().length }}</strong> clients</div>
+  <!-- Buttons -->
+  <div class="button-group">
+    <button (click)="save()">Save</button>
+    <button (click)="update()">Update</button>
+    <button (click)="delete()">Delete</button>
+    <button (click)="refresh()">Refresh</button>
+    <button (click)="export()">Export</button>
+  </div>
 
-  <div class="table-wrap">
-    <table class="styled-table">
-      <thead><tr><th>#</th><th>Code</th><th>Name</th><th>Short</th><th>Email</th><th>Active</th><th class="actions-col">Actions</th></tr></thead>
-      <tbody>
-        <tr *ngFor="let c of paged(); let i = index" [class.inactive]="!c.active">
-          <td>{{ (page-1)*pageSize + i + 1 }}</td>
-          <td>{{ c.code }}</td>
-          <td>{{ c.name }}</td>
-          <td>{{ c.shortName || '—' }}</td>
-          <td>{{ c.email || '—' }}</td>
-          <td><span class="badge" [class.off]="!c.active">{{ c.active ? 'Yes' : 'No' }}</span></td>
-          <td class="actions-col">
-            <button class="btn small" (click)="openEdit(c)">Edit</button>
-            <button class="btn small danger" (click)="confirmDelete(c.id)">Delete</button>
-          </td>
+  <!-- Table Section -->
+  <div class="table-section">
+    <table>
+      <thead>
+        <tr>
+          <th>SL.N</th>
+          <th>Branch Name</th>
+          <th>Client Name</th>
+          <th>Client Code</th>
+          <th>State</th>
+          <th>Country</th>
+          <th>Contact Person</th>
+          <th>PAN No</th>
+          <th>GST No</th>
+          <th>Credit Limit</th>
+          <th>Credit Days</th>
+          <th>Payment Mode</th>
         </tr>
-        <tr *ngIf="paged().length===0"><td colspan="7" class="empty">No clients found.</td></tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of clientList; let i=index" (click)="selectRow(c)">
+          <td>{{ i+1 }}</td>
+          <td>{{ c.branchName }}</td>
+          <td>{{ c.clientName }}</td>
+          <td>{{ c.clientCode }}</td>
+          <td>{{ c.clientState }}</td>
+          <td>{{ c.clientCountry }}</td>
+          <td>{{ c.contactPerson }}</td>
+          <td>{{ c.panNo }}</td>
+          <td>{{ c.gstNo }}</td>
+          <td>{{ c.creditLimit }}</td>
+          <td>{{ c.creditDays }}</td>
+          <td>{{ c.paymentMode }}</td>
+        </tr>
       </tbody>
     </table>
   </div>
-
-  <div class="pagination" *ngIf="totalPages()>1">
-    <button class="btn mini" [disabled]="page===1" (click)="goPage(page-1)">Prev</button>
-    <button class="btn mini" *ngFor="let n of pages()" (click)="goPage(n)" [class.active]="page===n">{{ n }}</button>
-    <button class="btn mini" [disabled]="page===totalPages()" (click)="goPage(page+1)">Next</button>
-  </div>
-
-  <!-- modal & confirm (same as before) -->
-  <div class="modal-backdrop" *ngIf="isModalOpen" (click)="closeModal()"></div>
-  <div class="modal" *ngIf="isModalOpen">
-    <div class="modal-card" (click)="$event.stopPropagation()">
-      <div class="modal-header"><h3>{{ isEditing ? 'Edit Client' : 'Add Client' }}</h3><button class="close" (click)="closeModal()">&times;</button></div>
-      <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <div class="modal-body">
-          <div class="form-row"><label class="label">Code <span class="req">*</span></label><input formControlName="code"></div>
-          <div class="form-row"><label class="label">Name <span class="req">*</span></label><input formControlName="name"></div>
-          <div class="form-row"><label class="label">Short Name</label><input formControlName="shortName"></div>
-          <div class="form-row"><label class="label">Email</label><input formControlName="email" type="email"></div>
-          <div class="form-row inline"><label class="label">Active</label><label class="switch"><input type="checkbox" formControlName="active"><span class="slider"></span></label></div>
-        </div>
-        <div class="modal-footer"><button class="btn primary" type="submit" [disabled]="form.invalid">{{ isEditing ? 'Update' : 'Create' }}</button><button class="btn secondary" type="button" (click)="closeModal()">Cancel</button></div>
-      </form>
-    </div>
-  </div>
-
-  <div class="modal-backdrop" *ngIf="isConfirmOpen" (click)="cancelDelete()"></div>
-  <div class="confirm-modal" *ngIf="isConfirmOpen"><div class="confirm-card"><h4>Confirm delete</h4><p>Delete this client?</p><div class="confirm-actions"><button class="btn danger" (click)="performDelete()">Delete</button><button class="btn secondary" (click)="cancelDelete()">Cancel</button></div></div></div>
 </div>

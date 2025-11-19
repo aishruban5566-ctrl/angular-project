@@ -6,6 +6,7 @@
     <button [class.active]="activeTab === 'company'" (click)="setTab('company')">Company</button>
     <button [class.active]="activeTab === 'department'" (click)="setTab('department')">Department</button>
     <button [class.active]="activeTab === 'designation'" (click)="setTab('designation')">Designation</button>
+    <button [class.active]="activeTab === 'employee'" (click)="setTab('employee')">Employee</button>
   </div>
 
   <!-- Tab Content -->
@@ -13,5 +14,6 @@
     <app-company *ngIf="activeTab === 'company'"></app-company>
     <app-department *ngIf="activeTab === 'department'"></app-department>
     <app-designation *ngIf="activeTab === 'designation'"></app-designation>
+    <app-employee *ngIf="activeTab==='employee'"></app-employee>
   </div>
 </div>

@@ -1,5 +1,6 @@
 .place-container {
   padding: 20px;
+  background: #ece3f0; /* Pewter background */
 }
 
 .tiles {
@@ -9,8 +10,8 @@
 }
 
 .tile {
-  background: #fff;
-  border: 1px solid #e3e3e3;
+  background: #fff; /* Keep tiles white for contrast */
+  border: 1px solid #d3bbdd; /* Lilac border for subtle accent */
   border-radius: 8px;
   padding: 16px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
@@ -18,16 +19,17 @@
 }
 
 .btn-open {
-  background: #007bff;
+  background: #f8c0c8; /* Rosewater button */
   border: none;
   padding: 8px 16px;
-  color: #fff;
+  color: #111827; /* Dark text for readability */
   border-radius: 6px;
   cursor: pointer;
+  transition: background 0.3s;
 }
 
 .btn-open:hover {
-  background: #0056b3;
+  background: #d3bbdd; /* Lilac hover */
 }
 
 .child-popup {
@@ -35,7 +37,7 @@
   padding: 20px;
   border: 1px solid #dcdcdc;
   border-radius: 8px;
-  background: #f9f9f9;
+  background: #efe7d3; /* Ivory background */
 }
 
 .close-btn {

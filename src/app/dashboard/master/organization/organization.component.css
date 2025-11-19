@@ -1,5 +1,6 @@
 .container {
   padding: 20px;
+  background-color: #ece3f0; /* Pewter background applied */
 }
 
 h2 {
@@ -14,15 +15,16 @@ h2 {
 .tabs button {
   padding: 8px 16px;
   border: 1px solid #ccc;
-  background-color: #f8f9fa;
+  background-color: #d3bbdd; /* Lilac as button bg for softer contrast */
   cursor: pointer;
   margin-right: 5px;
   border-radius: 5px;
+  color: #111; /* dark text for readability */
 }
 
 .tabs button.active {
-  background-color: #007bff;
-  color: white;
+  background-color: #f8c0c8; /* Rosewater for active tab */
+  color: #111827;             /* Dark text on active tab */
   font-weight: bold;
 }
 
@@ -30,5 +32,5 @@ h2 {
   border: 1px solid #ccc;
   padding: 15px;
   border-radius: 5px;
-  background: #fff;
+  background-color: #efe7d3; /* Ivory for content background */
 }

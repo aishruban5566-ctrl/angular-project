@@ -1,39 +1,50 @@
 .tariff-container {
-  max-width: 1000px;
-  margin: auto;
   padding: 20px;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom, #f8c0c8, #efe7d3); /* Rosewater → Ivory */
 }
 
-h2 {
+.title {
   text-align: center;
+  font-size: 22px;
+  font-weight: bold;
   margin-bottom: 20px;
+  color: #6a4c78; /* Deep Lilac */
 }
 
-.tab-nav {
+.tab-buttons {
   display: flex;
   justify-content: center;
-  gap: 15px;
   margin-bottom: 20px;
 }
 
-.tab-nav button {
-  padding: 8px 16px;
+.tab-btn {
+  background: #ece3f0; /* Pewter */
   border: none;
+  padding: 10px 20px;
+  margin: 0 5px;
+  font-size: 14px;
+  font-weight: 500;
   border-radius: 6px;
   cursor: pointer;
-  background-color: #e9ecef;
-  font-weight: 600;
-  transition: all 0.2s;
+  transition: 0.3s;
+  color: #4a3c47; /* Neutral dark text */
 }
 
-.tab-nav button.active {
-  background-color: #007bff;
+.tab-btn:hover {
+  background: #d3bbdd; /* Lilac on hover */
+  color: #fff;
+}
+
+.tab-btn.active {
+  background: #7bc67b; /* Soft green for active */
   color: white;
 }
 
-.tab-content {
-  border: 1px solid #ddd;
-  padding: 15px;
+.content-box {
+  border: 1px solid #d3bbdd; /* Lilac border */
   border-radius: 8px;
-  background: #fff;
+  padding: 20px;
+  background: #ece3f0; /* Pewter */
+  color: #4a3c47; /* Neutral dark text */
 }

@@ -1,35 +1,95 @@
 <div class="container">
-  <h2>Company Management</h2>
 
-  <form (ngSubmit)="saveCompany()" class="form">
-    <input type="text" placeholder="Company Name" [(ngModel)]="newCompany.name" name="name" required>
-    <input type="text" placeholder="Code" [(ngModel)]="newCompany.code" name="code" required>
-    <input type="text" placeholder="Address" [(ngModel)]="newCompany.address" name="address">
+  <div class="form-card">
+    <h3>Company</h3>
 
-    <button type="submit">{{ editing ? 'Update' : 'Add' }} Company</button>
-    <button type="button" (click)="cancel()">Cancel</button>
-  </form>
+    <form [formGroup]="companyForm">
+      <div class="form-grid">
+        <!-- Left -->
+        <div>
+          <label>Name <span class="req">*</span></label>
+          <input formControlName="name" type="text" />
 
+          <label>Code <span class="req">*</span></label>
+          <input formControlName="code" type="text" />
+
+          <label>Logo <span class="req">*</span></label>
+          <input formControlName="logo" type="file" />
+
+          <label>Year of Established</label>
+          <input formControlName="year" type="text" />
+
+          <label>Bank Name</label>
+          <input formControlName="bankName" type="text" />
+
+          <label>Bank Acc No</label>
+          <input formControlName="bankAccNo" type="text" />
+
+          <label>SWIFT Code</label>
+          <input formControlName="swiftCode" type="text" />
+        </div>
+
+        <!-- Middle -->
+        <div>
+          <label>Address</label>
+          <textarea formControlName="address"></textarea>
+
+          <label>Phone No</label>
+          <input formControlName="phoneNumber" type="text" />
+
+          <label>Branch Name</label>
+          <input formControlName="branchName" type="text" />
+
+          <label>IFSC Code</label>
+          <input formControlName="ifscCode" type="text" />
+        </div>
+
+        <!-- Right -->
+        <div>
+          <label>Website</label>
+          <input formControlName="website" type="text" />
+
+          <label>Mail Id</label>
+          <input formControlName="email" type="email" />
+
+          <label>Tin Number</label>
+          <input formControlName="tinNumber" type="text" />
+
+          <label>PAN Number</label>
+          <input formControlName="panNumber" type="text" />
+
+          <label>Bank Address</label>
+          <textarea formControlName="bankAddress"></textarea>
+        </div>
+      </div>
+    </form>
+
+    <div class="button-bar">
+      <button (click)="save()">Save</button>
+      <button (click)="update()">Update</button>
+      <button (click)="delete()">Delete</button>
+      <button (click)="refresh()">Refresh</button>
+    </div>
+  </div>
+
+  <!-- Table -->
   <table>
     <thead>
       <tr>
-        <th>#</th>
-        <th>Company Name</th>
-        <th>Code</th>
+        <th>Sl.NO</th>
+        <th>OrganizationName</th>
+        <th>OrganizationCode</th>
+        <th>PhoneNumber</th>
         <th>Address</th>
-        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let c of companies">
-        <td>{{ c.id }}</td>
-        <td>{{ c.name }}</td>
-        <td>{{ c.code }}</td>
+      <tr *ngFor="let c of companies; let i = index" (click)="selectRow(i, c)" class="row">
+        <td>{{ i + 1 }}</td>
+        <td>{{ c.organizationName }}</td>
+        <td>{{ c.organizationCode }}</td>
+        <td>{{ c.phoneNumber }}</td>
         <td>{{ c.address }}</td>
-        <td>
-          <button (click)="editCompany(c)">Edit</button>
-          <button (click)="deleteCompany(c.id)">Delete</button>
-        </td>
       </tr>
     </tbody>
   </table>

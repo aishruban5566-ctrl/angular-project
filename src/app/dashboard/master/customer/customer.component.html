@@ -1,0 +1,23 @@
+<div class="customer-container">
+  <nav>
+    <button 
+      [class.active]="activeTab === 'Origin'" 
+      (click)="activeTab = 'Origin'">
+      Origin Customer
+    </button>
+
+    <button 
+      [class.active]="activeTab === 'Indian'" 
+      (click)="activeTab = 'Indian'">
+      Indian Customer
+    </button>
+  </nav>
+
+  <div class="content" *ngIf="activeTab === 'Origin'">
+    <app-origin-customer></app-origin-customer>
+  </div>
+
+  <div class="content" *ngIf="activeTab === 'Indian'">
+    <app-indian-customer></app-indian-customer>
+  </div>
+</div>

@@ -1,0 +1,155 @@
+<div class="employee-container">
+  <h2>Employee Management</h2>
+
+  <!-- Employee Form -->
+  <form class="employee-form" #empForm="ngForm">
+    <div class="form-grid">
+      <div>
+        <label>Employee Name <span class="req">*</span></label>
+        <input type="text" [(ngModel)]="employee.employeeName" name="employeeName" required />
+      </div>
+
+      <div>
+        <label>Organization <span class="req">*</span></label>
+        <select [(ngModel)]="employee.organization" name="organization" required>
+          <option value="">-- Select --</option>
+          <option *ngFor="let org of organizations" [value]="org">{{ org }}</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Designation <span class="req">*</span></label>
+        <select [(ngModel)]="employee.designation" name="designation" required>
+          <option value="">-- Select --</option>
+          <option *ngFor="let des of designations" [value]="des">{{ des }}</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Department <span class="req">*</span></label>
+        <select [(ngModel)]="employee.department" name="department" required>
+          <option value="">-- Select --</option>
+          <option *ngFor="let dep of departments" [value]="dep">{{ dep }}</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Location Type <span class="req">*</span></label>
+        <select [(ngModel)]="employee.location" name="location" required>
+          <option value="">-- Select --</option>
+          <option *ngFor="let loc of locations" [value]="loc">{{ loc }}</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Country</label>
+        <select [(ngModel)]="employee.country" name="country">
+          <option *ngFor="let c of countries" [value]="c">{{ c }}</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Work Location</label>
+        <select [(ngModel)]="employee.workLocation" name="workLocation">
+          <option *ngFor="let wl of workLocations" [value]="wl">{{ wl }}</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Email Id</label>
+        <input type="email" [(ngModel)]="employee.email" name="email" />
+      </div>
+
+      <div>
+        <label>Mobile Number</label>
+        <input type="text" [(ngModel)]="employee.mobile" name="mobile" />
+      </div>
+
+      <div>
+        <label>Address</label>
+        <input type="text" [(ngModel)]="employee.address" name="address" />
+      </div>
+
+      <div>
+        <label>Gender</label>
+        <div class="gender-group">
+          <input type="radio" [(ngModel)]="employee.gender" name="gender" value="Male" /> Male
+          <input type="radio" [(ngModel)]="employee.gender" name="gender" value="Female" /> Female
+        </div>
+      </div>
+
+      <div>
+        <label>Date Of Birth</label>
+        <input type="date" [(ngModel)]="employee.dob" name="dob" />
+      </div>
+
+      <div>
+        <label>Date Of Joining</label>
+        <input type="date" [(ngModel)]="employee.doj" name="doj" />
+      </div>
+
+      <div>
+        <label>User Name</label>
+        <input type="text" [(ngModel)]="employee.username" name="username" />
+      </div>
+
+      <div>
+        <label>Password</label>
+        <input type="password" [(ngModel)]="employee.password" name="password" />
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="form-buttons">
+      <button type="button" (click)="save()">Save</button>
+      <button type="button" (click)="update()">Update</button>
+      <button type="button" (click)="delete()">Delete</button>
+      <button type="button" (click)="refresh()">Refresh</button>
+      <button type="button" (click)="export()">Export</button>
+    </div>
+  </form>
+
+  <!-- Employee Table -->
+ <div class="table-wrapper">
+  <table class="employee-table" >
+    <thead>
+      <tr>
+        <th>Sl No</th>
+        <th>Employee Name</th>
+        <th>Organization</th>
+        <th>Designation</th>
+        <th>Department</th>
+        <th>Location</th>
+        <th>Country</th>
+        <th>Work Location</th>
+        <th>Gender</th>
+        <th>Date Of Birth</th>
+        <th>Date Of Joining</th>
+        <th>Email</th>
+        <th>Mobile</th>
+        <th>Address</th>
+        <th>User Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let emp of employees; let i = index" (click)="edit(emp)">
+        <td>{{ i+1 }}</td>
+        <td>{{ emp.employeeName }}</td>
+        <td>{{ emp.organization }}</td>
+        <td>{{ emp.designation }}</td>
+        <td>{{ emp.department }}</td>
+        <td>{{ emp.location }}</td>
+        <td>{{ emp.country }}</td>
+        <td>{{ emp.workLocation }}</td>
+        <td>{{ emp.gender }}</td>
+        <td>{{ emp.dob }}</td>
+        <td>{{ emp.doj }}</td>
+        <td>{{ emp.email }}</td>
+        <td>{{ emp.mobile }}</td>
+        <td>{{ emp.address }}</td>
+        <td>{{ emp.username }}</td>
+      </tr>
+    </tbody>
+  </table>
+ </div> 
+</div>

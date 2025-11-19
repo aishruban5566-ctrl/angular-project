@@ -1,0 +1,119 @@
+.airlines-container {
+  background: linear-gradient(to bottom, #f8c0c8, #efe7d3); /* Rosewater → Ivory */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+  font-family: Arial, sans-serif;
+}
+
+.title {
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+  color: #6a4c78; /* Deep Lilac */
+  margin-bottom: 20px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px 25px;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #4a3c47; /* Dark neutral */
+}
+
+input, select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #d3bbdd; /* Lilac border */
+  border-radius: 6px;
+  font-size: 14px;
+  background: #ece3f0; /* Pewter background */
+  color: #4a3c47;
+}
+
+.required {
+  color: red;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.btn-group button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-group button:nth-child(1) { background: #f8c0c8; color: #fff; } /* Rosewater */
+.btn-group button:nth-child(2) { background: #d3bbdd; color: #fff; } /* Lilac */
+.btn-group button:nth-child(3) { background: #bba3b5; color: #fff; } /* Soft Lilac variant */
+.btn-group button:nth-child(4) { background: #ece3f0; color: #4a3c47; } /* Pewter */
+
+.btn-group button:hover {
+  opacity: 0.85;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  background: #ece3f0; /* Pewter table background */
+}
+
+.data-table th, .data-table td {
+  border: 1px solid #d3bbdd; /* Lilac border */
+  padding: 10px;
+  text-align: center;
+}
+
+.data-table th {
+  background: #d3bbdd; /* Lilac header */
+  color: #4a3c47;
+  font-weight: 600;
+}
+
+.data-table tr:nth-child(even) {
+  background: #f8c0c8; /* Rosewater row */
+}
+
+.data-table tr:nth-child(odd) {
+  background: #efe7d3; /* Ivory row */
+}
+
+.data-table tr:hover {
+  background: #d3bbdd; /* Lilac hover */
+}
+
+.edit {
+  background: #d3bbdd; /* Lilac */
+  border: none;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete {
+  background: #f8c0c8; /* Rosewater */
+  border: none;
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 5px;
+}

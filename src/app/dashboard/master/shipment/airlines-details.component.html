@@ -1,0 +1,76 @@
+<div class="airlines-container">
+  <h2 class="title">Airlines Details</h2>
+
+  <form class="form-grid">
+    <div>
+      <label>Transit Type <span class="required">*</span></label>
+      <select [(ngModel)]="newAirline.transitType" name="transitType">
+        <option value="">-- Select --</option>
+        <option value="Air">Air</option>
+        <option value="Sea">Sea</option>
+      </select>
+    </div>
+
+    <div>
+      <label>MAWB Code</label>
+      <input type="text" [(ngModel)]="newAirline.mawbCode" name="mawbCode" />
+    </div>
+
+    <div>
+      <label>Website URL</label>
+      <input type="text" [(ngModel)]="newAirline.website" name="website" />
+    </div>
+
+    <div>
+      <label>Company Name <span class="required">*</span></label>
+      <input type="text" [(ngModel)]="newAirline.companyName" name="companyName" />
+    </div>
+
+    <div>
+      <label>Airlines Code <span class="required">*</span></label>
+      <input type="text" [(ngModel)]="newAirline.airlineCode" name="airlineCode" />
+    </div>
+
+    <div>
+      <label>Phone No</label>
+      <input type="text" [(ngModel)]="newAirline.phone" name="phone" />
+    </div>
+  </form>
+
+  <div class="btn-group">
+    <button (click)="saveAirline()">Save</button>
+    <button (click)="updateAirline()">Update</button>
+    <button (click)="deleteAirline(newAirline.id)" [disabled]="!newAirline.id">Delete</button>
+    <button (click)="resetForm()">Refresh</button>
+  </div>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Sl No</th>
+        <th>Type</th>
+        <th>Airlines/Shipment Name</th>
+        <th>MAWB Code</th>
+        <th>Air/Sea Code</th>
+        <th>Website</th>
+        <th>Phone</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let airline of airlines; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ airline.transitType }}</td>
+        <td>{{ airline.companyName }}</td>
+        <td>{{ airline.mawbCode }}</td>
+        <td>{{ airline.airlineCode }}</td>
+        <td>{{ airline.website }}</td>
+        <td>{{ airline.phone }}</td>
+        <td>
+          <button class="edit" (click)="editAirline(airline)">Edit</button>
+          <button class="delete" (click)="deleteAirline(airline.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

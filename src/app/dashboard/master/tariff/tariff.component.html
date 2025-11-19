@@ -1,23 +1,38 @@
 <div class="tariff-container">
-  <h2>Tariff Management</h2>
+  <h2 class="title">Tariff Management</h2>
 
-  <!-- Navigation Tabs -->
-  <div class="tab-nav">
-    <button [class.active]="activeTab === 'carrier'" (click)="setTab('carrier')">
-      Carrier Tariff
+  <!-- Tab Buttons -->
+  <div class="tab-buttons">
+    <button 
+      class="tab-btn" 
+      [class.active]="activeTab === 'rate'" 
+      (click)="setTab('rate')">
+      Rate Tariff
     </button>
-    <button [class.active]="activeTab === 'client'" (click)="setTab('client')">
-      Client Tariff
+    <button 
+      class="tab-btn" 
+      [class.active]="activeTab === 'zone'" 
+      (click)="setTab('zone')">
+      Zone Tariff
     </button>
-    <button [class.active]="activeTab === 'shipper'" (click)="setTab('shipper')">
+    <button 
+      class="tab-btn" 
+      [class.active]="activeTab === 'shipper'" 
+      (click)="setTab('shipper')">
       Shipper Tariff
     </button>
   </div>
 
-  <!-- Dynamic Content -->
-  <div class="tab-content">
-    <app-carrier-tariff *ngIf="activeTab === 'carrier'"></app-carrier-tariff>
-    <app-client-tariff *ngIf="activeTab === 'client'"></app-client-tariff>
-    <app-shipper-tariff *ngIf="activeTab === 'shipper'"></app-shipper-tariff>
+  <!-- Dynamic Section -->
+  <div class="content-box">
+    <div *ngIf="activeTab === 'rate'">
+      <app-rate-tariff></app-rate-tariff>
+    </div>
+    <div *ngIf="activeTab === 'zone'">
+      <app-zone-tariff></app-zone-tariff>
+    </div>
+    <div *ngIf="activeTab === 'shipper'">
+      <app-shipper-tariff></app-shipper-tariff>
+    </div>
   </div>
 </div>

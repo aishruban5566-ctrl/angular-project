@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 interface ShipperTariff {
-  id: number;
-  shipperName: string;
-  tariffCode: string;
-  description: string;
-  effectiveDate: string;
+  country: string;
+  client: string;
+  service: string;
+  zoneTariff: string;
+  rateTariff: string;
 }
 
 @Component({
@@ -14,56 +14,44 @@ interface ShipperTariff {
   templateUrl: './shipper-tariff.component.html',
   styleUrls: ['./shipper-tariff.component.css']
 })
-export class ShipperTariffComponent implements OnInit {
-  tariffForm!: FormGroup;
-  tariffs: ShipperTariff[] = [];
-  editingIndex: number | null = null;
+export class ShipperTariffComponent {
+  shipperForm: FormGroup;
+  shipperTariffs: ShipperTariff[] = [];
 
-  constructor(private fb: FormBuilder) {}
+  countries = ['India', 'USA', 'UK', 'Germany', 'Japan'];
+  clients = ['Client A', 'Client B', 'Client C'];
+  services = ['Air', 'Sea', 'Road'];
+  zoneTariffs = ['Zone 1', 'Zone 2', 'Zone 3'];
+  rateTariffs = ['120', '68', '200'];
 
-  ngOnInit(): void {
-    this.tariffForm = this.fb.group({
-      shipperName: ['', Validators.required],
-      tariffCode: ['', Validators.required],
-      description: [''],
-      effectiveDate: ['', Validators.required]
+  constructor(private fb: FormBuilder) {
+    this.shipperForm = this.fb.group({
+      country: ['', Validators.required],
+      client: ['', Validators.required],
+      service: ['', Validators.required],
+      zoneTariff: ['', Validators.required],
+      rateTariff: ['', Validators.required]
     });
   }
 
-  onSubmit(): void {
-    if (this.tariffForm.invalid) return;
-
-    if (this.editingIndex !== null) {
-      this.tariffs[this.editingIndex] = {
-        id: this.tariffs[this.editingIndex].id,
-        ...this.tariffForm.value
-      };
-      this.editingIndex = null;
-    } else {
-      this.tariffs.push({
-        id: this.tariffs.length + 1,
-        ...this.tariffForm.value
-      });
-    }
-
-    this.tariffForm.reset();
-  }
-
-  editTariff(index: number): void {
-    this.editingIndex = index;
-    this.tariffForm.patchValue(this.tariffs[index]);
-  }
-
-  deleteTariff(index: number): void {
-    this.tariffs.splice(index, 1);
-    if (this.editingIndex === index) {
-      this.editingIndex = null;
-      this.tariffForm.reset();
+  add() {
+    if (this.shipperForm.valid) {
+      this.shipperTariffs.push(this.shipperForm.value);
+      this.shipperForm.reset();
     }
   }
 
-  resetForm(): void {
-    this.editingIndex = null;
-    this.tariffForm.reset();
+  update() {
+    alert('Update functionality to be implemented');
+  }
+
+  delete() {
+    if (this.shipperTariffs.length > 0) {
+      this.shipperTariffs.pop();
+    }
+  }
+
+  clear() {
+    this.shipperForm.reset();
   }
 }

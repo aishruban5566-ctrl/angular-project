@@ -1,7 +1,103 @@
-.box { padding: 20px; background: #f0f9ff; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
-.form { display: grid; gap: 10px; margin-bottom: 20px; }
-input { padding: 6px; border: 1px solid #ccc; border-radius: 4px; }
-button { padding: 6px 12px; background: #17a2b8; color: white; border: none; border-radius: 4px; cursor: pointer; }
-button:hover { background: #11707f; }
-table { width: 100%; border-collapse: collapse; }
-td, th { border: 1px solid #ccc; padding: 8px; }
+.awb-screen {
+  background: linear-gradient(to bottom, #f8c0c8, #efe7d3); /* Rosewater → Ivory */
+  min-height: 100vh;
+  padding: 16px;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.title {
+  text-align: center;
+  font-weight: 700;
+  color: #6a4c78; /* Deep Lilac title */
+  font-size: 22px;
+  margin-bottom: 14px;
+  text-shadow: 0 1px 0 #fff5f7; /* Soft Rosewater shadow */
+}
+
+.block {
+  background: #ece3f0; /* Pewter block background */
+  border: 1px solid #d3bbdd; /* Lilac border */
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.panel-title {
+  background: #d3bbdd; /* Lilac panel header */
+  color: #0a2a56; /* Pewter text */
+  font-weight: 600;
+  text-align: center;
+  padding: 6px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+.panel-title.orange { background: #f8c0c8; /* Rosewater accent */ }
+
+.row {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 12px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.cols-2 { grid-template-columns: repeat(2, 1fr); }
+.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+.lbl {
+  font-weight: 600;
+  font-size: 12px;
+  color: #4a3c47; /* Pewter label text */
+}
+.lbl-ml{
+  font-weight: 600;
+  font-size: 13px;
+  color: #4a3c47;
+  margin-bottom: -50px;
+}
+.req::after { content: " *"; color: #b01616; } /* Red asterisk */
+
+.inp {
+  border: 1px solid #d3bbdd; /* Lilac border */
+  border-radius: 4px;
+  padding: 5px 8px;
+  width: 95%;
+  background: #fff5f7; /* Rosewater input background */
+}
+.inp:focus { border-color: #6a4c78; outline: none; } /* Deep Lilac focus */
+
+.textarea { resize: vertical; }
+
+.radio {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  gap: 4px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.btn {
+  background: #d3bbdd; /* Lilac buttons */
+  color: #0a2a56;      /* Pewter text */
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn:hover { background: #6a4c78; } /* Deep Lilac hover */
+
+.unhold{
+  margin-bottom: -38px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  gap: 4px;
+}

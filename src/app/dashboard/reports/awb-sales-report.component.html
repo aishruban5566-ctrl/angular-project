@@ -1,46 +1,142 @@
-<div class="sales-report-container">
-  <h2>AWB Sales Report</h2>
+<div class="page-container">
 
-  <form (ngSubmit)="generateSalesReport()" #salesForm="ngForm" class="sales-form">
-    <label for="fromDate">From:</label>
-    <input
-      type="date"
-      id="fromDate"
-      name="fromDate"
-      [(ngModel)]="fromDate"
-      required
-    />
 
-    <label for="toDate">To:</label>
-    <input
-      type="date"
-      id="toDate"
-      name="toDate"
-      [(ngModel)]="toDate"
-      required
-    />
+  <!-- Filter Section -->
+  <div class="filter-section">
+    <h3>HAWB SALES REPORT</h3>
+    <form [formGroup]="reportForm">
+      <div class="filter-grid">
+        <div>
+          <label>From Date</label>
+          <input type="date" formControlName="fromDate" />
+        </div>
+        <div>
+          <label>To Date</label>
+          <input type="date" formControlName="toDate" />
+        </div>
+        <div>
+          <label>Origin Branch</label>
+          <select formControlName="originBranch">
+            <option>AGARTALA</option>
+            <option>All</option>
+          </select>
+        </div>
+        <div>
+          <label>Billing Branch</label>
+          <select formControlName="billingBranch">
+            <option>All</option>
+          </select>
+        </div>
+        <div>
+          <label>Billing Client</label>
+          <select formControlName="billingClient">
+            <option>All</option>
+          </select>
+        </div>
+        <div>
+          <label>Destination Loc</label>
+          <select formControlName="destinationLoc">
+            <option>All</option>
+          </select>
+        </div>
+        <div>
+          <label>Service Type</label>
+          <select formControlName="serviceType">
+            <option>All</option>
+          </select>
+        </div>
+        <div>
+          <label>Document Type</label>
+          <select formControlName="documentType">
+            <option>All</option>
+          </select>
+        </div>
+        <div>
+          <label>Payment Mode</label>
+          <select formControlName="paymentMode">
+            <option>All</option>
+          </select>
+        </div>
+      </div>
 
-    <button type="submit" [disabled]="!salesForm.form.valid">Generate</button>
-    <button type="button" (click)="clearReport()" class="secondary">Clear</button>
-  </form>
+      <div class="filter-buttons">
+        <button type="button" (click)="showReport()">Show</button>
+        <button type="button" (click)="exportReport()">Export</button>
+      </div>
+    </form>
+  </div>
 
-  <div *ngIf="salesData.length > 0" class="sales-result">
-    <h3>Sales Report Data</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Date</th>
-          <th>Amount (₹)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let s of salesData">
-          <td>{{ s.id }}</td>
-          <td>{{ s.date }}</td>
-          <td>{{ s.amount | number }}</td>
-        </tr>
-      </tbody>
-    </table>
+  <!-- Report Table & Summary -->
+  <div class="report-content">
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Sl.No</th>
+            <th>AWB Date</th>
+            <th>AWB No</th>
+            <th>Billing Client</th>
+            <th>Shipper Name</th>
+            <th>Origin</th>
+            <th>Consignee Name</th>
+            <th>Destination</th>
+            <th>Invoice No</th>
+            <th>Service Type</th>
+            <th>Goods Type</th>
+            <th>Payment</th>
+            <th>Tot Ctn</th>
+            <th>Tot Wt</th>
+            <th>Charge Wt</th>
+            <th>Vol Wt</th>
+            <th>Freight</th>
+            <th>FSC Amt</th>
+            <th>CGST Amt</th>
+            <th>SGST Amt</th>
+            <th>IGST Amt</th>
+            <th>Grand Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let r of reports; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ r.awbDate }}</td>
+            <td>{{ r.awbNo }}</td>
+            <td>{{ r.billingClient }}</td>
+            <td>{{ r.shipperName }}</td>
+            <td>{{ r.origin }}</td>
+            <td>{{ r.consigneeName }}</td>
+            <td>{{ r.destination }}</td>
+            <td>{{ r.invoiceNo }}</td>
+            <td>{{ r.serviceType }}</td>
+            <td>{{ r.goodsType }}</td>
+            <td>{{ r.payment }}</td>
+            <td>{{ r.totCtn }}</td>
+            <td>{{ r.totWt }}</td>
+            <td>{{ r.chargeWt }}</td>
+            <td>{{ r.volWt }}</td>
+            <td>{{ r.freight }}</td>
+            <td>{{ r.fscAmt }}</td>
+            <td>{{ r.cgstAmt }}</td>
+            <td>{{ r.sgstAmt }}</td>
+            <td>{{ r.igstAmt }}</td>
+            <td>{{ r.grandTotal }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="summary-box">
+      <h4>SUMMARY</h4>
+      <ul>
+        <li>Total Awb No: </li>
+        <li>Total Carton: </li>
+        <li>Total Weight: </li>
+        <li>Tot Charge Wt: </li>
+        <li>Tot Vol Weight: </li>
+        <li>Tot Freight Amt: </li>
+        <li>Tot FSC Amt: </li>
+        <li>Total Amount: </li>
+      </ul>
+    </div>
   </div>
 </div>

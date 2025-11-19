@@ -1,0 +1,84 @@
+<div class="container">
+  <h2 class="form-title">Flight Details</h2>
+
+  <!-- Form Section -->
+  <div class="form-section">
+    <div class="form-row">
+      <label>Airlines Name <span class="required">*</span></label>
+      <select [(ngModel)]="flight.airline">
+        <option value="">-- Select --</option>
+        <option *ngFor="let airline of airlines" [value]="airline">{{ airline }}</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <label>Airport of Shipment <span class="required">*</span></label>
+      <select [(ngModel)]="flight.airportShipment">
+        <option value="">-- Select --</option>
+        <option *ngFor="let airport of airports" [value]="airport">{{ airport }}</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <label>Flight No</label>
+      <input type="text" [(ngModel)]="flight.flightNo" placeholder="Enter Flight No" />
+    </div>
+
+    <div class="form-row">
+      <label>Departure Time <span class="required">*</span></label>
+      <input type="time" [(ngModel)]="flight.departureTime" />
+    </div>
+
+    <div class="form-row">
+      <label>Airport of Arrival <span class="required">*</span></label>
+      <select [(ngModel)]="flight.airportArrival">
+        <option value="">-- Select --</option>
+        <option *ngFor="let airport of airports" [value]="airport">{{ airport }}</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <label>Arrival Time <span class="required">*</span></label>
+      <input type="time" [(ngModel)]="flight.arrivalTime" />
+    </div>
+  </div>
+
+  <!-- Button Panel -->
+  <div class="button-panel">
+    <button class="btn save" (click)="save()">Save</button>
+    <button class="btn update" (click)="update()">Update</button>
+    <button class="btn delete" (click)="delete()">Delete</button>
+    <button class="btn refresh" (click)="refresh()">Refresh</button>
+  </div>
+
+  <!-- Data Table -->
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th>Sl. No</th>
+        <th>Airlines Name</th>
+        <th>Flight No</th>
+        <th>Airport of Shipment</th>
+        <th>Airport of Arrival</th>
+        <th>Departure Time</th>
+        <th>Arrival Time</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let f of flights; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ f.airline }}</td>
+        <td>{{ f.flightNo }}</td>
+        <td>{{ f.airportShipment }}</td>
+        <td>{{ f.airportArrival }}</td>
+        <td>{{ f.departureTime }}</td>
+        <td>{{ f.arrivalTime }}</td>
+        <td>
+          <button class="btn small" (click)="edit(i)">Edit</button>
+          <button class="btn small danger" (click)="delete(i)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,11 +1,10 @@
-// src/app/dashboard/master/billing/charge-name.component.ts
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-interface ChargeName {
-  id: number;
-  code: string;
-  description: string;
-  active: boolean;
+interface Charge {
+  chargeType: string;
+  chargeName: string;
+  hsnCode: string;
 }
 
 @Component({
@@ -14,52 +13,67 @@ interface ChargeName {
   styleUrls: ['./charge-name.component.css']
 })
 export class ChargeNameComponent implements OnInit {
-  items: ChargeName[] = [];
-  nextId = 1;
+  chargeForm!: FormGroup;
+  charges: Charge[] = [];
+  selectedRow: Charge | null = null;
 
-  model: Partial<ChargeName> = { code: '', description: '', active: true };
-  editingId: number | null = null;
-  filter = '';
+  chargeTypes: string[] = [
+    'BANK CHARGES',
+    'CO COURIER CHARGES',
+    'INSURANCE',
+    'TRANSPORT CHARGE',
+    'BOOKING CHARGES',
+    'DELIVERY CHARGE'
+  ];
+
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.items = [
-      { id: this.nextId++, code: 'FRT', description: 'Freight charge', active: true },
-      { id: this.nextId++, code: 'CUS', description: 'Customs charge', active: true },
+    this.chargeForm = this.fb.group({
+      chargeType: ['', Validators.required],
+      chargeName: ['', Validators.required],
+      hsnCode: ['', Validators.required],
+    });
+
+    // Load dummy data (can be replaced with API call)
+    this.charges = [
+      { chargeType: 'BANK CHARGES', chargeName: 'CHQ. RETURN CHARGE', hsnCode: 'CRC' },
+      { chargeType: 'CO COURIER CHARGES', chargeName: 'CO CONNECTION', hsnCode: 'CCN' },
+      { chargeType: 'INSURANCE', chargeName: 'INSURANCE CHARGE', hsnCode: 'INS' },
+      { chargeType: 'TRANSPORT CHARGE', chargeName: 'LOADING CHARGE', hsnCode: '005' },
     ];
   }
 
-  save() {
-    if (!this.model.code) return;
-    if (this.editingId != null) {
-      const idx = this.items.findIndex(x => x.id === this.editingId);
-      if (idx !== -1) {
-        this.items[idx] = { id: this.editingId, code: this.model.code!, description: this.model.description || '', active: !!this.model.active };
-      }
-      this.editingId = null;
-    } else {
-      this.items.push({ id: this.nextId++, code: this.model.code!, description: this.model.description || '', active: !!this.model.active });
+  onSave(): void {
+    if (this.chargeForm.valid) {
+      this.charges.push(this.chargeForm.value);
+      this.chargeForm.reset();
     }
-    this.reset();
   }
 
-  edit(it: ChargeName) {
-    this.editingId = it.id;
-    this.model = { ...it };
+  onUpdate(): void {
+    if (this.selectedRow && this.chargeForm.valid) {
+      Object.assign(this.selectedRow, this.chargeForm.value);
+      this.selectedRow = null;
+      this.chargeForm.reset();
+    }
   }
 
-  remove(it: ChargeName) {
-    this.items = this.items.filter(x => x.id !== it.id);
-    if (this.editingId === it.id) this.reset();
+  onDelete(): void {
+    if (this.selectedRow) {
+      this.charges = this.charges.filter(c => c !== this.selectedRow);
+      this.selectedRow = null;
+      this.chargeForm.reset();
+    }
   }
 
-  reset() {
-    this.model = { code: '', description: '', active: true };
-    this.editingId = null;
+  onRefresh(): void {
+    this.chargeForm.reset();
+    this.selectedRow = null;
   }
 
-  get filtered() {
-    const q = (this.filter || '').trim().toLowerCase();
-    if (!q) return this.items;
-    return this.items.filter(i => i.code.toLowerCase().includes(q) || i.description.toLowerCase().includes(q));
+  onSelectRow(charge: Charge): void {
+    this.selectedRow = charge;
+    this.chargeForm.patchValue(charge);
   }
 }

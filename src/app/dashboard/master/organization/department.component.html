@@ -1,33 +1,43 @@
+
+
 <div class="container">
-  <h2>Department Management</h2>
+  <h2 class="title">Department</h2>
 
-  <form (ngSubmit)="saveDepartment()" class="form">
-    <input type="text" placeholder="Department Name" [(ngModel)]="newDepartment.name" name="name" required>
-    <input type="text" placeholder="Head of Department" [(ngModel)]="newDepartment.head" name="head" required>
+  <form [formGroup]="departmentForm" class="form">
+    <div class="form-group">
+      <label>Company Name <span class="required">*</span></label>
+      <input type="text" formControlName="companyName" />
+    </div>
 
-    <button type="submit">{{ editing ? 'Update' : 'Add' }} Department</button>
-    <button type="button" (click)="cancel()">Cancel</button>
+    <div class="form-group">
+      <label>Department <span class="required">*</span></label>
+      <input type="text" formControlName="departmentName" />
+    </div>
+
+    <div class="button-group">
+      <button type="button" (click)="save()">Save</button>
+      <button type="button" (click)="update()">Update</button>
+      <button type="button" (click)="delete(departments.length-1)">Delete</button>
+      <button type="button" (click)="refresh()">Refresh</button>
+    </div>
   </form>
 
-  <table>
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Department Name</th>
-        <th>Head</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let d of departments">
-        <td>{{ d.id }}</td>
-        <td>{{ d.name }}</td>
-        <td>{{ d.head }}</td>
-        <td>
-          <button (click)="editDepartment(d)">Edit</button>
-          <button (click)="deleteDepartment(d.id)">Delete</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Sl No</th>
+          <th>Company Name</th>
+          <th>Department Name</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let dept of departments; let i = index" (click)="editDepartment(i)">
+          <td>{{ i+1 }}</td>
+          <td>{{ dept.companyName }}</td>
+          <td>{{ dept.departmentName }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

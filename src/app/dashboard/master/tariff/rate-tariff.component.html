@@ -1,0 +1,46 @@
+<div class="rate-tariff-container">
+  <!-- Left: Form -->
+  <div class="form-box">
+    <h3>Rate Tariff Enter Here</h3>
+
+    <form [formGroup]="rateForm">
+      <div class="form-group">
+        <label for="rateName">Rate Tariff Name <span class="required">*</span></label>
+        <input id="rateName" type="text" formControlName="rateName" />
+      </div>
+
+      <div class="form-group">
+        <label for="amount">Amount <span class="required">*</span></label>
+        <input id="amount" type="number" formControlName="amount" />
+      </div>
+
+      <div class="button-group">
+        <button type="button" (click)="save()" class="btn btn-save">Save</button>
+        <button type="button" (click)="update()" class="btn btn-update">Update</button>
+        <button type="button" (click)="delete()" class="btn btn-delete">Delete</button>
+        <button type="button" (click)="refresh()" class="btn btn-refresh">Refresh</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Right: Table -->
+  <div class="table-box">
+    <h3>Existing Rate Tariff</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Sl No</th>
+          <th>Rate Tariff</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tariff of rateTariffs; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ tariff.rateName }}</td>
+          <td>{{ tariff.amount }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,5 +1,6 @@
 .master-container {
   padding: 18px;
+  background: #ece3f0; /* Pewter base background */
 }
 
 .master-header {
@@ -10,11 +11,11 @@
 .master-header h2 {
   margin: 0;
   font-size: 22px;
-  color: #111827;
+  color: #4a3752; /* Lilac heading */
 }
 
 .subtitle {
-  color: #6b7280;
+  color: #c7929a; /* Rosewater for subtle subtitle */
   font-size: 13px;
   margin-top: 6px;
 }
@@ -27,8 +28,8 @@
 }
 
 .card {
-  background: #fff;
-  border: 1px solid #e6e9ee;
+  background: #efe7d3; /* Ivory card background */
+  border: 1px solid #d3bbdd; /* Lilac border */
   border-radius: 10px;
   padding: 16px;
   cursor: pointer;
@@ -38,12 +39,14 @@
 
 .card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  border-color: #f8c0c8; /* Rosewater hover accent */
 }
 
 .card-title {
   font-weight: 600;
   margin-bottom: 6px;
+  color: #111827;
 }
 
 .card-sub {
@@ -81,8 +84,9 @@
   justify-content: space-between;
   align-items: center;
   padding: 14px 18px;
-  border-bottom: 1px solid #e5e7eb;
-  background: #f9fafb;
+  border-bottom: 1px solid #d3bbdd; /* Lilac separator */
+  background: #f8c0c8; /* Rosewater topbar */
+  color: #111827;
 }
 
 .modal-header h3 {

@@ -1,44 +1,132 @@
-<!-- src/app/dashboard/master/item-hs-entry/item-hs-entry.component.html -->
-<div class="hs-root">
-  <div class="toolbar">
-    <h3>Item HS Entry</h3>
-    <div class="controls">
-      <input placeholder="Search HS code..." [(ngModel)]="search" />
-      <button class="btn" (click)="reset()">New</button>
-    </div>
+<div class="hs-entry-container">
+  <div class="form-box">
+    <h2>HS Item Entry</h2>
+
+    <form [formGroup]="hsForm" class="hs-form">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>HS Code <span class="required">*</span></label>
+          <input type="text" formControlName="hsCode" class="form-control" />
+        </div>
+
+        <div class="form-group">
+          <label>Description of Goods <span class="required">*</span></label>
+          <input type="text" formControlName="descGoods" class="form-control" />
+        </div>
+
+        <div class="form-group">
+          <label>Custom Notification No</label>
+          <input type="text" formControlName="customNotifiNo" class="form-control" />
+        </div>
+
+         <!-- Custom_notifi_type (readonly) -->
+      <div class="form-group">
+        <label>Custom_notifi_type</label>
+         <input type="text"  formControlName="customnotifisubtype" class="form-control">
+      </div>
+
+       <div class="form-group">
+        <label>Custom_notifi_subtype</label>
+         <input type="text"  formControlName="customnotifisubtype" class="form-control">
+      </div>
+
+        <div class="form-group">
+          <label>Custom Serial No</label>
+          <input type="text" formControlName="customSerialNo" class="form-control" />
+        </div>
+
+        <div class="form-group">
+          <label>Basic Custom Duty (%)</label>
+          <input type="number" formControlName="basicCustomDuty" class="form-control" />
+        </div>
+
+        <div class="form-group">
+          <label>IGST Notification No</label>
+          <input type="text" formControlName="igstNotifiNo" class="form-control" />
+        </div>
+
+        <div class="form-group">
+          <label>IGST_notifi_type </label>
+         <input type="text"  formControlName="igstnotifitype" class="form-control">
+        </div>
+
+        <div class="form-group">
+        <label>IGST_notifi_subtype</label>
+         <input type="text"  formControlName="igstnotifisubtype" class="form-control">
+      </div>
+
+
+        <div class="form-group">
+          <label>IGST Serial No</label>
+          <input type="text" formControlName="igstSerialNo" class="form-control" />
+        </div>
+
+        <div class="form-group">
+          <label>IGST Duty (%)</label>
+          <input type="number" formControlName="igstDuty" class="form-control" />
+        </div>
+
+        <div class="form-group">
+          <label>BCD Exemption</label>
+          <select formControlName="bcdExemption" class="form-control">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Banned Item</label>
+          <select formControlName="bannedItem" class="form-control">
+            <option value="No">No</option>
+            <option value="Yes">Yes</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn btn-primary" (click)="onSave()">Save</button>
+        <button type="button" class="btn btn-warning" (click)="onUpdate()">Update</button>
+        <button type="button" class="btn btn-danger" (click)="onDelete()">Delete</button>
+        <button type="button" class="btn btn-secondary" (click)="onRefresh()">Refresh</button>
+      </div>
+    </form>
   </div>
 
-  <div class="layout">
-    <div class="panel form">
-      <h4>{{ editingId ? 'Edit HS Entry' : 'Add HS Entry' }}</h4>
-      <form (ngSubmit)="save()">
-        <label>HS Code <input [(ngModel)]="model.hsCode" name="hsCode" required /></label>
-        <label>Description <input [(ngModel)]="model.description" name="description" /></label>
-        <label class="checkbox"><input type="checkbox" [(ngModel)]="model.active" name="active" /> Active</label>
-        <div class="form-actions">
-          <button type="submit" class="btn primary">{{ editingId ? 'Update' : 'Create' }}</button>
-          <button type="button" class="btn" (click)="reset()">Cancel</button>
-        </div>
-      </form>
+  <div class="table-box">
+    <h3>HS Items List</h3>
+
+    <div class="search-bar">
+      <input type="text" [(ngModel)]="searchText" (input)="applySearch()" placeholder="Search by MAWB..." class="form-control search-input"/>
     </div>
 
-    <div class="panel list">
-      <h4>HS Entry List ({{ filtered.length }})</h4>
-      <table class="table">
-        <thead><tr><th>HS Code</th><th>Description</th><th>Active</th><th class="actions">Actions</th></tr></thead>
-        <tbody>
-          <tr *ngFor="let it of filtered">
-            <td>{{ it.hsCode }}</td>
-            <td>{{ it.description }}</td>
-            <td>{{ it.active ? 'Yes' : 'No' }}</td>
-            <td class="actions">
-              <button class="small" (click)="edit(it)">Edit</button>
-              <button class="small danger" (click)="remove(it)">Delete</button>
-            </td>
-          </tr>
-          <tr *ngIf="filtered.length===0"><td colspan="4" class="empty">No entries found.</td></tr>
-        </tbody>
-      </table>
-    </div>
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>HS Code</th>
+          <th>Description</th>
+          <th>Custom Notifi No</th>
+          <th>BCD (%)</th>
+          <th>IGST Notifi No</th>
+          <th>IGST Duty (%)</th>
+          <th>BCD Exemption</th>
+          <th>Banned Item</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of filteredData; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ row.hsCode }}</td>
+          <td>{{ row.descGoods }}</td>
+          <td>{{ row.customNotifiNo }}</td>
+          <td>{{ row.basicCustomDuty }}</td>
+          <td>{{ row.igstNotifiNo }}</td>
+          <td>{{ row.igstDuty }}</td>
+          <td>{{ row.bcdExemption }}</td>
+          <td>{{ row.bannedItem }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

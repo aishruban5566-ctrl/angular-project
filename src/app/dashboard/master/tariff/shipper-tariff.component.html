@@ -1,59 +1,76 @@
 <div class="shipper-tariff-container">
-  <h2>Shipper Tariff Management</h2>
+  <h2>Shipper Tariff</h2>
 
-  <form [formGroup]="tariffForm" (ngSubmit)="onSubmit()" class="tariff-form">
-    <div class="form-group">
-      <label>Shipper Name</label>
-      <input type="text" formControlName="shipperName" placeholder="Enter shipper name" />
+  <!-- Form Section -->
+  <form [formGroup]="shipperForm" class="form-section">
+    <div class="form-row">
+      <label>Country</label>
+      <select formControlName="country">
+        <option value="" disabled selected>Select Country</option>
+        <option *ngFor="let c of countries" [value]="c">{{ c }}</option>
+      </select>
     </div>
 
-    <div class="form-group">
-      <label>Tariff Code</label>
-      <input type="text" formControlName="tariffCode" placeholder="Enter tariff code" />
+    <div class="form-row">
+      <label>Client</label>
+      <select formControlName="client">
+        <option value="" disabled selected>Select Client</option>
+        <option *ngFor="let cl of clients" [value]="cl">{{ cl }}</option>
+      </select>
     </div>
 
-    <div class="form-group">
-      <label>Description</label>
-      <textarea formControlName="description" placeholder="Enter description"></textarea>
+    <div class="form-row">
+      <label>Service</label>
+      <select formControlName="service">
+        <option value="" disabled selected>Select Service</option>
+        <option *ngFor="let s of services" [value]="s">{{ s }}</option>
+      </select>
     </div>
 
-    <div class="form-group">
-      <label>Effective Date</label>
-      <input type="date" formControlName="effectiveDate" />
+    <div class="form-row inline-row">
+      <label>Zone Tariff</label>
+      <select formControlName="zoneTariff">
+        <option value="" disabled selected>Select Zone Tariff</option>
+        <option *ngFor="let z of zoneTariffs" [value]="z">{{ z }}</option>
+      </select>
+
+      <label>Rate Tariff</label>
+      <select formControlName="rateTariff">
+        <option value="" disabled selected>Select Rate Tariff</option>
+        <option *ngFor="let r of rateTariffs" [value]="r">{{ r }}</option>
+      </select>
     </div>
 
-    <div class="form-actions">
-      <button type="submit" [disabled]="tariffForm.invalid">
-        {{ editingIndex !== null ? 'Update Tariff' : 'Add Tariff' }}
-      </button>
-      <button type="button" (click)="resetForm()">Clear</button>
+    <!-- Buttons -->
+    <div class="button-group">
+      <button type="button" (click)="add()" class="btn btn-add">Add</button>
+      <button type="button" (click)="update()" class="btn btn-update">Update</button>
+      <button type="button" (click)="delete()" class="btn btn-delete">Delete</button>
+      <button type="button" (click)="clear()" class="btn btn-clear">Clear</button>
     </div>
   </form>
 
-  <h3>Shipper Tariff List</h3>
-  <table class="tariff-table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Shipper Name</th>
-        <th>Tariff Code</th>
-        <th>Description</th>
-        <th>Effective Date</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let tariff of tariffs; let i = index">
-        <td>{{ tariff.id }}</td>
-        <td>{{ tariff.shipperName }}</td>
-        <td>{{ tariff.tariffCode }}</td>
-        <td>{{ tariff.description }}</td>
-        <td>{{ tariff.effectiveDate }}</td>
-        <td>
-          <button (click)="editTariff(i)">Edit</button>
-          <button (click)="deleteTariff(i)">Delete</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <!-- Table Section -->
+  <div class="table-section">
+    <table>
+      <thead>
+        <tr>
+          <th>Country</th>
+          <th>Client</th>
+          <th>Service</th>
+          <th>Zone Tariff</th>
+          <th>Rate Tariff</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let entry of shipperTariffs">
+          <td>{{ entry.country }}</td>
+          <td>{{ entry.client }}</td>
+          <td>{{ entry.service }}</td>
+          <td>{{ entry.zoneTariff }}</td>
+          <td>{{ entry.rateTariff }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

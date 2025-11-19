@@ -1,72 +1,48 @@
-/* src/app/dashboard/master/billing/billing.component.css */
-.billing-root {
-  padding: 12px;
+.billing-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background: #ece3f0; /* Pewter background */
 }
 
-.toolbar {
+.title {
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #d3bbdd; /* Lilac title */
+}
+
+.tab-buttons {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-}
-.toolbar h3 { margin: 0; font-size: 18px; }
-.controls { display:flex; gap:8px; align-items:center; }
-.controls input { padding:6px 8px; border-radius:6px; border:1px solid #d1d5db; }
-
-.layout {
-  display: grid;
-  grid-template-columns: 320px 1fr;
-  gap: 12px;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
-.panel {
-  background: #fff;
-  border: 1px solid #e6e9ee;
-  padding: 12px;
-  border-radius: 8px;
-  box-shadow: 0 6px 16px rgba(17,24,39,0.03);
-}
-
-.form label {
-  display: block;
-  margin-bottom: 10px;
-}
-.form input, .form select {
-  width: 100%;
-  padding: 8px;
+.tab-btn {
+  background: #efe7d3; /* Ivory for tabs */
+  border: none;
+  padding: 10px 20px;
+  margin: 0 5px;
+  font-size: 14px;
+  font-weight: 500;
   border-radius: 6px;
-  border: 1px solid #d1d5db;
-  box-sizing: border-box;
-  margin-top: 6px;
-}
-.checkbox { display:flex; align-items:center; gap:8px; margin-top:6px; }
-
-.form-actions { margin-top:12px; display:flex; gap:8px; }
-
-.btn {
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: 1px solid #cbd5e1;
-  background: white;
   cursor: pointer;
+  transition: 0.3s;
+  color: #02386d; /* Deep readable text */
 }
-.btn.primary { background:#0ea5e9; color:white; border-color:#0891b2; }
-.btn.danger, .small.danger { background:#ffdddd; border-color:#ff7b7b; }
 
-.small { padding:6px 8px; font-size:13px; border-radius:6px; }
+.tab-btn:hover {
+  background: #f8c0c8; /* Rosewater hover */
+}
 
-.table {
-  width:100%;
-  border-collapse: collapse;
+.tab-btn.active {
+  background: #d3bbdd; /* Lilac active tab */
+  color: white;
 }
-.table th, .table td {
-  padding: 8px;
-  border-bottom: 1px solid #eef2f6;
-  text-align:left;
+
+.content-box {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  background: #fff; /* Keep content area clean white */
 }
-.table thead th {
-  background: #f8fafc;
-  font-weight: 600;
-}
-.actions-col { width:140px; text-align:right; }
-.empty { text-align:center; color:#6b7280; padding:18px 0; }

@@ -1,0 +1,33 @@
+<div class="shipment-container">
+  <nav>
+    <button 
+      [class.active]="activeTab === 'transit'" 
+      (click)="activeTab = 'transit'">
+      Transit Type
+    </button>
+
+    <button 
+      [class.active]="activeTab === 'airlines'" 
+      (click)="activeTab = 'airlines'">
+      Airlines Details
+    </button>
+
+    <button 
+      [class.active]="activeTab === 'flight'" 
+      (click)="activeTab = 'flight'">
+      Flight Details
+    </button>
+  </nav>
+
+  <div class="content" *ngIf="activeTab === 'transit'">
+    <app-transit-type></app-transit-type>
+  </div>
+
+  <div class="content" *ngIf="activeTab === 'airlines'">
+    <app-airlines-details></app-airlines-details>
+  </div>
+
+  <div class="content" *ngIf="activeTab === 'flight'">
+    <app-flight-details></app-flight-details>
+  </div>
+</div>

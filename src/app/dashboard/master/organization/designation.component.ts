@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 interface Designation {
   id: number;
-  title: string;
-  level: string;
+  name: string;
 }
 
 @Component({
@@ -12,41 +12,64 @@ interface Designation {
   styleUrls: ['./designation.component.css']
 })
 export class DesignationComponent implements OnInit {
+  designationForm!: FormGroup;
   designations: Designation[] = [];
-  newDesignation: Designation = { id: 0, title: '', level: '' };
-  editing: boolean = false;
+  today: Date = new Date();
+  editIndex: number | null = null;
+
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    // Example data
+    this.designationForm = this.fb.group({
+      name: ['', Validators.required]
+    });
+
+    // Mock data
     this.designations = [
-      { id: 1, title: 'Manager', level: 'Senior' },
-      { id: 2, title: 'Team Lead', level: 'Mid' },
-      { id: 3, title: 'Developer', level: 'Junior' }
+      { id: 1, name: 'ACCOUNTS MANAGER' },
+      { id: 2, name: 'BOSS' },
+      { id: 3, name: 'BRANCH-IN-CHARGES' },
+      { id: 4, name: 'CLEARANCE EXECUTIVE - BLR' },
+      { id: 5, name: 'CLEARANCE EXECUTIVE - MAA' },
+      { id: 6, name: 'CLEARANCE INCHARGE - BLR' },
+      { id: 7, name: 'CLEARANCE INCHARGE - MAA' },
+      { id: 8, name: 'CS MANAGER' },
+      { id: 9, name: 'CUSTOMER SERVICE' }
     ];
   }
 
-  saveDesignation() {
-    if (this.editing) {
-      let index = this.designations.findIndex(d => d.id === this.newDesignation.id);
-      this.designations[index] = { ...this.newDesignation };
-    } else {
-      this.newDesignation.id = this.designations.length + 1;
-      this.designations.push({ ...this.newDesignation });
+  save(): void {
+    if (this.designationForm.valid) {
+      const newDesignation: Designation = {
+        id: this.designations.length + 1,
+        name: this.designationForm.value.name
+      };
+      this.designations.push(newDesignation);
+      this.designationForm.reset();
     }
-    this.cancel();
   }
 
-  editDesignation(des: Designation) {
-    this.newDesignation = { ...des };
-    this.editing = true;
+  update(): void {
+    if (this.editIndex !== null && this.designationForm.valid) {
+      this.designations[this.editIndex].name = this.designationForm.value.name;
+      this.editIndex = null;
+      this.designationForm.reset();
+    }
   }
 
-  deleteDesignation(id: number) {
-    this.designations = this.designations.filter(d => d.id !== id);
+  delete(index: number): void {
+    this.designations.splice(index, 1);
   }
 
-  cancel() {
-    this.newDesignation = { id: 0, title: '', level: '' };
-    this.editing = false;
+  refresh(): void {
+    this.designationForm.reset();
+    this.editIndex = null;
+  }
+
+  editDesignation(index: number): void {
+    this.editIndex = index;
+    this.designationForm.patchValue({
+      name: this.designations[index].name
+    });
   }
 }

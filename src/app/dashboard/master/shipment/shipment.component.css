@@ -1,0 +1,46 @@
+.shipment-container {
+  padding: 20px;
+  background: linear-gradient(to bottom, #f8c0c8, #ece3f0); /* Rosewater → Pewter gradient */
+  border-radius: 8px;
+}
+
+/* Navbar style */
+.shipment-container nav {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+/* Button style */
+.shipment-container nav button {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  background: #efe7d3; /* Ivory */
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Hover effect */
+.shipment-container nav button:hover {
+  background: #d3bbdd; /* Lilac */
+}
+
+/* Active button */
+.shipment-container nav button.active {
+  background: #d3bbdd; /* Lilac */
+  color: #fff;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Content area */
+.shipment-container .content {
+  padding: 15px;
+  background: #fff; /* Keep content white for readability */
+  border-radius: 6px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}

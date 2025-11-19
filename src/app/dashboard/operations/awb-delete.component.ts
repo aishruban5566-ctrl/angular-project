@@ -6,13 +6,37 @@ import { Component } from '@angular/core';
   styleUrls: ['./awb-delete.component.css']
 })
 export class AwbDeleteComponent {
-  awbNumber: string = '';
-  deletedList: string[] = [];
+  hawb = {
+    hawbNo: '',
+    originName: '',
+    destinationName: '',
+    consignorName: '',
+    consigneeName: '',
+    clientName: '',
+    totalPcs: '',
+    totalWgt: '',
+    serviceType: ''
+  };
 
-  deleteAwb() {
-    if (this.awbNumber.trim()) {
-      this.deletedList.push(this.awbNumber);
-      this.awbNumber = '';
+  onDelete() {
+    if (confirm('Are you sure you want to delete this HAWB?')) {
+      console.log('Deleting HAWB:', this.hawb);
+      alert('HAWB deleted successfully!');
+      this.onClear();
     }
+  }
+
+  onClear() {
+    this.hawb = {
+      hawbNo: '',
+      originName: '',
+      destinationName: '',
+      consignorName: '',
+      consigneeName: '',
+      clientName: '',
+      totalPcs: '',
+      totalWgt: '',
+      serviceType: ''
+    };
   }
 }

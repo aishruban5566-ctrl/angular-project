@@ -1,12 +1,47 @@
-<div class="box">
-  <h2>Delete AWB</h2>
-  <div class="form">
-    <label>Enter AWB No: <input [(ngModel)]="awbNumber" /></label>
-    <button (click)="deleteAwb()">Delete</button>
-  </div>
+<div class="awb-container">
+  <h2 class="awb-title">HAWB DELETE</h2>
 
-  <h3>Deleted AWBs</h3>
-  <ul>
-    <li *ngFor="let awb of deletedList">{{awb}}</li>
-  </ul>
+  <form class="awb-form">
+    <div class="form-row">
+      <label for="hawbNo" class="lbl">Hawb No</label>
+      <input id="hawbNo" type="text" [(ngModel)]="hawb.hawbNo" name="hawbNo"/>
+    </div>
+
+    <div class="form-row">
+      <label for="originName" class="lbl">Origin Name</label>
+      <input id="originName" type="text" [(ngModel)]="hawb.originName" name="originName"/>
+
+      <label for="destinationName" class="lbl">Destination Name</label>
+      <input id="destinationName" type="text" [(ngModel)]="hawb.destinationName" name="destinationName"/>
+    </div>
+
+    <div class="form-row">
+      <label for="consignorName" class="lbl">Consignor Name</label>
+      <input id="consignorName" type="text" [(ngModel)]="hawb.consignorName" name="consignorName"/>
+
+      <label for="consigneeName" class="lbl">Consignee Name</label>
+      <input id="consigneeName" type="text" [(ngModel)]="hawb.consigneeName" name="consigneeName"/>
+    </div>
+
+    <div class="form-row">
+      <label for="clientName" class="lbl">Client Name</label>
+      <input id="clientName" type="text" [(ngModel)]="hawb.clientName" name="clientName"/>
+
+      <label for="totalPcs" class="lbl">Total Pcs</label>
+      <input id="totalPcs" type="number" [(ngModel)]="hawb.totalPcs" name="totalPcs"/>
+
+      <label for="totalWgt" class="lbl">Total Weight</label>
+      <input id="totalWgt" type="number" [(ngModel)]="hawb.totalWgt" name="totalWgt"/>
+    </div>
+
+    <div class="form-row">
+      <label for="serviceType" class="lbl">Service Type</label>
+      <input id="serviceType" type="text" [(ngModel)]="hawb.serviceType" name="serviceType"/>
+    </div>
+
+    <div class="button-row">
+      <button type="button" (click)="onDelete()">Delete</button>
+      <button type="button" (click)="onClear()">Clear</button>
+    </div>
+  </form>
 </div>

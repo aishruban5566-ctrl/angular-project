@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reports',
@@ -7,9 +6,22 @@ import { Router } from '@angular/router';
   styleUrls: ['./reports.component.css']
 })
 export class ReportsComponent {
-  constructor(private router: Router) {}
+  showSalesReport = false;
+  showPrintReport = false;
 
-  goTo(path: string) {
-    this.router.navigate(['/dashboard/reports/' + path]);
+  // Print Report popup
+  openPrintReport() {
+    this.showPrintReport = true;
+  }
+  closePrintReport() {
+    this.showPrintReport = false;
+  }
+
+  // Sales Report popup
+  openSalesReport() {
+    this.showSalesReport = true;
+  }
+  closeSalesReport() {
+    this.showSalesReport = false;
   }
 }

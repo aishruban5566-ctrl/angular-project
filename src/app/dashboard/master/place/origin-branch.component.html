@@ -1,57 +1,116 @@
-<div class="cl-container">
-  <div class="header-row">
-    <h2 class="title">Origin Branches</h2>
-    <div class="actions">
-      <input class="search" placeholder="Search branches..." [(ngModel)]="searchText" (input)="goPage(1)">
-      <button class="btn primary" (click)="openAdd()">+ New Branch</button>
+<div class="branch-container">
+  <h2 class="title">BRANCH DETAILS</h2>
+
+  <form [formGroup]="branchForm" class="branch-form">
+    <div class="form-row">
+      <label>Branch Country </label>
+      <select formControlName="country">
+        <option value="">--Select--</option>
+        <option *ngFor="let c of countries" [value]="c">{{ c }}</option>
+      </select>
+
+      <label>Branch Name </label>
+      <input type="text" formControlName="branchName" />
+
+      <label>Branch Code </label>
+      <input type="text" formControlName="branchCode" />
     </div>
-  </div>
 
-  <div class="summary">Found <strong>{{ filtered().length }}</strong></div>
+    <div class="form-row">
+      <label>Branch State </label>
+      <select formControlName="state">
+        <option value="">--Select--</option>
+        <option *ngFor="let s of states" [value]="s">{{ s }}</option>
+      </select>
 
-  <div class="table-wrap">
-    <table class="styled-table">
-      <thead><tr><th>#</th><th>Code</th><th>Name</th><th>City</th><th>Address</th><th>Active</th><th class="actions-col">Actions</th></tr></thead>
-      <tbody>
-        <tr *ngFor="let b of paged(); let i = index" [class.inactive]="!b.active">
-          <td>{{ (page-1)*pageSize + i + 1 }}</td>
-          <td>{{ b.code }}</td>
-          <td>{{ b.name }}</td>
-          <td>{{ b.city || '—' }}</td>
-          <td>{{ b.address || '—' }}</td>
-          <td><span class="badge" [class.off]="!b.active">{{ b.active ? 'Yes' : 'No' }}</span></td>
-          <td class="actions-col">
-            <button class="btn small" (click)="openEdit(b)">Edit</button>
-            <button class="btn small danger" (click)="confirmDelete(b.id)">Delete</button>
-          </td>
-        </tr>
-        <tr *ngIf="paged().length===0"><td colspan="7" class="empty">No branches found.</td></tr>
-      </tbody>
-    </table>
-  </div>
+      <label>Contact No</label>
+      <input type="text" formControlName="contactNo" />
 
-  <div class="pagination" *ngIf="totalPages()>1">
-    <button class="btn mini" [disabled]="page===1" (click)="goPage(page-1)">Prev</button>
-    <button class="btn mini" *ngFor="let n of pages()" (click)="goPage(n)" [class.active]="page===n">{{ n }}</button>
-    <button class="btn mini" [disabled]="page===totalPages()" (click)="goPage(page+1)">Next</button>
-  </div>
+      <label> Branch Email </label>
+      <input type="email" formControlName="email" />
+    </div>
 
-  <!-- modal & confirm -->
-  <div class="modal-backdrop" *ngIf="isModalOpen" (click)="closeModal()"></div>
-  <div class="modal" *ngIf="isModalOpen"><div class="modal-card" (click)="$event.stopPropagation()">
-    <div class="modal-header"><h3>{{ isEditing ? 'Edit Branch' : 'Add Branch' }}</h3><button class="close" (click)="closeModal()">&times;</button></div>
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <div class="modal-body">
-        <div class="form-row"><label class="label">Code <span class="req">*</span></label><input formControlName="code"></div>
-        <div class="form-row"><label class="label">Name <span class="req">*</span></label><input formControlName="name"></div>
-        <div class="form-row"><label class="label">City</label><input formControlName="city"></div>
-        <div class="form-row"><label class="label">Address</label><textarea formControlName="address"></textarea></div>
-        <div class="form-row inline"><label class="label">Active</label><label class="switch"><input type="checkbox" formControlName="active"><span class="slider"></span></label></div>
-      </div>
-      <div class="modal-footer"><button class="btn primary" type="submit" [disabled]="form.invalid">{{ isEditing ? 'Update' : 'Create' }}</button><button class="btn secondary" type="button" (click)="closeModal()">Cancel</button></div>
-    </form>
-  </div></div>
+    <div class="form-row">
+      <label>Branch Address</label>
+      <input type="text" formControlName="address" />
 
-  <div class="modal-backdrop" *ngIf="isConfirmOpen" (click)="cancelDelete()"></div>
-  <div class="confirm-modal" *ngIf="isConfirmOpen"><div class="confirm-card"><h4>Confirm delete</h4><p>Delete this branch?</p><div class="confirm-actions"><button class="btn danger" (click)="performDelete()">Delete</button><button class="btn secondary" (click)="cancelDelete()">Cancel</button></div></div></div>
+      <label>Prefix</label>
+      <input type="text" formControlName="prefix" />
+
+      <label>Payment Mode </label>
+      <select formControlName="paymentMode">
+        <option value="">--Select--</option>
+        <option *ngFor="let p of paymentModes" [value]="p">{{ p }}</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <label>Contact Person</label>
+      <input type="text" formControlName="contactPerson" />
+
+      <label>PAN No</label>
+      <input type="text" formControlName="panNo" />
+
+      <label>GST No</label>
+      <input type="text" formControlName="gstNo" />
+    </div>
+
+    <div class="form-row">
+      <label>Credit Limit</label>
+      <input type="number" formControlName="creditLimit" />
+
+      <label>Credit Days</label>
+      <input type="number" formControlName="creditDays" />
+
+      <label>Opening Balance</label>
+      <input type="number" formControlName="openingBalance" />
+    </div>
+
+    <div class="form-row upload-row">
+      <label>Upload Client Contract Copy</label>
+      <input type="file" (change)="onFileUpload($event)" />
+    </div>
+
+    <div class="button-row">
+      <button type="button" (click)="onSave()">Save</button>
+      <button type="button" (click)="onUpdate()">Update</button>
+      <button type="button" (click)="onDelete()">Delete</button>
+      <button type="button" (click)="onRefresh()">Refresh</button>
+      <button type="button" (click)="onExport()">Export</button>
+    </div>
+  </form>
+
+  <!-- Table Section -->
+  <table class="branch-table">
+    <thead>
+      <tr>
+        <th>SL.N</th>
+        <th>Branch Name</th>
+        <th>Branch Code</th>
+        <th>State</th>
+        <th>Country</th>
+        <th>Contact Person</th>
+        <th>PAN No</th>
+        <th>GST No</th>
+        <th>Credit Limit</th>
+        <th>Credit Days</th>
+        <th>Payment Mode</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let b of branches">
+        <td>{{ b.slNo }}</td>
+        <td>{{ b.branchName }}</td>
+        <td>{{ b.branchCode }}</td>
+        <td>{{ b.state }}</td>
+        <td>{{ b.country }}</td>
+        <td>{{ b.contactPerson }}</td>
+        <td>{{ b.panNo }}</td>
+        <td>{{ b.gstNo }}</td>
+        <td>{{ b.creditLimit }}</td>
+        <td>{{ b.creditDays }}</td>
+        <td>{{ b.paymentMode }}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>

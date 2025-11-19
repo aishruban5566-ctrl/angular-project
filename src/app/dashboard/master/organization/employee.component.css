@@ -1,0 +1,104 @@
+.employee-container {
+  padding: 15px;
+  background: linear-gradient(to bottom, #ece3f0, #ece3f0); /* Pewter gradient */
+  border-radius: 8px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;   /* Stack form + table vertically */
+  overflow: visible;        /* ✅ allow child to scroll */
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+  gap: 15px;
+  width: 100%;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.req {
+  color: red;
+}
+
+input, select {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid #999;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.gender-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.form-buttons {
+  margin-top: 15px;
+  text-align: right;
+}
+
+.form-buttons button {
+  margin-left: 10px;
+  padding: 6px 12px;
+  background: #1976d2;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form-buttons button:hover {
+  background: #125a9c;
+}
+
+.table-wrapper {
+  margin-top: 20px;
+  width: 100%;
+  overflow-x: auto;     /* ✅ enables horizontal scroll */
+  -webkit-overflow-scrolling: touch; /* smooth scrolling on touch devices */
+  border-radius: 6px;
+}
+
+.employee-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  min-width: 1200px;   /* ✅ ensures table will overflow horizontally */
+}
+
+.employee-table th {
+  border: 1px solid #bbb;
+  padding: 8px;
+  text-align: center;
+  white-space: nowrap; /* ✅ prevents text wrapping */
+  background: #1976d2;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.employee-table td {
+  border: 1px solid #f1ecec;
+  padding: 8px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.employee-table tr:hover {
+  background: #e3f2fd;
+  cursor: pointer;
+}
+
+.employee-table tr {
+  background-color: white;
+}

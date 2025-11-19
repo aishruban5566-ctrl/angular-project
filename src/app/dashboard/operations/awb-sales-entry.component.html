@@ -1,20 +1,291 @@
-<div class="box">
-  <h2>AWB Sales Entry</h2>
-  <form (ngSubmit)="addSale()" class="form">
-    <label>AWB No: <input [(ngModel)]="model.awbNo" name="awbNo" required /></label>
-    <label>Customer: <input [(ngModel)]="model.customer" name="customer" required /></label>
-    <label>Amount: <input [(ngModel)]="model.amount" name="amount" type="number" required /></label>
-    <label>Date: <input [(ngModel)]="model.date" name="date" type="date" /></label>
-    <button type="submit">Add Sale</button>
-  </form>
+<div class="awb-screen">
+  <div class="title">HAWB SALES ENTRY.</div>
 
-  <table>
-    <tr><th>AWB No</th><th>Customer</th><th>Amount</th><th>Date</th></tr>
-    <tr *ngFor="let s of salesList">
-      <td>{{s.awbNo}}</td>
-      <td>{{s.customer}}</td>
-      <td>{{s.amount}}</td>
-      <td>{{s.date}}</td>
-    </tr>
-  </table>
+  <form [formGroup]="form" class="form-root" (ngSubmit)="onSave()">
+
+    <!-- AWB INFO -->
+    <section class="block awb-info">
+      <div class="row cols-3">
+        <div class="cell">
+          <label class="lbl">AWB Date&Time</label>
+          <input class="inp" type="datetime-local" formControlName="awbDateTime" />
+        </div>
+
+        <div class="cell align">
+          <label class="radio">
+            <input type="radio" value="manual" formControlName="awbMode" />
+            Manual AWB #
+          </label>
+          <label class="radio ml">
+            <input type="radio" value="auto" formControlName="awbMode" />
+            Auto AWB #
+          </label>
+        </div>
+
+        <div class="cell">
+          <label class="lbl req">AWB No</label>
+          <input class="inp" formControlName="awbNo" placeholder="0" />
+        </div>
+      </div>
+
+      <div class="row cols-3">
+        <div class="cell">
+          <label class="lbl req">Payment Mode</label>
+          <select class="inp" formControlName="paymentMode">
+            <option value="">-Select-</option>
+            <option *ngFor="let m of paymentModes" [value]="m">{{ m }}</option>
+          </select>
+        </div>
+
+        <div class="cell">
+          <label class="lbl req">Mode of Shipment</label>
+          <select class="inp" formControlName="modeOfShipment">
+            <option value="">-Select-</option>
+            <option *ngFor="let m of shipmentModes" [value]="m">{{ m }}</option>
+          </select>
+        </div>
+
+        <div class="cell">
+          <label class="lbl">Freight Charge</label>
+          <input class="inp" formControlName="freightCharge" placeholder="SHIPPER" />
+        </div>
+      </div>
+
+      <div class="row cols-3">
+        <div class="cell">
+          <label class="lbl">Billing Branch</label>
+          <input class="inp" formControlName="billingBranch" placeholder="BANGALORE" />
+        </div>
+        <div class="cell">
+          <label class="lbl">Billing Client</label>
+          <input class="inp" formControlName="billingClient" />
+        </div>
+        <div class="cell">
+          <label class="lbl">Dest Location</label>
+          <input class="inp" formControlName="destLocation" />
+        </div>
+      </div>
+
+      <div class="row cols-2">
+        <div class="cell">
+          <label class="lbl req">Service Type</label>
+          <select class="inp" formControlName="serviceType">
+            <option value="">-Select-</option>
+            <option *ngFor="let s of serviceTypes" [value]="s">{{ s }}</option>
+          </select>
+        </div>
+        <div class="cell">
+          <label class="lbl">Doc Type</label>
+          <select class="inp" formControlName="docType">
+            <option *ngFor="let d of docTypes" [value]="d">{{ d }}</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- MIDDLE: Shipper + Consignee -->
+    <div class="grid-two">
+      <!-- SHIPPER -->
+      <section class="block">
+        <div class="panel-title">SHIPPER DETAILS</div>
+        <div class="row">
+          <label class="lbl">SEARCH</label>
+          <input class="inp" formControlName="shipperSearch" />
+        </div>
+        <div class="row">
+          <label class="lbl req">Shipper Name</label>
+          <input class="inp" formControlName="shipperName" />
+        </div>
+        <div class="row">
+          <label class="lbl">Address</label>
+          <textarea class="inp textarea" rows="2" formControlName="shipperAddress"></textarea>
+        </div>
+        <div class="row cols-2">
+          <div class="cell">
+            <label class="lbl">Mobile No</label>
+            <input class="inp" formControlName="shipperMobile" />
+          </div>
+          <div class="cell">
+            <label class="lbl">Pin Code</label>
+            <input class="inp" formControlName="shipperPin" />
+          </div>
+        </div>
+        <div class="row cols-2">
+          <div class="cell">
+            <label class="lbl">City</label>
+            <input class="inp" formControlName="shipperCity" />
+          </div>
+          <div class="cell">
+            <label class="lbl">State</label>
+            <input class="inp" formControlName="shipperState" />
+          </div>
+        </div>
+        <div class="row">
+          <label class="lbl">Email</label>
+          <input class="inp" formControlName="shipperEmail" />
+        </div>
+      </section>
+
+      <!-- CONSIGNEE -->
+      <section class="block">
+        <div class="panel-title orange">CONSIGNEE DETAILS</div>
+        <div class="row">
+          <label class="lbl">SEARCH</label>
+          <input class="inp" formControlName="consigneeSearch" />
+        </div>
+        <div class="row">
+          <label class="lbl req">Consignee Name</label>
+          <input class="inp" formControlName="consigneeName" />
+        </div>
+        <div class="row">
+          <label class="lbl">Address</label>
+          <textarea class="inp textarea" rows="2" formControlName="consigneeAddress"></textarea>
+        </div>
+        <div class="row cols-2">
+          <div class="cell">
+            <label class="lbl">Mobile No</label>
+            <input class="inp" formControlName="consigneeMobile" />
+          </div>
+          <div class="cell">
+            <label class="lbl">Pin Code</label>
+            <input class="inp" formControlName="consigneePin" />
+          </div>
+        </div>
+        <div class="row cols-2">
+          <div class="cell">
+            <label class="lbl">City</label>
+            <input class="inp" formControlName="consigneeCity" />
+          </div>
+          <div class="cell">
+            <label class="lbl">State</label>
+            <input class="inp" formControlName="consigneeState" />
+          </div>
+        </div>
+        <div class="row">
+          <label class="lbl">Email</label>
+          <input class="inp" formControlName="consigneeEmail" />
+        </div>
+      </section>
+    </div>
+
+    <!-- BILLING & INVOICE -->
+    <section class="block">
+      <div class="panel-title">BILLING DETAILS</div>
+      <div class="row cols-4">
+        <div class="cell">
+          <label class="lbl">Freight Amt</label>
+          <input class="inp" formControlName="freightAmt" (input)="recalcTotals()" />
+        </div>
+        <div class="cell">
+          <label class="lbl">FSC Amt</label>
+          <input class="inp" formControlName="fscAmt" (input)="recalcTotals()" />
+        </div>
+        <div class="cell">
+          <label class="lbl">CGST</label>
+          <input class="inp" formControlName="cgst" (input)="recalcTotals()" />
+        </div>
+        <div class="cell">
+          <label class="lbl">SGST</label>
+          <input class="inp" formControlName="sgst" (input)="recalcTotals()" />
+        </div>
+        <div class="cell">
+          <label class="lbl">IGST</label>
+          <input class="inp" formControlName="igst" (input)="recalcTotals()" />
+        </div>
+        <div class="cell">
+          <label class="lbl">Other</label>
+          <input class="inp" formControlName="otherAmt" (input)="recalcTotals()" />
+        </div>
+        <div class="cell">
+          <label class="lbl">Total Amt</label>
+          <input class="inp" formControlName="totalAmt" readonly />
+        </div>
+      </div>
+    </section>
+
+    <section class="block grid-two">
+      <div>
+        <div class="sub-title">Totals</div>
+        <div class="row">
+          <label class="lbl req">Total Pcs</label>
+          <input class="inp" formControlName="totalPcs" />
+        </div>
+        <div class="row">
+          <label class="lbl">Total Weight</label>
+          <input class="inp" formControlName="totalWeight" />
+        </div>
+        <div class="row">
+          <label class="lbl">Chargeable Wt</label>
+          <input class="inp" formControlName="chargeableWeight" />
+        </div>
+        <div class="row">
+          <label class="lbl">Currency</label>
+          <select class="inp" formControlName="currency">
+            <option *ngFor="let c of currencies" [value]="c">{{ c }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <div class="sub-title">Invoice Details</div>
+        <div class="row">
+          <label class="lbl">Invoice Value</label>
+          <input class="inp" formControlName="invoiceValue" (input)="recalcInsurance()" />
+        </div>
+        <div class="row cols-2">
+          <div class="cell">
+            <label class="lbl">Insurance %</label>
+            <input class="inp" formControlName="insurancePercent" (input)="recalcInsurance()" />
+          </div>
+          <div class="cell">
+            <label class="lbl">Ins Amount</label>
+            <input class="inp" formControlName="insuranceAmount" readonly />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ITEM & HOLD -->
+    <section class="block">
+      <div class="row cols-3">
+        <div class="cell">
+          <label class="lbl">Item Type</label>
+          <select class="inp" formControlName="itemType">
+            <option *ngFor="let i of itemTypes" [value]="i">{{ i }}</option>
+          </select>
+        </div>
+        <div class="cell">
+          <label class="lbl">Desc of Goods</label>
+          <input class="inp" formControlName="descOfGoods" />
+        </div>
+        <div class="cell">
+          <label class="lbl">Remarks</label>
+          <input class="inp" formControlName="remarks" />
+        </div>
+      </div>
+
+      <div class="row align">
+        <label class="lbl">Hold Status</label>
+        <label class="radio ml" class="unhold">
+          <input type="radio" value="unhold" formControlName="holdStatus" /> Un-Hold
+        </label>
+        <label class="radio ml">
+          <input type="radio" value="hold" formControlName="holdStatus" /> Hold
+        </label>
+        <label class="lbl-ml">Hold Reason</label>
+        <input class="inp flex1" formControlName="holdReason" />
+        <label class="lbl-ml">Reference No</label>
+        <input class="inp flex1" formControlName="referenceNo" />
+      </div>
+    </section>
+
+    <!-- ACTIONS -->
+    <div class="actions">
+      <button type="submit" class="btn">Save</button>
+      <button type="button" class="btn" (click)="onClear()">Clear</button>
+      <button type="button" class="btn" (click)="onPrint()">Print</button>
+      <button type="button" class="btn" (click)="onAddCharge()">Add Charge</button>
+      <button type="button" class="btn" (click)="onBulkUpload()">Bulk Upload</button>
+    </div>
+  </form>
 </div>

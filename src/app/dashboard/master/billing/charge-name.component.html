@@ -1,53 +1,57 @@
-<!-- src/app/dashboard/master/billing/charge-name.component.html -->
-<div class="cn-root">
-  <div class="cn-header">
-    <h3>Charge Names</h3>
-    <div class="cn-actions">
-      <input placeholder="Filter by code/description" [(ngModel)]="filter" />
-      <button class="btn" (click)="reset()">New</button>
-    </div>
+<div class="container">
+  <!-- Left Panel: Form -->
+  <div class="form-section">
+    <h3>Billing Charge Details Enter Here</h3>
+    <form [formGroup]="chargeForm">
+      <div class="form-group">
+        <label>Charge Type <span class="required">*</span></label>
+        <select formControlName="chargeType">
+          <option value="">-- Select --</option>
+          <option *ngFor="let type of chargeTypes" [value]="type">{{ type }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Billing Charge Name <span class="required">*</span></label>
+        <input type="text" formControlName="chargeName" />
+      </div>
+
+      <div class="form-group">
+        <label>HSN Code <span class="required">*</span></label>
+        <input type="text" formControlName="hsnCode" />
+      </div>
+
+      <div class="button-group">
+        <button type="button" (click)="onSave()">Save</button>
+        <button type="button" (click)="onUpdate()" [disabled]="!selectedRow">Update</button>
+        <button type="button" (click)="onDelete()" [disabled]="!selectedRow">Delete</button>
+        <button type="button" (click)="onRefresh()">Refresh</button>
+      </div>
+    </form>
   </div>
 
-  <div class="cn-grid">
-    <div class="cn-form panel">
-      <h4>{{ editingId ? 'Edit Charge Name' : 'Create Charge Name' }}</h4>
-      <form (ngSubmit)="save()">
-        <label>
-          Code
-          <input name="code" [(ngModel)]="model.code" required />
-        </label>
-
-        <label>
-          Description
-          <input name="description" [(ngModel)]="model.description" />
-        </label>
-
-        <label class="checkbox">
-          <input type="checkbox" name="active" [(ngModel)]="model.active" /> Active
-        </label>
-
-        <div class="form-actions">
-          <button class="btn primary" type="submit">{{ editingId ? 'Update' : 'Create' }}</button>
-          <button class="btn" type="button" (click)="reset()">Cancel</button>
-        </div>
-      </form>
-    </div>
-
-    <div class="cn-list panel">
-      <h4>Charge Name List ({{ filtered.length }})</h4>
-      <ul class="list">
-        <li *ngFor="let it of filtered">
-          <div class="left">
-            <div class="code">{{ it.code }}</div>
-            <div class="desc">{{ it.description }}</div>
-          </div>
-          <div class="right">
-            <button class="small" (click)="edit(it)">Edit</button>
-            <button class="small danger" (click)="remove(it)">Delete</button>
-          </div>
-        </li>
-        <li *ngIf="filtered.length===0" class="empty">No charge names configured.</li>
-      </ul>
-    </div>
+  <!-- Right Panel: Table -->
+  <div class="table-section">
+    <h3>Existing Billing Charge Details</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Sl.No</th>
+          <th>Charge Type</th>
+          <th>Billing Charge Name</th>
+          <th>HSN Code</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let charge of charges; let i = index" 
+            (click)="onSelectRow(charge)" 
+            [class.selected]="charge === selectedRow">
+          <td>{{ i + 1 }}</td>
+          <td>{{ charge.chargeType }}</td>
+          <td>{{ charge.chargeName }}</td>
+          <td>{{ charge.hsnCode }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>

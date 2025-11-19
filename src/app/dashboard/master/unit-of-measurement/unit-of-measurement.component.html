@@ -1,45 +1,39 @@
-<div class="uom-wrap">
-  <h2 class="uom-title">Unit of Measurement Management</h2>
 
-  <!-- Form Section -->
-  <form class="uom-form" (ngSubmit)="addUnit()">
-    <div class="form-row">
-      <label for="code">Code</label>
-      <input id="code" type="text" [(ngModel)]="newUnit.code" name="code" required />
-    </div>
 
-    <div class="form-row">
-      <label for="name">Name</label>
-      <input id="name" type="text" [(ngModel)]="newUnit.name" name="name" required />
-    </div>
 
-    <div class="form-row">
-      <label for="description">Description</label>
-      <input id="description" type="text" [(ngModel)]="newUnit.description" name="description" />
-    </div>
 
-    <button type="submit" class="btn-primary">Add Unit</button>
-  </form>
+<div class="container">
+  <div class="form-section">
+    <h3 class="title">UOM Details Enter Here</h3>
+    <form [formGroup]="uomForm">
+      <div class="form-group">
+        <label for="name">Unit Name</label>
+        <input id="name" type="text" formControlName="name" class="inp"/>
+      </div>
+      <div class="button-group">
+        <button type="button" (click)="save()">Save</button>
+        <button type="button" (click)="update()">Update</button>
+        <button type="button" (click)="delete()">Delete</button>
+        <button type="button" (click)="refresh()">Refresh</button>
+      </div>
+    </form>
+  </div>
 
-  <!-- Table Section -->
-  <table class="uom-table" *ngIf="units.length > 0">
-    <thead>
-      <tr>
-        <th>Code</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let unit of units; let i = index">
-        <td>{{ unit.code }}</td>
-        <td>{{ unit.name }}</td>
-        <td>{{ unit.description }}</td>
-        <td>
-          <button class="btn-danger" (click)="deleteUnit(i)">Delete</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-section">
+    <h3 class="title">Existing UOM Details</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Sl.No</th>
+          <th>Unit of Measurement</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let uom of uoms; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ uom.name }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

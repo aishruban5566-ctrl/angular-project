@@ -3,10 +3,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 interface ParentClient {
   id: number;
-  code: string;
+  country: string;
   name: string;
-  contact?: string;
-  active?: boolean;
+  code: string;
+  address: string;
+  contact: string;
+  email: string;
 }
 
 @Component({
@@ -15,62 +17,58 @@ interface ParentClient {
   styleUrls: ['./parent-client.component.css']
 })
 export class ParentClientComponent implements OnInit {
-  items: ParentClient[] = [];
-  form!: FormGroup;
-  isModalOpen = false;
-  isConfirmOpen = false;
-  isEditing = false;
-  selectedId: number | null = null;
-  deletingId: number | null = null;
-  searchText = '';
-  page = 1;
-  pageSize = 10;
+  clientForm!: FormGroup;
+  clients: ParentClient[] = [];
+  editIndex: number | null = null;
+
+  countries: string[] = ['India', 'USA', 'UK', 'Germany', 'UAE'];
 
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.form = this.fb.group({
-      code: ['', Validators.required],
+    this.clientForm = this.fb.group({
+      country: ['', Validators.required],
       name: ['', Validators.required],
-      contact: ['', Validators.maxLength(120)],
-      active: [true]
+      code: ['', Validators.required],
+      address: [''],
+      contact: [''],
+      email: ['', [Validators.email]]
     });
-
-    this.items = [
-      { id: 1, code: 'PC001', name: 'Parent A', contact: 'parenta@example.com', active: true },
-      { id: 2, code: 'PC002', name: 'Parent B', contact: 'parentb@example.com', active: true }
-    ];
   }
 
-  openAdd() { this.isEditing = false; this.selectedId = null; this.form.reset({ active: true }); this.isModalOpen = true; }
-  openEdit(i: ParentClient) { this.isEditing = true; this.selectedId = i.id; this.form.setValue({ code: i.code, name: i.name, contact: i.contact || '', active: !!i.active }); this.isModalOpen = true; }
-  closeModal() { this.isModalOpen = false; }
-
-  onSubmit() {
-    if (this.form.invalid) { this.form.markAllAsTouched(); return; }
-    const payload = this.form.value;
-    if (this.isEditing && this.selectedId !== null) {
-      const idx = this.items.findIndex(x => x.id === this.selectedId);
-      if (idx > -1) this.items[idx] = { id: this.selectedId, ...payload };
-    } else {
-      const newId = this.items.length ? Math.max(...this.items.map(x => x.id)) + 1 : 1;
-      this.items.unshift({ id: newId, ...payload });
+  onSave(): void {
+    if (this.clientForm.valid) {
+      const newClient: ParentClient = {
+        id: this.clients.length + 1,
+        ...this.clientForm.value
+      };
+      this.clients.push(newClient);
+      this.clientForm.reset();
     }
-    this.closeModal();
   }
 
-  confirmDelete(id: number) { this.deletingId = id; this.isConfirmOpen = true; }
-  cancelDelete() { this.deletingId = null; this.isConfirmOpen = false; }
-  performDelete() { if (this.deletingId === null) return; this.items = this.items.filter(x => x.id !== this.deletingId); this.deletingId = null; this.isConfirmOpen = false; }
-
-  filtered() {
-    const q = this.searchText.trim().toLowerCase();
-    if (!q) return this.items;
-    return this.items.filter(i => i.code.toLowerCase().includes(q) || i.name.toLowerCase().includes(q) || (i.contact || '').toLowerCase().includes(q));
+  onUpdate(): void {
+    if (this.editIndex !== null && this.clientForm.valid) {
+      this.clients[this.editIndex] = {
+        ...this.clients[this.editIndex],
+        ...this.clientForm.value
+      };
+      this.editIndex = null;
+      this.clientForm.reset();
+    }
   }
-  paged() { const list = this.filtered(); const start = (this.page - 1) * this.pageSize; return list.slice(start, start + this.pageSize); }
-  totalPages() { return Math.max(1, Math.ceil(this.filtered().length / this.pageSize)); }
-  pages() { return Array.from({ length: this.totalPages() }, (_, i) => i + 1); }
-  goPage(n: number) { if (n < 1) n = 1; if (n > this.totalPages()) n = this.totalPages(); this.page = n; }
-  get fv() { return this.form.controls; }
+
+  onEdit(index: number): void {
+    this.editIndex = index;
+    this.clientForm.patchValue(this.clients[index]);
+  }
+
+  onDelete(index: number): void {
+    this.clients.splice(index, 1);
+  }
+
+  onRefresh(): void {
+    this.clientForm.reset();
+    this.editIndex = null;
+  }
 }

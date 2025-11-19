@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-interface Company {
+interface CompanyRow {
   id: number;
-  name: string;
-  code: string;
+  organizationName: string;
+  organizationCode: string;
+  phoneNumber: string;
   address: string;
 }
 
@@ -13,40 +15,112 @@ interface Company {
   styleUrls: ['./company.component.css']
 })
 export class CompanyComponent implements OnInit {
-  companies: Company[] = [];
-  newCompany: Company = { id: 0, name: '', code: '', address: '' };
-  editing: boolean = false;
+  today = new Date();
+  companyForm!: FormGroup;
+
+  // sample rows to match the screenshot
+  companies: CompanyRow[] = [
+    { id: 1, organizationName: 'AV LOGISTICS',        organizationCode: 'AVL', phoneNumber: '9876543210', address: '' },
+    { id: 2, organizationName: 'AR ENTERPRISES',      organizationCode: 'ARE', phoneNumber: '9123456789', address: '' },
+    { id: 3, organizationName: 'BHUVANA ENTERPRISES', organizationCode: 'BE',  phoneNumber: '9000000000', address: '' }
+  ];
+
+  selectedIndex: number | null = null;
+
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    // Example data
-    this.companies = [
-      { id: 1, name: 'ABC Pvt Ltd', code: 'ABC', address: 'Bangalore' },
-      { id: 2, name: 'XYZ Ltd', code: 'XYZ', address: 'Chennai' }
-    ];
+    this.companyForm = this.fb.group({
+      name: ['', Validators.required],
+      code: ['', Validators.required],
+      logo: [null, Validators.required],
+      year: [''],
+      bankName: [''],
+      bankAccNo: [''],
+      swiftCode: [''],
+      address: [''],
+      phoneNumber: [''],
+      branchName: [''],
+      ifscCode: [''],
+      website: [''],
+      email: [''],
+      tinNumber: [''],
+      panNumber: [''],
+      bankAddress: ['']
+    });
   }
 
-  saveCompany() {
-    if (this.editing) {
-      let index = this.companies.findIndex(c => c.id === this.newCompany.id);
-      this.companies[index] = { ...this.newCompany };
-    } else {
-      this.newCompany.id = this.companies.length + 1;
-      this.companies.push({ ...this.newCompany });
+  // ✅ Save new row
+  save(): void {
+    if (this.companyForm.invalid) {
+      this.companyForm.markAllAsTouched();
+      return;
     }
-    this.cancel();
+    const v = this.companyForm.value;
+    const row: CompanyRow = {
+      id: this.companies.length + 1,
+      organizationName: v.name || '',
+      organizationCode: v.code || '',
+      phoneNumber: v.phoneNumber || '',
+      address: v.address || ''
+    };
+    this.companies = [...this.companies, row];
+    this.refresh();
   }
 
-  editCompany(company: Company) {
-    this.newCompany = { ...company };
-    this.editing = true;
+  // ✅ Update selected row
+  update(): void {
+    if (this.selectedIndex === null) return;
+    const v = this.companyForm.value;
+    const current = this.companies[this.selectedIndex];
+    this.companies[this.selectedIndex] = {
+      ...current,
+      organizationName: v.name || '',
+      organizationCode: v.code || '',
+      phoneNumber: v.phoneNumber || '',
+      address: v.address || ''
+    };
+    this.companies = [...this.companies];
+    this.refresh();
   }
 
-  deleteCompany(id: number) {
-    this.companies = this.companies.filter(c => c.id !== id);
+  // ✅ Delete selected row
+  delete(): void {
+    if (this.selectedIndex === null) return;
+    this.companies = this.companies.filter((_, i) => i !== this.selectedIndex);
+    this.selectedIndex = null;
+    this.refresh();
   }
 
-  cancel() {
-    this.newCompany = { id: 0, name: '', code: '', address: '' };
-    this.editing = false;
+  // ✅ Reset form
+  refresh(): void {
+    this.companyForm.reset();
+    this.selectedIndex = null;
+  }
+
+  // ✅ Row select → patch into form
+  selectRow(i: number, c: CompanyRow): void {
+    this.selectedIndex = i;
+    this.companyForm.patchValue({
+      name: c.organizationName,
+      code: c.organizationCode,
+      phoneNumber: c.phoneNumber,
+      address: c.address
+    });
+  }
+
+  // ✅ Export as CSV (basic)
+  export(): void {
+    const headers = ['ID','Organization Name','Code','Phone','Address'];
+    const rows = this.companies.map(c =>
+      [c.id, c.organizationName, c.organizationCode, c.phoneNumber, c.address].join(',')
+    );
+    const csv = [headers.join(','), ...rows].join('\n');
+
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'companies.csv';
+    link.click();
   }
 }

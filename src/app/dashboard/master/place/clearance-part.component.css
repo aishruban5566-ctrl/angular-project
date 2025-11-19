@@ -1,88 +1,153 @@
-.container {
-  max-width: 900px;
-  margin: auto;
-  padding: 20px;
+.page-container {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom, #ece3f0, #efe7d3); /* Pewter → Ivory */
+  height: 100vh;
 }
 
-h2 {
-  text-align: center;
-  margin-bottom: 20px;
+/* Top Bar */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #d3bbdd; /* Lilac */
+  padding: 5px 15px;
+  border-bottom: 1px solid #bda6c7; /* darker lilac border */
+}
+
+.left-info {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
   color: #333;
 }
 
-.form-card {
-  background: #f9f9f9;
-  border: 1px solid #ddd;
+.logo img {
+  height: 40px;
+}
+
+.logout-btn {
+  background: #f8c0c8; /* Rosewater */
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 6px 10px;
+}
+
+/* Menu Bar */
+.menu-bar {
+  background: #efe7d3; /* Ivory */
+  padding: 5px;
+  text-align: left;
+}
+
+.menu-bar button {
+  background: transparent;
+  border: none;
+  margin: 0 10px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #6a4c76; /* muted lilac text */
+}
+
+/* Content Area */
+.content {
   padding: 15px;
-  border-radius: 8px;
-  margin-bottom: 20px;
+}
+
+/* Form Card */
+.form-card {
+  background: linear-gradient(to bottom, #f8c0c8, #d3bbdd); /* Rosewater → Lilac */
+  padding: 15px;
+  border: 1px solid #bda6c7;
+  border-radius: 6px;
+  margin-bottom: 15px;
+}
+
+.form-card h3 {
+  text-align: center;
+  color: #4a2f57; /* Deep Lilac heading */
+  margin-bottom: 15px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
 }
 
 .form-group {
-  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
 }
 
 .form-group label {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 5px;
+  font-weight: bold;
+  margin-bottom: 3px;
+  color: #333;
 }
 
-.form-group input {
-  width: 100%;
-  padding: 6px 8px;
-  border: 1px solid #ccc;
+.required {
+  color: #c62828;
+}
+
+input, select, textarea {
+  padding: 5px;
+  border: 1px solid #bda6c7; /* Lilac border */
+  border-radius: 3px;
+  background: #efe7d3; /* Ivory inputs */
+}
+
+textarea {
+  resize: none;
+  height: 60px;
+}
+
+/* Button Bar */
+.button-bar {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 15px;
+  background: #d3bbdd; /* Lilac */
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.button-bar button {
+  background: linear-gradient(#f8c0c8, #d3bbdd); /* Rosewater → Lilac */
+  border: 1px solid #a488b3;
+  color: #fff;
+  padding: 6px 15px;
   border-radius: 4px;
-}
-
-.form-actions {
-  margin-top: 10px;
-}
-
-.btn {
-  padding: 6px 12px;
-  border: none;
-  border-radius: 4px;
-  margin-right: 6px;
   cursor: pointer;
-  font-size: 14px;
 }
 
-.btn.primary {
-  background-color: #007bff;
-  color: white;
+.button-bar button:hover {
+  background: linear-gradient(#d3bbdd, #bda6c7);
 }
 
-.btn.secondary {
-  background-color: #6c757d;
-  color: white;
+/* Table Card */
+.table-card {
+  background: #ece3f0; /* Pewter */
+  padding: 15px;
+  border: 1px solid #bda6c7;
+  border-radius: 6px;
 }
 
-.btn.small {
-  padding: 4px 8px;
-  font-size: 12px;
-}
-
-.btn.danger {
-  background-color: #dc3545;
-  color: white;
-}
-
-.styled-table {
+table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.styled-table th, .styled-table td {
-  border: 1px solid #ddd;
+table th,
+table td {
+  border: 1px solid #d3bbdd;
   padding: 8px;
-  text-align: left;
-}
-
-.styled-table th {
-  background-color: #f1f1f1;
-}
-
-.actions {
   text-align: center;
+}
+
+table th {
+  background: #f8c0c8; /* Rosewater header */
+  color: #333;
 }

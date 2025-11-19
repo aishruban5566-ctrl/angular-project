@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 interface Department {
   id: number;
-  name: string;
-  head: string;
+  companyName: string;
+  departmentName: string;
 }
 
 @Component({
@@ -12,41 +13,67 @@ interface Department {
   styleUrls: ['./department.component.css']
 })
 export class DepartmentComponent implements OnInit {
+  departmentForm!: FormGroup;
   departments: Department[] = [];
-  newDepartment: Department = { id: 0, name: '', head: '' };
-  editing: boolean = false;
+  today: Date = new Date();
+  selectedIndex: number | null = null;
+
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    // Example data
+    this.departmentForm = this.fb.group({
+      companyName: ['', Validators.required],
+      departmentName: ['', Validators.required]
+    });
+
+    // Sample data
     this.departments = [
-      { id: 1, name: 'Finance', head: 'Mr. Sharma' },
-      { id: 2, name: 'HR', head: 'Ms. Priya' },
-      { id: 3, name: 'IT', head: 'Mr. Raj' }
+      { id: 1, companyName: 'AV LOGISTICS', departmentName: 'ACCOUNTS' },
+      { id: 2, companyName: 'AV LOGISTICS', departmentName: 'BOSS' },
+      { id: 3, companyName: 'AV LOGISTICS', departmentName: 'CLEARANCE' },
+      { id: 4, companyName: 'AV LOGISTICS', departmentName: 'CUSTOMER SERVICE' },
+      { id: 5, companyName: 'AV LOGISTICS', departmentName: 'DELIVERY AGENT' },
+      { id: 6, companyName: 'AV LOGISTICS', departmentName: 'HEAD OFFICE' },
+      { id: 7, companyName: 'AV LOGISTICS', departmentName: 'MANAGEMENT' },
+      { id: 8, companyName: 'AV LOGISTICS', departmentName: 'OPERATION' }
     ];
   }
 
-  saveDepartment() {
-    if (this.editing) {
-      let index = this.departments.findIndex(d => d.id === this.newDepartment.id);
-      this.departments[index] = { ...this.newDepartment };
-    } else {
-      this.newDepartment.id = this.departments.length + 1;
-      this.departments.push({ ...this.newDepartment });
+  save(): void {
+    if (this.departmentForm.valid) {
+      const newDept: Department = {
+        id: this.departments.length + 1,
+        companyName: this.departmentForm.value.companyName,
+        departmentName: this.departmentForm.value.departmentName
+      };
+      this.departments.push(newDept);
+      this.departmentForm.reset();
     }
-    this.cancel();
   }
 
-  editDepartment(dept: Department) {
-    this.newDepartment = { ...dept };
-    this.editing = true;
+  update(): void {
+    if (this.selectedIndex !== null && this.departmentForm.valid) {
+      this.departments[this.selectedIndex].companyName = this.departmentForm.value.companyName;
+      this.departments[this.selectedIndex].departmentName = this.departmentForm.value.departmentName;
+      this.selectedIndex = null;
+      this.departmentForm.reset();
+    }
   }
 
-  deleteDepartment(id: number) {
-    this.departments = this.departments.filter(d => d.id !== id);
+  delete(index: number): void {
+    this.departments.splice(index, 1);
   }
 
-  cancel() {
-    this.newDepartment = { id: 0, name: '', head: '' };
-    this.editing = false;
+  refresh(): void {
+    this.departmentForm.reset();
+    this.selectedIndex = null;
+  }
+
+  editDepartment(index: number): void {
+    this.selectedIndex = index;
+    this.departmentForm.patchValue({
+      companyName: this.departments[index].companyName,
+      departmentName: this.departments[index].departmentName
+    });
   }
 }

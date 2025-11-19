@@ -18,7 +18,7 @@ export class PlaceComponent {
     { label: 'Clearance Locations', component: ClearanceLocationComponent },
     { label: 'Clearance Parts', component: ClearancePartComponent },
     { label: 'Clients', component: ClientComponent },
-    { label: 'Countries', component: CountryComponent },
+    { label: 'Country', component: CountryComponent },
     { label: 'Delivery States', component: DeliveryStateComponent },
     { label: 'Destinations', component: DestinationComponent },
     { label: 'Origin Branches', component: OriginBranchComponent },

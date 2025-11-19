@@ -1,12 +1,5 @@
-// src/app/dashboard/master/item-hs-entry/item-hs-entry.component.ts
 import { Component, OnInit } from '@angular/core';
-
-interface HsEntry {
-  id: number;
-  hsCode: string;
-  description: string;
-  active: boolean;
-}
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-item-hs-entry',
@@ -14,52 +7,56 @@ interface HsEntry {
   styleUrls: ['./item-hs-entry.component.css']
 })
 export class ItemHsEntryComponent implements OnInit {
-  list: HsEntry[] = [];
-  nextId = 1;
+  hsForm!: FormGroup;
+  data: any[] = [];
+  filteredData: any[] = [];
+  searchText: string = '';
 
-  model: Partial<HsEntry> = { hsCode: '', description: '', active: true };
-  editingId: number | null = null;
-  search = '';
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.list = [
-      { id: this.nextId++, hsCode: '0101', description: 'Live horses, asses, mules and hinnies', active: true },
-      { id: this.nextId++, hsCode: '0201', description: 'Meat of bovine animals, fresh or chilled', active: true },
-    ];
+    this.hsForm = this.fb.group({
+      hsCode: ['', Validators.required],
+      descGoods: ['', Validators.required],
+      customNotifiNo: [''],
+      customSerialNo: [''],
+      basicCustomDuty: [''],
+      igstNotifiNo: [''],
+      igstSerialNo: [''],
+      igstDuty: [''],
+      bcdExemption: [''],
+      bannedItem: ['No']
+    });
   }
 
-  save() {
-    if (!this.model.hsCode) return;
-    if (this.editingId != null) {
-      const idx = this.list.findIndex(x => x.id === this.editingId);
-      if (idx !== -1) {
-        this.list[idx] = { id: this.editingId, hsCode: this.model.hsCode!, description: this.model.description || '', active: !!this.model.active };
-      }
-      this.editingId = null;
-    } else {
-      this.list.push({ id: this.nextId++, hsCode: this.model.hsCode!, description: this.model.description || '', active: !!this.model.active });
+  onSave() {
+    if (this.hsForm.valid) {
+      this.data.push(this.hsForm.value);
+      this.filteredData = [...this.data];
+      this.hsForm.reset({ bannedItem: 'No' });
     }
-    this.reset();
   }
 
-  edit(it: HsEntry) {
-    this.editingId = it.id;
-    this.model = { ...it };
+  onUpdate() {
+    alert('Update functionality not implemented yet.');
   }
 
-  remove(it: HsEntry) {
-    this.list = this.list.filter(x => x.id !== it.id);
-    if (this.editingId === it.id) this.reset();
+  onDelete() {
+    alert('Delete functionality not implemented yet.');
   }
 
-  reset() {
-    this.model = { hsCode: '', description: '', active: true };
-    this.editingId = null;
+  onRefresh() {
+    this.hsForm.reset({ bannedItem: 'No' });
   }
 
-  get filtered() {
-    const q = this.search.trim().toLowerCase();
-    if (!q) return this.list;
-    return this.list.filter(i => i.hsCode.includes(q) || (i.description || '').toLowerCase().includes(q));
+  applySearch() {
+    if (!this.searchText) {
+      this.filteredData = [...this.data];
+    } else {
+      this.filteredData = this.data.filter(item =>
+        item.hsCode.includes(this.searchText) ||
+        item.descGoods.toLowerCase().includes(this.searchText.toLowerCase())
+      );
+    }
   }
 }

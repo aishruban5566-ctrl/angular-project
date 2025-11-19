@@ -1,13 +1,37 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
 
 interface Client {
-  id: number;
-  code: string;
-  name: string;
-  shortName?: string;
-  email?: string;
-  active?: boolean;
+  branchName: string;
+  organizationName: string;
+  clientName: string;
+  clientCode: string;
+  clientCountry: string;
+  clientState: string;
+  address1: string;
+  address2: string;
+  address3: string;
+  pincode: string;
+  ownerEmail: string;
+  contactNo: string;
+  contactPerson: string;
+  panNo: string;
+  gstNo: string;
+  operationEmail: string;
+  csEmail: string;
+  billingEmail: string;
+  creditLimit: number | null;
+  openingBalance: number | null;
+  creditDays: number | null;
+  leftoverAmount: number | null;
+  awbPrefix: string;
+  activeStatus: string;
+  gstBillStatus: string;
+  webStatus: string;
+  paymentMode: string;
+  totalCredit: number | null;
+  userName: string;
+  password: string;
+  salesPerson: string;
 }
 
 @Component({
@@ -15,69 +39,104 @@ interface Client {
   templateUrl: './client.component.html',
   styleUrls: ['./client.component.css']
 })
-export class ClientComponent implements OnInit {
-  clients: Client[] = [];
-  form!: FormGroup;
-  isModalOpen = false;
-  isConfirmOpen = false;
-  isEditing = false;
-  selectedId: number | null = null;
-  deletingId: number | null = null;
-  searchText = '';
-  page = 1;
-  pageSize = 10;
+export class ClientComponent {
+  client: Client = this.initClient();
+  clientList: Client[] = [];
+  selected: Client | null = null;
 
-  constructor(private fb: FormBuilder) {}
+  branches = ['MUMBAI', 'BANGALORE', 'DELHI'];
+  orgs = ['Org1', 'Org2'];
+  countries = ['INDIA', 'USA', 'UK'];
+  states = ['MAHARASHTRA', 'KARNATAKA', 'TAMILNADU'];
 
-  ngOnInit(): void {
-    this.form = this.fb.group({
-      code: ['', [Validators.required, Validators.maxLength(12)]],
-      name: ['', [Validators.required, Validators.maxLength(120)]],
-      shortName: ['', Validators.maxLength(30)],
-      email: ['', Validators.email],
-      active: [true]
-    });
-
-    this.clients = [
-      { id: 1, code: 'CLT001', name: 'Alpha Logistics', shortName: 'Alpha', email: 'alpha@example.com', active: true },
-      { id: 2, code: 'CLT002', name: 'Beta Cargo', shortName: 'Beta', email: 'beta@example.com', active: true }
-    ];
+  private initClient(): Client {
+    return {
+      branchName: '',
+      organizationName: '',
+      clientName: '',
+      clientCode: '',
+      clientCountry: '',
+      clientState: '',
+      address1: '',
+      address2: '',
+      address3: '',
+      pincode: '',
+      ownerEmail: '',
+      contactNo: '',
+      contactPerson: '',
+      panNo: '',
+      gstNo: '',
+      operationEmail: '',
+      csEmail: '',
+      billingEmail: '',
+      creditLimit: null,
+      openingBalance: null,
+      creditDays: null,
+      leftoverAmount: null,
+      awbPrefix: '',
+      activeStatus: 'YES',
+      gstBillStatus: 'YES',
+      webStatus: 'YES',
+      paymentMode: '',
+      totalCredit: null,
+      userName: '',
+      password: '',
+      salesPerson: ''
+    };
   }
 
-  openAdd() { this.isEditing = false; this.selectedId = null; this.form.reset({ active: true }); this.isModalOpen = true; }
-  openEdit(c: Client) { this.isEditing = true; this.selectedId = c.id; this.form.setValue({ code: c.code, name: c.name, shortName: c.shortName || '', email: c.email || '', active: !!c.active }); this.isModalOpen = true; }
-  closeModal() { this.isModalOpen = false; }
-
-  onSubmit() {
-    if (this.form.invalid) { this.form.markAllAsTouched(); return; }
-    const payload = this.form.value;
-    if (this.isEditing && this.selectedId !== null) {
-      const idx = this.clients.findIndex(x => x.id === this.selectedId);
-      if (idx > -1) this.clients[idx] = { id: this.selectedId, ...payload };
-    } else {
-      const newId = this.clients.length ? Math.max(...this.clients.map(x => x.id)) + 1 : 1;
-      this.clients.unshift({ id: newId, ...payload });
+  save() {
+    if (!this.client.clientCode || !this.client.clientState || !this.client.clientCountry) {
+      alert('Required fields are missing');
+      return;
     }
-    this.closeModal();
+    this.clientList.push({ ...this.client });
+    this.refresh();
   }
 
-  confirmDelete(id: number) { this.deletingId = id; this.isConfirmOpen = true; }
-  cancelDelete() { this.deletingId = null; this.isConfirmOpen = false; }
-  performDelete() { if (this.deletingId === null) return; this.clients = this.clients.filter(c => c.id !== this.deletingId); this.deletingId = null; this.isConfirmOpen = false; }
-
-  filtered() {
-    const q = this.searchText.trim().toLowerCase();
-    if (!q) return this.clients;
-    return this.clients.filter(c =>
-      c.code.toLowerCase().includes(q) ||
-      c.name.toLowerCase().includes(q) ||
-      (c.shortName || '').toLowerCase().includes(q) ||
-      (c.email || '').toLowerCase().includes(q)
-    );
+  update() {
+    if (this.selected) {
+      Object.assign(this.selected, this.client);
+      this.refresh();
+    } else {
+      alert('Select a row to update');
+    }
   }
-  paged() { const list = this.filtered(); const start = (this.page - 1) * this.pageSize; return list.slice(start, start + this.pageSize); }
-  totalPages() { return Math.max(1, Math.ceil(this.filtered().length / this.pageSize)); }
-  pages() { return Array.from({ length: this.totalPages() }, (_, i) => i + 1); }
-  goPage(n: number) { if (n < 1) n = 1; if (n > this.totalPages()) n = this.totalPages(); this.page = n; }
-  get fv() { return this.form.controls; }
+
+  delete() {
+    if (this.selected) {
+      this.clientList = this.clientList.filter(c => c !== this.selected);
+      this.refresh();
+    } else {
+      alert('Select a row to delete');
+    }
+  }
+
+  refresh() {
+    this.client = this.initClient();
+    this.selected = null;
+  }
+
+  selectRow(c: Client) {
+    this.selected = c;
+    this.client = { ...c };
+  }
+
+  export() {
+    if (this.clientList.length === 0) {
+      alert('No data to export');
+      return;
+    }
+    const headers = Object.keys(this.clientList[0]).join(',');
+    const rows = this.clientList.map(obj => Object.values(obj).join(','));
+    const csvContent = [headers, ...rows].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'clients.csv';
+    a.click();
+    window.URL.revokeObjectURL(url);
+  }
 }

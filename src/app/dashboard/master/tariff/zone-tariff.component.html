@@ -1,0 +1,39 @@
+<div class="zone-tariff-container">
+  <!-- Left: Form -->
+  <div class="form-box">
+    <h3>Zone Tariff Enter Here</h3>
+
+    <form [formGroup]="zoneForm">
+      <div class="form-group">
+        <label for="zoneName">Zone Tariff Name <span class="required">*</span></label>
+        <input id="zoneName" type="text" formControlName="zoneName" />
+      </div>
+
+      <div class="button-group">
+        <button type="button" (click)="save()" class="btn btn-save">Save</button>
+        <button type="button" (click)="update()" class="btn btn-update">Update</button>
+        <button type="button" (click)="delete()" class="btn btn-delete">Delete</button>
+        <button type="button" (click)="refresh()" class="btn btn-refresh">Refresh</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Right: Table -->
+  <div class="table-box">
+    <h3>Existing Zone Tariff</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Sl No</th>
+          <th>Zone Tariff</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tariff of zoneTariffs; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ tariff.zoneName }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

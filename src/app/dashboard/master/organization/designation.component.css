@@ -1,42 +1,108 @@
-.container {
-  padding: 20px;
+/* Header section */
+.header {
+  display: flex;
+  justify-content: space-between;
+  background: linear-gradient(to bottom, #ece3f0, #d3bbdd); /* Pewter to Lilac gradient */
+  padding: 8px 20px;
+  font-weight: bold;
+  border: 1px solid #ccc;
+  color: #111827; /* Dark text for contrast */
 }
 
-h2 {
+.date {
+  margin-left: auto;
+}
+
+/* Logo */
+.logo {
+  text-align: center;
+  margin: 10px 0;
+}
+
+.logo img {
+  height: 50px;
+}
+
+/* Container */
+.designation-container {
+  background: #efe7d3; /* Ivory background */
+  border: 2px solid #d3bbdd; /* Lilac border */
+  padding: 20px;
+  border-radius: 6px;
+  margin: 10px;
+  color: #000;
+}
+
+.designation-container h2 {
+  text-align: center;
   margin-bottom: 15px;
 }
 
-.form {
+/* Form */
+.designation-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
   margin-bottom: 20px;
 }
 
-input {
-  margin: 5px;
+.designation-form label {
+  font-weight: bold;
+}
+
+.designation-form .required {
+  color: #f8c0c8; /* Rosewater for required fields */
+}
+
+.designation-form input {
   padding: 6px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+  width: 250px;
+  border: 1px solid #888;
+  border-radius: 4px;
 }
 
-button {
-  margin: 5px;
-  padding: 6px 12px;
-  border-radius: 5px;
+/* Buttons */
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.button-group button {
+  padding: 6px 15px;
   border: none;
+  border-radius: 4px;
+  background: #d3bbdd; /* Lilac button */
   cursor: pointer;
+  font-weight: bold;
+  color: #111827;
 }
 
-button:hover {
-  background-color: #007bff;
-  color: #fff;
+.button-group button:hover {
+  background: #ece3f0; /* Pewter hover */
 }
 
-table {
+/* Table */
+.designation-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 15px;
+  background: #fff; /* Keep table white for clarity */
 }
 
-table, th, td {
+.designation-table th,
+.designation-table td {
   border: 1px solid #ccc;
   padding: 8px;
+  text-align: left;
+}
+
+.designation-table thead {
+  background: #f8c0c8; /* Rosewater header row */
+}
+
+.designation-table tr:hover {
+  background: #f2f2f2;
+  cursor: pointer;
 }

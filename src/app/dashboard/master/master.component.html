@@ -35,7 +35,21 @@
       <div class="card-title">Unit of Measurement</div>
       <div class="card-sub">Units & abbreviations</div>
     </div>
-  </div>
+
+    <div class="card" (click)="openModal('item-hs-entry')">
+      <div class="card-title">Item hs Entry</div>
+      <div class="card-sub">Item Hs Entry</div>
+    </div>
+
+    <div class="card" (click)="openModal('shipment')">
+      <div class="card-title">shipment</div>
+      <div class="card-sub">Transit, Airline & Flight Details</div>
+    </div>
+
+    <div class="card" (click)="openModal('customer')">
+      <div class="card-title">Customer Details</div>
+      <div class="card-sub">Origin & Indian</div>
+    </div>
 
   <!-- Modal -->
   <div class="modal-backdrop" *ngIf="selectedComponent">
@@ -51,8 +65,11 @@
         <app-currency *ngIf="selectedComponent === 'currency'"></app-currency>
         <app-organization *ngIf="selectedComponent === 'organization'"></app-organization>
         <app-place *ngIf="selectedComponent === 'place'"></app-place>
+        <app-item-hs-entry *ngIf="selectedComponent ==='item-hs-entry'"></app-item-hs-entry>
         <app-tariff *ngIf="selectedComponent === 'tariff'"></app-tariff>
         <app-unit-of-measurement *ngIf="selectedComponent === 'unit'"></app-unit-of-measurement>
+        <app-shipment *ngIf="selectedComponent === 'shipment'"></app-shipment>
+        <app-customer *ngIf="selectedComponent === 'customer'"></app-customer>
       </div>
     </div>
   </div>

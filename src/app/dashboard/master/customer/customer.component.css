@@ -1,0 +1,49 @@
+.customer-container {
+  padding: 20px;
+  background: linear-gradient(to bottom, #f8c0c8, #efe7d3); /* Rosewater → Ivory */
+  border-radius: 8px;
+  font-family: Arial, sans-serif;
+}
+
+/* Navbar style */
+.customer-container nav {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+/* Button style */
+.customer-container nav button {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  background: #ece3f0; /* Pewter */
+  color: #4a3c47; /* Neutral dark text */
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Hover effect */
+.customer-container nav button:hover {
+  background: #d3bbdd; /* Lilac hover */
+  color: #fff;
+}
+
+/* Active button */
+.customer-container nav button.active {
+  background: #7bc67b; /* Soft green active */
+  color: #fff;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Content area */
+.customer-container .content {
+  padding: 15px;
+  background: #ece3f0; /* Pewter content background */
+  border-radius: 6px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  color: #4a3c47; /* Neutral dark text */
+}

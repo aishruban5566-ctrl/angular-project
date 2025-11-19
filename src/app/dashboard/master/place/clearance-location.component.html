@@ -1,94 +1,78 @@
-<div class="cl-container">
-  <div class="header-row">
-    <h2 class="title">Clearance Locations</h2>
-    <div class="actions">
-      <input class="search" type="search" placeholder="Search code, name or description..." [(ngModel)]="searchText" (input)="goPage(1)">
-      <button class="btn primary" (click)="openAdd()">+ New Location</button>
+<div class="clearance-container">
+  <!-- Left Form Section -->
+  <div class="form-section">
+    <h2>Clearance Location Details Enter Here</h2>
+    <form class="form-grid">
+      <div>
+        <label>Transit Type <span class="req">*</span></label>
+        <select [(ngModel)]="clearance.transitType" name="transitType">
+          <option value="">--Select--</option>
+          <option *ngFor="let type of transitTypes" [value]="type">{{type}}</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Country Name <span class="req">*</span></label>
+        <input type="text" [(ngModel)]="clearance.country" name="country" />
+      </div>
+
+      <div>
+        <label>State Name</label>
+        <select [(ngModel)]="clearance.state" name="state">
+          <option value="">--Select--</option>
+          <option *ngFor="let st of states" [value]="st">{{st}}</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Port Location Name <span class="req">*</span></label>
+        <input type="text" [(ngModel)]="clearance.portName" name="portName" />
+      </div>
+
+      <div>
+        <label>Port Location Code <span class="req">*</span></label>
+        <input type="text" [(ngModel)]="clearance.portCode" name="portCode" />
+      </div>
+    </form>
+
+    <div class="form-buttons">
+      <button type="button" (click)="save()">Save</button>
+      <button type="button" (click)="update()" [disabled]="!selected">Update</button>
+      <button type="button" (click)="delete()" [disabled]="!selected">Delete</button>
+      <button type="button" (click)="refresh()">Refresh</button>
+      <button type="button" (click)="export()" [disabled]="clearanceList.length === 0">Export</button>
     </div>
   </div>
 
-  <div class="summary">Showing <strong>{{ filtered().length }}</strong> result{{ filtered().length===1 ? '' : 's' }}</div>
-
-  <div class="table-wrap">
-    <table class="styled-table" aria-label="Clearance location list">
+  <!-- Right Table Section -->
+  <div class="table-section">
+    <h2>Existing Clearance Location Details</h2>
+    <table class="clearance-table" *ngIf="clearanceList.length > 0; else noData">
       <thead>
-        <tr><th>#</th><th>Code</th><th>Name</th><th class="desc-col">Description</th><th>Active</th><th class="actions-col">Actions</th></tr>
+        <tr>
+          <th>Sl No</th>
+          <th>Type</th>
+          <th>Country</th>
+          <th>State Name</th>
+          <th>Port Name</th>
+          <th>Port Code</th>
+        </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let loc of paged(); let i = index" [class.inactive]="!loc.active">
-          <td>{{ (page-1)*pageSize + i + 1 }}</td>
-          <td>{{ loc.code }}</td>
-          <td>{{ loc.name }}</td>
-          <td class="desc-col" title="{{loc.description}}">{{ loc.description || '—' }}</td>
-          <td><span class="badge" [class.off]="!loc.active">{{ loc.active ? 'Yes' : 'No' }}</span></td>
-          <td class="actions-col">
-            <button class="btn small" (click)="openEdit(loc)">Edit</button>
-            <button class="btn small danger" (click)="confirmDelete(loc.id)">Delete</button>
-          </td>
+        <tr *ngFor="let c of clearanceList; let i = index" 
+            (click)="selectRow(c)" 
+            [class.selected]="selected===c">
+          <td>{{i+1}}</td>
+          <td>{{c.transitType}}</td>
+          <td>{{c.country}}</td>
+          <td>{{c.state}}</td>
+          <td>{{c.portName}}</td>
+          <td>{{c.portCode}}</td>
         </tr>
-        <tr *ngIf="paged().length === 0"><td colspan="6" class="empty">No locations found.</td></tr>
       </tbody>
     </table>
-  </div>
-
-  <div class="pagination" *ngIf="totalPages() > 1">
-    <button class="btn mini" [disabled]="page===1" (click)="goPage(page-1)">Prev</button>
-    <button class="btn mini" *ngFor="let n of pages()" (click)="goPage(n)" [class.active]="page===n">{{ n }}</button>
-    <button class="btn mini" [disabled]="page===totalPages()" (click)="goPage(page+1)">Next</button>
-  </div>
-
-  <!-- modal -->
-  <div class="modal-backdrop" *ngIf="isModalOpen" (click)="closeModal()"></div>
-  <div class="modal" *ngIf="isModalOpen" role="dialog" aria-modal="true">
-    <div class="modal-card" (click)="$event.stopPropagation()">
-      <div class="modal-header">
-        <h3>{{ isEditing ? 'Edit Clearance Location' : 'Add Clearance Location' }}</h3>
-        <button class="close" (click)="closeModal()">&times;</button>
-      </div>
-
-      <form [formGroup]="clearanceForm" (ngSubmit)="onSubmit()" novalidate>
-        <div class="modal-body">
-          <div class="form-row">
-            <label class="label">Code <span class="req">*</span></label>
-            <input id="codeInput" type="text" formControlName="code" maxlength="12" placeholder="e.g. CL001">
-            <div class="field-error" *ngIf="fv.code.touched && fv.code.invalid"><small *ngIf="fv.code.errors?.required">Code required</small></div>
-          </div>
-
-          <div class="form-row">
-            <label class="label">Name <span class="req">*</span></label>
-            <input type="text" formControlName="name" maxlength="80" placeholder="Location name">
-            <div class="field-error" *ngIf="fv.name.touched && fv.name.invalid"><small *ngIf="fv.name.errors?.required">Name required</small></div>
-          </div>
-
-          <div class="form-row">
-            <label class="label">Description</label>
-            <textarea formControlName="description" rows="3" maxlength="240" placeholder="Optional description"></textarea>
-          </div>
-
-          <div class="form-row inline">
-            <label class="label">Active</label>
-            <label class="switch"><input type="checkbox" formControlName="active"><span class="slider"></span></label>
-          </div>
-        </div>
-
-        <div class="modal-footer">
-          <button type="submit" class="btn primary" [disabled]="clearanceForm.invalid">{{ isEditing ? 'Update' : 'Create' }}</button>
-          <button type="button" class="btn secondary" (click)="closeModal()">Cancel</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- confirm -->
-  <div class="modal-backdrop" *ngIf="isConfirmOpen" (click)="cancelDelete()"></div>
-  <div class="confirm-modal" *ngIf="isConfirmOpen">
-    <div class="confirm-card" (click)="$event.stopPropagation()">
-      <h4>Confirm delete</h4>
-      <p>Are you sure you want to permanently delete this clearance location?</p>
-      <div class="confirm-actions">
-        <button class="btn danger" (click)="performDelete()">Delete</button>
-        <button class="btn secondary" (click)="cancelDelete()">Cancel</button>
-      </div>
-    </div>
+    <ng-template #noData>
+      <p class="nodata">No clearance location details available</p>
+    </ng-template>
   </div>
 </div>

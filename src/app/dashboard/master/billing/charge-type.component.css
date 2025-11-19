@@ -1,16 +1,97 @@
-/* src/app/dashboard/master/billing/charge-type.component.css */
-.ct-root { padding:12px; }
-.ct-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
-.ct-actions { display:flex; gap:8px; align-items:center; }
-.ct-actions input { padding:6px 8px; border-radius:6px; border:1px solid #d1d5db; }
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background: linear-gradient(to bottom, #f8c0c8, #efe7d3); /* Rosewater → Ivory */
+  height: 100vh;
+  box-sizing: border-box;
+}
 
-.ct-grid { display:grid; grid-template-columns: 320px 1fr; gap:12px; }
+.form-section {
+  width: 30%;
+  background: linear-gradient(to bottom, #d3bbdd, #ece3f0); /* Lilac → Pewter */
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: 0 0 6px rgba(0,0,0,0.3);
+}
 
-.panel { background:#fff; border:1px solid #eef2f6; padding:12px; border-radius:8px; }
-.table { width:100%; border-collapse:collapse; }
-.table th, .table td { padding:8px; border-bottom:1px solid #f1f5f9; text-align:left; }
-.actions-col { text-align:right; width:140px; }
-.form-actions { margin-top:10px; display:flex; gap:8px; }
-.small { padding:6px 8px; border-radius:6px; }
-.small.danger, .btn.danger { background:#ffe6e6; border-color:#ffb3b3; }
-.empty { text-align:center; color:#6b7280; padding:14px 0; }
+.form-section h3 {
+  color: #8b3a62; /* Rich rose heading for contrast */
+  margin-bottom: 15px;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.required {
+  color: #c41c47; /* Softer red to fit theme */
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  background: #fff;
+}
+
+.btn-group {
+  display: grid;
+  gap: 10px;
+}
+
+button {
+  padding: 6px 15px;
+  border: none;
+  border-radius: 4px;
+  background: linear-gradient(to bottom, #f8c0c8, #d3bbdd); /* Rosewater → Lilac */
+  font-weight: bold;
+  cursor: pointer;
+  color: #333;
+  transition: 0.2s;
+}
+
+button:hover {
+  background: linear-gradient(to bottom, #d3bbdd, #f8c0c8);
+}
+
+button:disabled {
+  background: #ece3f0; /* Pewter */
+  cursor: not-allowed;
+}
+
+.table-section {
+  width: 65%;
+  background: linear-gradient(to bottom, #ece3f0, #d3bbdd); /* Pewter → Lilac */
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: 0 0 6px rgba(0,0,0,0.3);
+}
+
+.table-section h3 {
+  color: #8b3a62;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+tbody tr:hover {
+  background: #f8c0c8; /* Rosewater highlight */
+  cursor: pointer;
+}

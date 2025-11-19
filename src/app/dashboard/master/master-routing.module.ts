@@ -32,13 +32,23 @@ import { ParentClientComponent } from './place/parent-client.component';
 
 /* Tariff */
 import { TariffComponent } from './tariff/tariff.component';
-import { CarrierTariffComponent } from './tariff/carrier-tariff.component';
-import { ClientTariffComponent } from './tariff/client-tariff.component';
+import { RateTariffComponent } from './tariff/rate-tariff.component';
+import { ZoneTariffComponent } from './tariff/zone-tariff.component';
 import { ShipperTariffComponent } from './tariff/shipper-tariff.component';
 
 /* Unit */
 import { UnitOfMeasurementComponent } from './unit-of-measurement/unit-of-measurement.component';
 
+/* Shipment */
+import { ShipmentComponent } from './shipment/shipment.component';
+import { TransitTypeComponent } from './shipment/transit-type.component';
+import { AirlinesDetailsComponent } from './shipment/airlines-details.component';
+import { FlightDetailsComponent } from './shipment/flight-details.component';
+
+/*Customer Details */
+import { CustomerComponent } from './customer/customer.component';
+import { OriginCustomerComponent } from './customer/origin-customer.component';
+import { IndianCustomerComponent } from './customer/indian-customer.component';
 const routes: Routes = [
   {
     path: '',
@@ -68,12 +78,19 @@ const routes: Routes = [
       { path: 'place/parent-client', component: ParentClientComponent },
 
       { path: 'tariff', component: TariffComponent },
-      { path: 'tariff/carrier-tariff', component: CarrierTariffComponent },
-      { path: 'tariff/client-tariff', component: ClientTariffComponent },
+      { path: 'tariff/rate-tariff', component: RateTariffComponent },
+      { path: 'tariff/zone-tariff', component: ZoneTariffComponent },
       { path: 'tariff/shipper-tariff', component: ShipperTariffComponent },
 
       { path: 'unit-of-measurement', component: UnitOfMeasurementComponent },
 
+      { path: 'shipment', component: ShipmentComponent },
+      { path: 'shipment/transit-type', component: TransitTypeComponent },
+      { path: 'shipment/airlines-details', component: AirlinesDetailsComponent },
+      { path: 'shipment/flight-details', component: FlightDetailsComponent },
+      { path: 'customer', component: CustomerComponent },
+      { path: 'origin', component: OriginCustomerComponent },
+      { path: 'indian', component: IndianCustomerComponent },
       { path: '', redirectTo: 'billing', pathMatch: 'full' }
     ]
   }
